@@ -18,15 +18,14 @@ public class MemberController {
 	
 	@GetMapping("login")
 	public String login() {
-		log.debug("로그인 실행");
-		return "login";
+		return "member/login";
 	}
 	
 	// 회원 가입하기(화면 띄우기)
 	@GetMapping("/insert")
 	public String insert() {
 		log.debug("insert() 실행됨");
-		return "insert";
+		return "member/insert";
 	}
 	
 	// 회원 가입하기(회원 정보 저장 실행)
