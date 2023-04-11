@@ -50,14 +50,14 @@ public class WebSecurityConfig {
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
 		String userNameQueryforEnabled = 
-				"select id username, pw password, enabled " +
+				"select USER_ID username, USER_PW password, enabled " +
 				"from member " + 
-				"where id = ?";
+				"where USER_ID = ?";
 		
 		String userNameQueryforRole =
-				"select id username, roleName role_name " + 
+				"select USER_ID username, ROLENAME role_name " + 
 				"from member " +
-				"where id = ?";
+				"where USER_ID = ?";
 		
 		auth.jdbcAuthentication()
 		.dataSource(dataSource)
