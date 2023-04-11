@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[로그인]</title>
+<script>
+	function checkForm(){
+		let id = document.getElementById("id").value;
+		let pw = document.getElementById("pw").value;
+
+		// trim() : 문자열의 앞 또는 뒤에 붙어있는 공백 삭제
+		if(id.trim().length == 0 || pw.trim().length == 0){
+			alert("아이디 또는 비밀번호가 비어있습니다.");
+			return false;
+		}
+		
+		return true;
+	}
+</script>
+<style>
+	#error{
+		color : red;
+		font-size: small;
+	}
+</style>
+</head>
+<body>
+
+	<h1>[로그인]</h1>
+<form action="/login" method="post" onsubmit="return checkForm();">
+	<table>
+		<tr>
+			<th>아이디</th>
+			<td>
+				<input name="id" type = "text" id="id">
+			</td>
+		</tr>
+		<tr>
+			<th>비밀번호</th>
+			<td>
+				<input name="pw" type = "password" id="pw"> 
+			</td>
+		</tr>
+		<tr>
+			<th colspan = "2">
+				<input type = "submit" value = "로그인">
+			</th>
+			
+		</tr>
+	</table>
+</form>
+<span  id="error" th:if="${param.error} != null">아이디 또는 비밀번호가 일치 하지 않습니다.</span>
+</body>
+</html>

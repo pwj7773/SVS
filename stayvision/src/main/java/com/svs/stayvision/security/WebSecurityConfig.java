@@ -22,6 +22,7 @@ public class WebSecurityConfig {
 		hs.csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/",
+					"/insert",
 					"/js/**",
 					"/img/**",
 					"/error")
@@ -31,8 +32,8 @@ public class WebSecurityConfig {
 		.formLogin()					// 일반적인 폼을 이용한 로그인 처리/실패 방법을 사용
 		.loginPage("/login")	// 내가 사용할 폼은 시큐리티에서 제공하는 기본 폼이 아닌 사용자가 만든 폼 사용
 		.loginProcessingUrl("/login").permitAll()	// 인증처리 URL. 로그인 폼의 action 속성 값 지정
-		.usernameParameter("userId")	// 로그인 폼 아이디의 name 속성
-		.passwordParameter("userPw")	// 로그인 폼 비밀번호의 name 속성
+		.usernameParameter("id")	// 로그인 폼 아이디의 name 속성
+		.passwordParameter("pw")	// 로그인 폼 비밀번호의 name 속성
 		.and()
 		.logout()
 		.logoutSuccessUrl("/").permitAll()	// 로그아웃 성공 시에 이동할 URL
@@ -49,14 +50,14 @@ public class WebSecurityConfig {
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
 		String userNameQueryforEnabled = 
-				"select userId username, userPw password, enabled " +
+				"select id username, pw password, enabled " +
 				"from member " + 
-				"where userId = ?";
+				"where id = ?";
 		
 		String userNameQueryforRole =
-				"select userId username, roleName role_name " + 
+				"select id username, roleName role_name " + 
 				"from member " +
-				"where userId = ?";
+				"where id = ?";
 		
 		auth.jdbcAuthentication()
 		.dataSource(dataSource)
