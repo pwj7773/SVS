@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[회원가입하기]</title>
+<script src = "js/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+<h1>[회원가입]</h1>
+
+<form action="/insert" method="post" >
+	<table>
+		<tr>
+			<th>아이디</th>
+			<td>
+				<input name="id" type = "text" id = "userId">
+				<span id="msg"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>비밀번호</th>
+			<td>
+				<input name="pw" type = "password" id = "pw1">
+			</td>
+		</tr>
+		<tr>
+			<th>비밀번호 확인</th>
+			<td>
+				<input type = "password" id = "pw2">
+			</td>
+		</tr>
+		<tr>
+			<th>이름</th>
+			<td>
+				<input name="name" type = "text" id = "name">
+			</td>
+		</tr>
+		<tr>
+			<th>이메일</th>
+			<td>
+				<!-- input type = "email" 속성은 입력된 값이 메일주소 형식인지 꼼꼼하게 체크한다 -->
+				<input name="email" type = "text" id = "email">
+			</td>
+		</tr>
+		<tr>
+			<th>전화번호</th>
+			<td>
+				<input name="phone" type = "tel" id = "phone">
+			</td>
+		</tr>
+		<tr>
+			<th colspan = "2">
+				<input type = "submit" value = "가입하기">
+		</tr>
+	</table>
+</form>
+</body>
+</html>

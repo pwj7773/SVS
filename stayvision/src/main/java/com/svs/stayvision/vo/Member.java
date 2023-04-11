@@ -15,10 +15,11 @@ import lombok.NoArgsConstructor;
 
 public class Member implements UserDetails{
 
-	private String userId;
-	private String userPw;
-	private String userName;
+	private String id;
+	private String pw;
+	private String name;
 	private String email;
+	private String phone;
 	private boolean enabled;
 	private String roleName;
 	@Override
@@ -31,7 +32,7 @@ public class Member implements UserDetails{
 	}
 	@Override
 	public String getUsername() {
-		return null;
+		return name;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
@@ -44,9 +45,6 @@ public class Member implements UserDetails{
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return false;
-	}
-	public String getUserName() {
-		return userName;
 	}
 
 	
