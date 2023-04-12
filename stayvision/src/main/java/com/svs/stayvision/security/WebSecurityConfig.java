@@ -22,6 +22,8 @@ public class WebSecurityConfig {
 		hs.csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/",
+					"/empBoardList",
+					"/boardWrite",
 					"/insert",
 					"/js/**",
 					"/img/**",
