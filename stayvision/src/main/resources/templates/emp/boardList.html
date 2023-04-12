@@ -14,12 +14,10 @@
 		<th>작성일시</th>
 		<th>조회수</th>
 	</tr>
-	<tr th:each = "b : ${blist}">
+	<tr th:each = "b : ${board}">
 		<td th:text = "${b.boardNum}"></td>
 		<td>
-			<a th:href="@{/read(boardNum=${b.boardNum})}">
-				<span th:text = "${b.title}"></span>
-			</a>
+			<span th:text = "${b.title}"></span>
 		</td>
 		<td th:text = "${b.userId}"></td>
 		<td th:text = "${b.inputDate}"></td>

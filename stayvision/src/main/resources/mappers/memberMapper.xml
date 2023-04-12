@@ -11,6 +11,7 @@
  	VALUES
  		(#{id},#{pw},#{name},#{email},#{phone})
  </insert>
+
 </mapper>
 
 
