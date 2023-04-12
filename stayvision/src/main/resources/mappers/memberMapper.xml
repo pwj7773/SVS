@@ -7,7 +7,7 @@
  <insert id = "insertMember" parameterType="Member">
  
  	INSERT INTO
- 		 MEMBER (ID, PW, NAME, EMAIL, PHONE)
+ 		 MEMBER (USER_ID, USER_PW, USER_NAME, EMAIL, PHONE)
  	VALUES
  		(#{id},#{pw},#{name},#{email},#{phone})
  </insert>
