@@ -4,12 +4,14 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.svs.stayvision.dao.BoardDAO">
+
  <insert id="boardWirte" parameterType="Board">
  	INSERT INTO
  		BOARD (BOARDNUM, TITLE, CONTENT, USER_ID)
 	VALUES
 		(BOARD_SEQ.NEXTVAL, #{title}, #{content}, #{userId})
  </insert>
+ 
  <select id="boardSelectAll" resultType="Board">
  	SELECT 
  		BOARDNUM,
@@ -32,6 +34,8 @@
 				USER_ID LIKE'%'||#{keyword}||'%'
 			</if>
 		</where>
+	ORDER BY
+		BOARDNUM DESC
  </select>
  
  <select id="boardSelect" resultType="Board">
@@ -46,6 +50,29 @@
 		Board
 	WHERE BOARDNUM = #{boardNum}
  </select>
+ 
+ <delete id="boardDelete">
+ 	DELETE 
+ 	FROM Board
+ 	WHERE BOARDNUM = #{boardNum}
+ </delete>
+ 
+ <update id="boardUpdate" parameterType="Board">
+  	UPDATE BOARD
+ 	SET
+ 		TITLE = #{title},
+ 		CONTENT = #{content}
+ 	WHERE
+ 		BOARDNUM = #{boardNum}
+ </update>
+ 
+ <update id="addBoardViewCount">
+   	UPDATE BOARD
+ 	SET
+ 		VIEW_COUNT = VIEW_COUNT + 1
+ 	WHERE
+ 		BOARDNUM = #{boardNum}
+ </update>
 </mapper>
 
 

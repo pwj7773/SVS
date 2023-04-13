@@ -15,4 +15,10 @@ public interface BoardDAO {
 
 	public Board boardSelect(int boardNum);
 
+	public int boardDelete(int boardNum);
+
+	public int boardUpdate(Board board);
+
+	public int addBoardViewCount(int boardNum);
+
 }

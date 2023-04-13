@@ -22,7 +22,7 @@ public class BoardController {
 	@Autowired
 	private BoardService bService;
 	
-	//임직원 목록보기
+	//글 목록보기
 	@GetMapping("boardList")
 	public String boardList(String category, String keyword, Model model) {
 		log.debug("BoardList() 실행");
@@ -34,13 +34,13 @@ public class BoardController {
 		return "board/boardList";
 	}
 	
-	//임직원게시판 글쓰기화면 보여주기
+	//글쓰기화면 보여주기
 	@GetMapping("boardWrite")
 	public String boardWrite() {
 		return "board/boardWrite";
 	}
 	
-	//임직원게시판 글쓰기
+	//글쓰기
 	@PostMapping("boardWrite")
 	public String boardWrite(Board board,@AuthenticationPrincipal UserDetails user) {
 		log.debug("boardWrite() 실행");
@@ -50,13 +50,39 @@ public class BoardController {
 		return "redirect:/boardList";
 	}
 	
-	//임직원게시판 글보기
+	//글보기
 	@GetMapping("boardRead")
 	public String boardRead(int boardNum, Model model) {
 		log.debug("boardRead() 실행");
+		bService.addBoardViewCount(boardNum);
 		Board board = bService.boardSelect(boardNum);
 		log.debug("Board: {}",board);
 		model.addAttribute(board);
 		return "board/boardRead";
+	}
+	//글 삭제
+	@GetMapping("boardDelete")
+	public String boardDelete(int boardNum) {
+		log.debug("boardDelete() 실행");
+		bService.boardDelete(boardNum);
+		return "redirect:/boardList";
+	}
+	// 수정화면 보여주기
+	@GetMapping("boardUpdate")
+	public String boardUpdate(int boardNum, Model model) {
+		log.debug("boardUpdate() 실행");
+		Board board = bService.boardSelect(boardNum);
+		log.debug("Board: {}",board);
+		model.addAttribute(board);
+		return "board/boardUpdate";
+	}
+	
+	@PostMapping("boardUpdate")
+	public String boardUpdate(Board board) {
+		log.debug("boardUpdate() 실행");
+		log.debug("Board : {}", board);
+		bService.boardUpdate(board);
+		return "redirect:/boardList";
+		
 	}
 }

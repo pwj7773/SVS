@@ -30,5 +30,17 @@ private BoardDAO bDao;
 	public Board boardSelect(int boardNum) {
 		return bDao.boardSelect(boardNum);
 	}
+	@Override
+	public int boardDelete(int boardNum) {
+		return bDao.boardDelete(boardNum);
+	}
+	@Override
+	public int boardUpdate(Board board) {
+		return bDao.boardUpdate(board);
+	}
+	@Override
+	public int addBoardViewCount(int boardNum) {
+		return bDao.addBoardViewCount(boardNum);
+	}
 
 }
