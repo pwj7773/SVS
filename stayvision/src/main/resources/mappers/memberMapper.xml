@@ -13,6 +13,7 @@
  </insert>
  
  <select id="selectAllMember" resultType="Member">
+ 
  SELECT 
  	USER_ID as id,
  	USER_NAME as name,
@@ -21,7 +22,9 @@
  	MEMBER 
  ORDER BY 
  	ROLENAME
+  
  </select>
+ 
 </mapper>
 
 

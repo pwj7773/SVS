@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.svs.stayvision.dao.BoardDAO">
+ <insert id="boardWirte" parameterType="Board">
+ 	INSERT INTO
+ 		BOARD (BOARDNUM, TITLE, CONTENT, USER_ID)
+	VALUES
+		(BOARD_SEQ.NEXTVAL, #{title}, #{content}, #{userId})
+ </insert>
+ <select id="boardSelectAll" resultType="Board">
+ 	SELECT 
+ 		BOARDNUM,
+ 		TITLE,
+ 		CONTENT,
+ 		VIEW_COUNT as viewCount,
+ 		TO_CHAR(INPUT_DATE,'YYYY/MM/DD') as inputDate,
+ 		USER_ID as userId
+	FROM
+		Board
+	<if test="category != null and keyword != null"></if>
+		<where>
+			<if test="category eq 'title'">
+				TITLE LIKE'%'||#{keyword}||'%'
+			</if>
+			<if test="category eq 'content'">
+				CONTENT LIKE'%'||#{keyword}||'%'
+			</if>
+			<if test="category eq 'userId'">
+				USER_ID LIKE'%'||#{keyword}||'%'
+			</if>
+		</where>
+ </select>
+ 
+ <select id="boardSelect" resultType="Board">
+ 	SELECT 
+ 		BOARDNUM,
+ 		TITLE,
+ 		CONTENT,
+ 		VIEW_COUNT as viewCount,
+ 		TO_CHAR(INPUT_DATE,'YYYY/MM/DD') as inputDate,
+ 		USER_ID as userId
+	FROM
+		Board
+	WHERE BOARDNUM = #{boardNum}
+ </select>
+</mapper>
+
+
+
+
