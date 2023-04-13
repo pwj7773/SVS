@@ -1,11 +1,14 @@
 package com.svs.stayvision.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.svs.stayvision.service.MemberService;
+import com.svs.stayvision.service.Member.MemberService;
 import com.svs.stayvision.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,5 +40,20 @@ public class MemberController {
 		mService.insertMember(member);
 		
 		return "redirect:/";
+	}
+	
+	// 로그인 후 화면 이동
+	@GetMapping("/loginafter")
+	public String loginafter() {
+		return "loginafter";
+	}
+	
+	@GetMapping("/adminapproval")
+	public String adminapproval(Model model) {
+		List<Member> mList = mService.selectAllMember();
+		
+		model.addAttribute("mlist",mList);
+		
+		return "adminapproval";
 	}
 }

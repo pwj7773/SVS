@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.svs.stayvision.dao.BusinessDAO">
+ <insert id = "insertBusiness" parameterType="Business">
+ 
+ 	INSERT INTO
+ 		 BUSINESS (BUSINESS_NUM, BUSINESS_NAME, BUSINESS_ADDRESS, TOTAL_ROOM, USER_ID)
+ 	VALUES
+ 		(BUSINESS_SEQ.NEXTVAL ,#{businessName}, #{businessAddress}, #{totalRoom}, #{userId})
+ </insert>
+</mapper> 
+
+
+
+
