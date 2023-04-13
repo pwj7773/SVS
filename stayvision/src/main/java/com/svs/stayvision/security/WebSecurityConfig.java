@@ -24,7 +24,6 @@ public class WebSecurityConfig {
 		.antMatchers("/",
 					"/boardRead",
 					"/boardList",
-					"/boardWrite",
 					"/insert",
 					"/js/**",
 					"/img/**",
