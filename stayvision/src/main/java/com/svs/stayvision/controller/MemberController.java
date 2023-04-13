@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.svs.stayvision.service.MemberService;
+import com.svs.stayvision.service.Member.MemberService;
 import com.svs.stayvision.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,5 +43,10 @@ public class MemberController {
 	@GetMapping("/loginafter")
 	public String loginafter() {
 		return "loginafter";
+	}
+	
+	@GetMapping("/adminapproval")
+	public String adminapproval() {
+		return "adminapproval";
 	}
 }

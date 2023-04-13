@@ -9,9 +9,17 @@
 <p sec:authorize="hasRole('ADMIN')">[이 부분은 운영자(ADMIN)에게만 나타남]</p>
 <p sec:authorize="hasRole('USER')">[이 부분은 고객(USER)에게만 나타남]</p>
 <p sec:authorize="hasRole('EMP')">[이 부분은 영업사원(EMP)에게만 나타남]</p>
-<a href="login">login</a>
-<a href="logout">logout</a>
-<a href="insert">sign up</a>
-<a href="loginafter">after</a>
+<span sec:authorize = "not isAuthenticated()">
+	<a href="login">login</a>
+</span>
+<span sec:authorize = "isAuthenticated()">
+	<a href="logout">logout</a>
+</span>
+<span sec:authorize = "not isAuthenticated()">
+	<a href="insert">sign up</a>
+</span>
+<span sec:authorize = "isAuthenticated()">
+	<a href="loginafter">after</a>
+</span>
 </body>
 </html>

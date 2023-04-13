@@ -1,4 +1,4 @@
-package com.svs.stayvision.service;
+package com.svs.stayvision.service.Member;
 
 
 
