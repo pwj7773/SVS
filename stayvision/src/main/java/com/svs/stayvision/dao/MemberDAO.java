@@ -1,6 +1,8 @@
 package com.svs.stayvision.dao;
 
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.svs.stayvision.vo.Member;
@@ -9,4 +11,6 @@ import com.svs.stayvision.vo.Member;
 @Mapper
 public interface MemberDAO {
 	public int insertMember(Member member);
+
+	public List<Member> selectAllMember();
 }

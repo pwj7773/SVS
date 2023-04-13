@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>로그인 후 화면</title>
+</head>
+<body>
+<h1>로그인 후 화면</h1>
+<p sec:authorize="hasRole('USER')">
+	<a href="insertBusiness">숙박업소 정보 추가</a>
+</p>
+<p sec:authorize="hasRole('ADMIN')">
+	<a href="adminapproval">계정 관리</a>
+</p>
+<p>
+	<a href="../">뒤로</a>
+</p>
+</body>
+</html>

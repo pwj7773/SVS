@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>[계정 승인 관리]</title>
+</head>
+<body>
+<h1>계정 승인 관리 페이지</h1>
+<form>
+	<table border="1">
+		<tr>
+			<td></td>
+			<th>아이디(이름)</th>
+			<th>사용자 등급</th>
+		</tr>
+		<tr th:each = "m : ${mlist}">
+			<td>
+				<input type="checkbox">
+			</td>
+			<td th:text = "${m.id}"></td>
+			<td th:text = "${m.roleName}"></td>
+		</tr>
+	</table>
+	<br>
+	<input type="submit" value="승인">
+</form>
+<br><a href="loginafter">뒤로</a>
+</body>
+</html>

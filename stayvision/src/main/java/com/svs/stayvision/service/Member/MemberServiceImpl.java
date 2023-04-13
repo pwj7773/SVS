@@ -2,6 +2,8 @@ package com.svs.stayvision.service.Member;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,12 @@ public class MemberServiceImpl implements MemberService {
 		member.setPw(encodedPassword);
 		
 		return mDao.insertMember(member);
+	}
+	
+	@Override
+	public List<Member> selectAllMember() {
+		
+		return mDao.selectAllMember();
 	}
 
 }
