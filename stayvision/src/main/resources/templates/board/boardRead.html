@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>[글보기]</title>
+</head>
+<body>
+<table th:object = "${board}" border="1">
+	<tr>
+		<th th:text="*{boardNum}"></th>
+		<th th:text="*{title}" colspan = "2"></th>
+	</tr>
+	<tr>
+		<th th:text="*{userId}"></th>
+		<th th:text="*{inputDate}"></th>
+		<th th:text="*{viewCount}"></th>
+	</tr>
+	<tr>
+		<td th:text="*{content}" colspan = "3"></td>
+	</tr>
+</table>
+<input type="button" value="수정">
+<input type="button" value="삭제">
+</body>
+</html>
