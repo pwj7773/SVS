@@ -38,4 +38,10 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	
+	// 로그인 후 화면 이동
+	@GetMapping("/loginafter")
+	public String loginafter() {
+		return "loginafter";
+	}
 }
