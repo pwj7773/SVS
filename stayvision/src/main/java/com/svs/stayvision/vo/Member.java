@@ -22,6 +22,7 @@ public class Member implements UserDetails{
 	private String phone;
 	private boolean enabled;
 	private String roleName;
+	private int userNum;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;
