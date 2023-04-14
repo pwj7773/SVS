@@ -36,6 +36,7 @@ public class WebSecurityConfig {
 		.loginProcessingUrl("/login").permitAll()	// 인증처리 URL. 로그인 폼의 action 속성 값 지정
 		.usernameParameter("id")	// 로그인 폼 아이디의 name 속성
 		.passwordParameter("pw")	// 로그인 폼 비밀번호의 name 속성
+		.defaultSuccessUrl("/loginafter")
 		.and()
 		.logout()
 		.logoutSuccessUrl("/").permitAll()	// 로그아웃 성공 시에 이동할 URL

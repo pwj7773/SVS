@@ -16,4 +16,5 @@ public class Board {
 	private int viewCount;
 	private int recommend;
 	private int replyCount;
+	private String boardType;
 }

@@ -7,9 +7,9 @@
  <insert id = "insertMember" parameterType="Member">
  
  	INSERT INTO
- 		 MEMBER (USER_ID, USER_PW, USER_NAME, EMAIL, PHONE, ROLENAME)
+ 		 MEMBER (USER_ID, USER_PW, USER_NAME, EMAIL, PHONE, ROLENAME, USER_NUM)
  	VALUES
- 		(#{id},#{pw},#{name},#{email},#{phone}, #{roleName})
+ 		(#{id},#{pw},#{name},#{email},#{phone}, #{roleName}, MEMBER_SEQ.NEXTVAL)
  </insert>
  
  <select id="selectAllMember" resultType="Member">
