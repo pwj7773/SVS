@@ -7,9 +7,9 @@
 
  <insert id="boardWirte" parameterType="Board">
  	INSERT INTO
- 		BOARD (BOARDNUM, TITLE, CONTENT, USER_ID)
+ 		BOARD (BOARDNUM, TITLE, CONTENT, USER_ID, BOARDTYPE)
 	VALUES
-		(BOARD_SEQ.NEXTVAL, #{title}, #{content}, #{userId})
+		(BOARD_SEQ.NEXTVAL, #{title}, #{content}, #{userId}, #{boardType})
  </insert>
  
  <select id="boardSelectAll" resultType="Board">
@@ -22,20 +22,22 @@
  		USER_ID as userId
 	FROM
 		Board
-	<if test="category != null and keyword != null"></if>
 		<where>
 			<if test="category eq 'title'">
-				TITLE LIKE'%'||#{keyword}||'%'
+				TITLE LIKE'%'||#{keyword}||'%' AND BOARDTYPE = 'genal'
 			</if>
 			<if test="category eq 'content'">
-				CONTENT LIKE'%'||#{keyword}||'%'
+				CONTENT LIKE'%'||#{keyword}||'%' AND BOARDTYPE = 'genal'
 			</if>
 			<if test="category eq 'userId'">
-				USER_ID LIKE'%'||#{keyword}||'%'
+				USER_ID LIKE'%'||#{keyword}||'%' AND BOARDTYPE = 'genal'
 			</if>
+			<if test="category == null and keyword == null">
+				BOARDTYPE = 'genal'
+			</if>	
 		</where>
 	ORDER BY
-		BOARDNUM DESC
+		INPUT_DATE DESC
  </select>
  
  <select id="boardSelect" resultType="Board">
@@ -73,6 +75,11 @@
  	WHERE
  		BOARDNUM = #{boardNum}
  </update>
+ 
+ <select id = "countBoard" resultType = "int">
+	SELECT count(*) FROM BOARD
+	ORDER BY INPUT_DATE DESC
+</select>
 </mapper>
 
 
