@@ -36,4 +36,10 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.selectAllMember();
 	}
 
+	@Override
+	public List<Member> selectStandbyMember() {
+
+		return mDao.selectStandbyMember();
+	}
+
 }

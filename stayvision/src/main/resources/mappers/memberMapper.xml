@@ -24,6 +24,17 @@
  	ROLENAME
   
  </select>
+ <select id="selectStandbyMember" resultType="Member">
+ 
+ SELECT 
+ 	USER_ID as id,
+ 	USER_NAME as name,
+ 	ROLENAME as roleName 
+ FROM 
+ 	MEMBER
+ WHERE
+ 	ENABLED=0
+ </select>
  
 </mapper>
 

@@ -13,4 +13,6 @@ public interface MemberDAO {
 	public int insertMember(Member member);
 
 	public List<Member> selectAllMember();
+
+	public List<Member> selectStandbyMember();
 }

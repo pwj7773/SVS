@@ -50,10 +50,14 @@ public class MemberController {
 	
 	@GetMapping("/adminapproval")
 	public String adminapproval(Model model) {
+		// 전체 목록
 		List<Member> mList = mService.selectAllMember();
-		
 		model.addAttribute("mlist",mList);
-		
+				
+		// 가입 대기 목록
+		List<Member> sList = mService.selectStandbyMember();
+		model.addAttribute("slist", sList);
+				
 		return "adminapproval";
 	}
 }

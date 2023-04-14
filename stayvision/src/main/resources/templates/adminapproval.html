@@ -11,19 +11,43 @@
 	<h3>회원 목록</h3>
 	<table border="1">
 		<tr>
-			<td></td>
 			<th>아이디(이름)</th>
 			<th>사용자 등급</th>
 		</tr>
 		<tr th:each = "m : ${mlist}">
-			<td>
-				<input type="checkbox">
-			</td>
 			<td th:text = "${m.id}"></td>
-			<td th:text = "${m.roleName}"></td>
+			<td>
+				<span th:if="${m.roleName == 'ROLE_ADMIN'}">관리자</span>
+        		<span th:if="${m.roleName == 'ROLE_EMP'}">직원</span>
+        		<span th:if="${m.roleName == 'ROLE_USER'}">사용자</span>
+        	</td>
 		</tr>
 	</table>
-	<br>
+</div>
+<div>
+	<h3>가입 승인 대기 목록</h3>
+	<form action="adminapproval" method="post">
+		<table border="1">
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<th>아이디(이름)</th>
+				<th>사용자 등급</th>
+			</tr>
+			<tr th:each = "s : ${slist}">
+				<td>
+					<input type="checkbox" value="${s.id}" name="checkedValue">
+				</td>
+					<td th:text = "${s.id}"></td>
+				<td>
+					<span th:if="${s.roleName == 'ROLE_ADMIN'}">관리자</span>
+        			<span th:if="${s.roleName == 'ROLE_EMP'}">직원</span>
+        			<span th:if="${s.roleName == 'ROLE_USER'}">사용자</span>
+        		</td>
+			</tr>
+		</table><br>
+		<input type="submit" value="승인">
+		<!-- <input type="button" value="거절">  -->
+	</form>
 </div>
 <br><a href="loginafter">뒤로</a>
 </body>
