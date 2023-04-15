@@ -42,4 +42,11 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.selectStandbyMember();
 	}
 
+	@Override
+	public int adminapproval(Member member) {
+		// TODO Auto-generated method stub
+		return mDao.adminapproval(member);
+	}
+
+	
 }

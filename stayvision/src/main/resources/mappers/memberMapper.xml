@@ -20,6 +20,8 @@
  	ROLENAME as roleName 
  FROM 
  	MEMBER 
+ WHERE
+ 	ENABLED=1
  ORDER BY 
  	ROLENAME
   
@@ -35,6 +37,14 @@
  WHERE
  	ENABLED=0
  </select>
+ 
+ <update id="adminapproval" parameterType="Member">
+ UPDATE MEMBER
+ SET
+ 	ENABLED=1
+ WHERE
+ 	USER_ID = #{id} 
+ </update>
  
 </mapper>
 

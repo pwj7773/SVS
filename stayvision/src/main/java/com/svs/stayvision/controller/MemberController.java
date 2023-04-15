@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.svs.stayvision.service.Member.MemberService;
 import com.svs.stayvision.vo.Member;
@@ -59,5 +60,17 @@ public class MemberController {
 		model.addAttribute("slist", sList);
 				
 		return "adminapproval";
+	}
+	
+	@PostMapping("/adminapproval")
+	public String adminapproval(@RequestParam String[] checkedValue) {
+		for (String id : checkedValue) {
+			Member member = new Member();
+			member.setId(id);
+			// System.out.println(id);
+			mService.adminapproval(member);
+		}
+		
+		return "redirect:/adminapproval";	
 	}
 }

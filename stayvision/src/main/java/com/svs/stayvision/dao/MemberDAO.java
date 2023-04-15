@@ -15,4 +15,7 @@ public interface MemberDAO {
 	public List<Member> selectAllMember();
 
 	public List<Member> selectStandbyMember();
+
+	public int adminapproval(Member member);
+
 }

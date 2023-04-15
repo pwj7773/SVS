@@ -35,7 +35,7 @@
 			</tr>
 			<tr th:each = "s : ${slist}">
 				<td>
-					<input type="checkbox" value="${s.id}" name="checkedValue">
+					<input type="checkbox" th:value="${s.id}" name="checkedValue">
 				</td>
 					<td th:text = "${s.id}"></td>
 				<td>
