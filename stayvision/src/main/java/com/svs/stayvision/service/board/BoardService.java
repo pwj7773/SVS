@@ -2,7 +2,7 @@ package com.svs.stayvision.service.board;
 
 import java.util.List;
 
-import com.svs.stayvision.PageNavigator;
+import com.svs.stayvision.util.PageNavigator;
 import com.svs.stayvision.vo.Board;
 
 public interface BoardService {

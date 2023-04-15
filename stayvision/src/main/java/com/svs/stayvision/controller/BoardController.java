@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.svs.stayvision.PageNavigator;
 import com.svs.stayvision.service.board.BoardService;
+import com.svs.stayvision.util.PageNavigator;
 import com.svs.stayvision.vo.Board;
 
 import lombok.extern.slf4j.Slf4j;

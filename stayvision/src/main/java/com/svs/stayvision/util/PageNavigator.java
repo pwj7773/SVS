@@ -1,4 +1,4 @@
-package com.svs.stayvision;
+package com.svs.stayvision.util;
 
 import lombok.Data;
 
