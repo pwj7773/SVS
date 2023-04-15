@@ -8,8 +8,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.svs.stayvision.PageNavigator;
 import com.svs.stayvision.dao.BoardDAO;
+import com.svs.stayvision.util.PageNavigator;
 import com.svs.stayvision.vo.Board;
 
 @Service

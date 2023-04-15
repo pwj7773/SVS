@@ -17,4 +17,6 @@ public class Board {
 	private int recommend;
 	private int replyCount;
 	private String boardType;
+	private String originalfile; 
+	private String savedfile; 
 }
