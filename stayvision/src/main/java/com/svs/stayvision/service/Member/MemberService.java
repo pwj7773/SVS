@@ -11,4 +11,6 @@ public interface MemberService {
 	public List<Member> selectAllMember();
 	
 	public List<Member> selectStandbyMember();
+
+	public int adminapproval(Member member);
 }
