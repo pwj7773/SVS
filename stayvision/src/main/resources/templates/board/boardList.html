@@ -13,7 +13,7 @@
 	function pagingFormSubmit(currentPage) {
 		
 		let form = document.getElementById("pagingForm");
-		let page = document.getElementById("page1");
+		let page = document.getElementById("page");
 		
 		page.value = currentPage;
 		
@@ -43,29 +43,13 @@
 		<td th:text = "${b.viewCount}"></td>
 	</tr>
 </table>
+<a href="/boardWrite" class="btn btn-secondary">글쓰기</a>
 </div>
-  <ul class="pagination justify-content-center">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">4</a></li>
-    <li class="page-item"><a class="page-link" href="#">5</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-<form action="/boardList" method="get" id="pagingForm">
-	<input type="hidden" name="page" id="page1">
-	<a href="/boardWrite" class="btn btn-secondary">글쓰기</a>
-	<a href="javascript:history.back()" class="btn btn-secondary">뒤로가기</a>
-	
+  <form action="/boardList" method="get" id="pagingForm">
+	<input type="hidden" name="page" id="page">
+	<input th:value="${param.keyword}" type="hidden" name="keyword">
+  </form>
+<form action="/boardList" method="get">
 	<div class="d-flex flex-row bd-highlight mb-3 w-50">
 	<select name = "category" class="form-select">
 	<option value="title" th:selected = "${category  == 'title'}">제목</option>
@@ -78,19 +62,28 @@
 </form>
 </div>
 
-<div id = "page">
-	<!-- 페이지 이동링크 -->
-	<a th:href = "|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
-	<a th:href = "|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a>
-	
-	<span th:each = "counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
-		<th:block th:if = "${counter == navi.currentPage}"><b></th:block>
-			<a th:text = "${counter}" th:href = "|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
-		<th:block th:if = "${counter == navi.currentPage}"></b></th:block>
+<div>
+<ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" th:href = "|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+     
+    </li>
+   	<span th:each = "counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
+		<li class="page-item">
+			<th:block th:if = "${counter == navi.currentPage}"></th:block>
+				<a class="page-link" th:text = "${counter}" th:href = "|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
+			<th:block th:if = "${counter == navi.currentPage}"></th:block>
+	    </li>
 	</span>
-	
-	<a th:href = "|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a>
-	<a th:href = "|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
+
+    <li class="page-item">
+      <a class="page-link" th:href = "|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
 </div>
 </body>
 </html>
