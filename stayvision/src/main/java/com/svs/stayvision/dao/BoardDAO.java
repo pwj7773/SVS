@@ -22,6 +22,6 @@ public interface BoardDAO {
 
 	public int addBoardViewCount(int boardNum);
 
-	public int countBoard();
+	public int countBoard(Map<String, Object> map);
 
 }

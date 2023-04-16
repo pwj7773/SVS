@@ -48,6 +48,7 @@
   <form action="/boardList" method="get" id="pagingForm">
 	<input type="hidden" name="page" id="page">
 	<input th:value="${param.keyword}" type="hidden" name="keyword">
+	<input th:value="${param.category}" type="hidden" name="category">
   </form>
 <form action="/boardList" method="get">
 	<div class="d-flex flex-row bd-highlight mb-3 w-50">
@@ -70,13 +71,11 @@
       </a>
      
     </li>
-   	<span th:each = "counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
-		<li class="page-item">
-			<th:block th:if = "${counter == navi.currentPage}"></th:block>
-				<a class="page-link" th:text = "${counter}" th:href = "|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
-			<th:block th:if = "${counter == navi.currentPage}"></th:block>
-	    </li>
-	</span>
+    <th:block th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
+	<li class="page-item" th:if="${counter != 0}">
+		<a class="page-link" th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>
+	</li>
+	</th:block>
 
     <li class="page-item">
       <a class="page-link" th:href = "|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|" aria-label="Next">
