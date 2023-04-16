@@ -43,15 +43,17 @@
 		<td th:text = "${b.viewCount}"></td>
 	</tr>
 </table>
-<a href="/boardWrite" class="btn btn-secondary">글쓰기</a>
+<a th:href="@{/boardWrite(id=${id})}" class="btn btn-secondary">글쓰기</a>
 <a href="/" class="btn btn-secondary">홈</a>
 </div>
   <form action="/boardList" method="get" id="pagingForm">
+	<input th:value="${param.id}" type="hidden" name="id">
 	<input type="hidden" name="page" id="page">
 	<input th:value="${param.keyword}" type="hidden" name="keyword">
 	<input th:value="${param.category}" type="hidden" name="category">
   </form>
 <form action="/boardList" method="get">
+	<input th:value="${id}" type="hidden" name="id">
 	<div class="d-flex flex-row bd-highlight mb-3 w-50">
 	<select name = "category" class="form-select">
 	<option value="title" th:selected = "${category  == 'title'}">제목</option>

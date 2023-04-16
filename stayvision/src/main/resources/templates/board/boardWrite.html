@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>[글쓰기]</title>
 </head>
 <body>
-	<form action="boardWrite" method="post" enctype="multipart/form-data">
+	<form action="/boardWrite" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<th>제목</th>
@@ -32,7 +32,7 @@
 				</th>
 			</tr>
 		</table>
-		<input type="hidden" value="genal" name="boardType">
+		<input th:value="${id}" type="hidden" name="boardType">
 	</form>
 </body>
 </html>

@@ -61,7 +61,7 @@ public class BoardController {
 	
 	//글 목록보기
 	@GetMapping("boardList")
-	public String boardList(String category, String keyword, Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+	public String boardList(String id, String category, String keyword, Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
 		log.debug("BoardList() 실행");
 		log.debug("page : {}", page);
 		PageNavigator navi = bService.getPageNavigator(pagePerGroup, countPerPage, page, category, keyword);
@@ -72,12 +72,14 @@ public class BoardController {
 		model.addAttribute("navi", navi);
 		model.addAttribute("keyword",keyword);
 		model.addAttribute("category",category);
+		model.addAttribute("id",id);
 		return "board/boardList";
 	}
 	
 	//글쓰기화면 보여주기
 	@GetMapping("boardWrite")
-	public String boardWrite() {
+	public String boardWrite(String id, Model model) {
+		model.addAttribute("id",id);
 		return "board/boardWrite";
 	}
 	
@@ -99,7 +101,7 @@ public class BoardController {
 		}
 		log.debug("Board: {}",board);
 		bService.boardWirte(board);
-		return REDIRECT_LIST;
+		return REDIRECT_LIST+"?id="+board.getBoardType();
 	}
 	
 	//글보기
@@ -114,10 +116,10 @@ public class BoardController {
 	}
 	//글 삭제
 	@GetMapping("boardDelete")
-	public String boardDelete(int boardNum) {
+	public String boardDelete(int boardNum,String id) {
 		log.debug("boardDelete() 실행");
 		bService.boardDelete(boardNum);
-		return REDIRECT_LIST;
+		return REDIRECT_LIST+"?id="+id;
 	}
 	// 수정화면 보여주기
 	@GetMapping("boardUpdate")
@@ -129,12 +131,13 @@ public class BoardController {
 		return "board/boardUpdate";
 	}
 	
+	// 글 수정
 	@PostMapping("boardUpdate")
 	public String boardUpdate(Board board) {
 		log.debug("boardUpdate() 실행");
 		log.debug("Board : {}", board);
 		bService.boardUpdate(board);
-		return REDIRECT_LIST;
+		return REDIRECT_LIST+"?id="+board.getBoardType();
 		
 	}
 	

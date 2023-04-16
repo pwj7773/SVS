@@ -37,7 +37,7 @@
 	</tr>
 </table>
 <a th:href="@{/boardUpdate(boardNum=${board.boardNum})}" class="btn btn-secondary">수정</a>
-<a th:href="@{/boardDelete(boardNum=${board.boardNum})}" class="btn btn-secondary">삭제</a>
+<a th:href="@{/boardDelete(boardNum=${board.boardNum},id=${board.boardType})}" class="btn btn-secondary">삭제</a>
 </div>
 </div>
 </body>

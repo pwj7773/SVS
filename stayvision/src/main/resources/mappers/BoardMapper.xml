@@ -7,9 +7,28 @@
 
  <insert id="boardWirte" parameterType="Board">
  	INSERT INTO
- 		BOARD (BOARDNUM, TITLE, CONTENT, USER_ID, BOARDTYPE, ORIGINALFILE, SAVEDFILE)
-	VALUES
-		(BOARD_SEQ.NEXTVAL, #{title}, #{content}, #{userId}, #{boardType}, #{originalFile}, #{savedFile})
+ 		BOARD (
+ 			BOARDNUM, 
+ 			TITLE,
+ 			CONTENT, 
+ 			USER_ID,
+ 			BOARDTYPE
+ 		<if test="originalFile != null and savedFile != null">
+ 			,ORIGINALFILE 
+ 			,SAVEDFILE
+ 		</if>
+ 		)
+	VALUES (
+			BOARD_SEQ.NEXTVAL, 
+			#{title}, 
+			#{content},
+			#{userId},
+			#{boardType}
+		<if test="originalFile != null and savedFile != null">
+			,#{originalFile} 
+			,#{savedFile}
+		</if>
+		)
  </insert>
  
  <select id="boardSelectAll" resultType="Board">
@@ -48,6 +67,7 @@
  		VIEW_COUNT as viewCount,
  		TO_CHAR(INPUT_DATE,'YYYY/MM/DD') as inputDate,
  		USER_ID as userId,
+ 		BOARDTYPE,
  		ORIGINALFILE,
  		SAVEDFILE
 	FROM
