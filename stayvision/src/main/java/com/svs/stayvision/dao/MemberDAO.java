@@ -18,4 +18,6 @@ public interface MemberDAO {
 
 	public int adminapproval(Member member);
 
+	public int adminrefuse(Member member);
+
 }
