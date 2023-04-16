@@ -46,6 +46,12 @@
  	USER_ID = #{id} 
  </update>
  
+ <delete id="adminrefuse" parameterType="Member">
+ DELETE FROM MEMBER
+ WHERE
+ 	USER_ID = #{id}
+ </delete>
+ 
 </mapper>
 
 

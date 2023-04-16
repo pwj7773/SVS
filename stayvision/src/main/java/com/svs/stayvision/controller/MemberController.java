@@ -62,7 +62,7 @@ public class MemberController {
 		return "adminapproval";
 	}
 	
-	@PostMapping("/adminapproval")
+	@PostMapping(value = "/adminapproval", params = "approval")
 	public String adminapproval(@RequestParam String[] checkedValue) {
 		for (String id : checkedValue) {
 			Member member = new Member();
@@ -72,5 +72,17 @@ public class MemberController {
 		}
 		
 		return "redirect:/adminapproval";	
+	}
+	
+	@PostMapping(value = "/adminapproval", params = "refuse")
+	public String adminrefuse(@RequestParam String[] checkedValue) {
+		for (String id : checkedValue) {
+			Member member = new Member();
+			member.setId(id);
+			// System.out.println(id);
+			mService.adminrefuse(member);
+		}
+		
+		return "redirect:/adminapproval";
 	}
 }

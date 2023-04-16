@@ -48,5 +48,11 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.adminapproval(member);
 	}
 
+	@Override
+	public int adminrefuse(Member member) {
+		// TODO Auto-generated method stub
+		return mDao.adminrefuse(member);
+	}
+
 	
 }

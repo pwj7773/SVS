@@ -4,6 +4,19 @@
 <head>
 <meta charset="UTF-8">
 <title>[계정 승인 관리]</title>
+<script>
+	function refuse() {
+		let refcf = confirm("정말 거절하시겠습니까?");
+		
+		if (refcf == true) {
+			alert("거절 되었습니다.");
+		} else {
+			
+		}
+		
+		
+	}
+</script>
 </head>
 <body>
 <h1>계정 승인 관리 페이지</h1>
@@ -45,8 +58,8 @@
         		</td>
 			</tr>
 		</table><br>
-		<input type="submit" value="승인">
-		<!-- <input type="button" value="거절">  -->
+		<input type="submit" name="approval" value="승인">
+		<input type="submit" name="refuse" value="거절" onclick="return refuse();">
 	</form>
 </div>
 <br><a href="loginafter">뒤로</a>
