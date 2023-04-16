@@ -41,19 +41,19 @@
  		USER_ID as userId
 	FROM
 		Board
-		<where>
-			<if test="category eq 'title'">
-				TITLE LIKE'%'||#{keyword}||'%' AND BOARDTYPE = 'genal'
-			</if>
-			<if test="category eq 'content'">
-				CONTENT LIKE'%'||#{keyword}||'%' AND BOARDTYPE = 'genal'
-			</if>
-			<if test="category eq 'userId'">
-				USER_ID LIKE'%'||#{keyword}||'%' AND BOARDTYPE = 'genal'
-			</if>
-			<if test="category == null and keyword == null">
-				BOARDTYPE = 'genal'
-			</if>	
+	<where>
+		<if test="category eq 'title'">
+			TITLE LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
+		</if>
+		<if test="category eq 'content'">
+			CONTENT LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
+		</if>
+		<if test="category eq 'userId'">
+			USER_ID LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
+		</if>
+		<if test="(category == '' or category == null) and (keyword == '' or keyword == null)">
+		    BOARDTYPE = #{boardType}
+		</if>
 		</where>
 	ORDER BY
 		INPUT_DATE DESC
@@ -104,13 +104,16 @@
 		BOARD
 	<where>
 		<if test="category eq 'title'">
-			TITLE LIKE'%'||#{keyword}||'%'
+			TITLE LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
 		</if>
 		<if test="category eq 'content'">
-			CONTENT LIKE'%'||#{keyword}||'%'
+			CONTENT LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
 		</if>
 		<if test="category eq 'userId'">
-			USER_ID LIKE'%'||#{keyword}||'%'
+			USER_ID LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
+		</if>
+		<if test="(category == '' or category == null) and (keyword == '' or keyword == null)">
+		    BOARDTYPE = #{boardType}
 		</if>
 	</where>
 </select>

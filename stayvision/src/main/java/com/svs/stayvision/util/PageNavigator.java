@@ -19,16 +19,18 @@ public class PageNavigator {
 	private int startRecord;		//전체 레코드 중 현재 페이지 첫 글의 위치 (0부터 시작)
 	private String category;
 	private String keyword;
+	private String boardType;
 	/*
 	 * 생성자
 	 */
-	public PageNavigator(int pagePerGroup, int countPerPage, int currentPage, int totalRecordsCount, String category, String keyword) {
+	public PageNavigator(int pagePerGroup, int countPerPage, int currentPage, int totalRecordsCount, String category, String keyword, String boardType) {
 		//그룹당 페이지 수, 페이지당 글 수, 현재 페이지, 전체 글 수를 전달받음
 		this.countPerPage = countPerPage;
 		this.pagePerGroup = pagePerGroup;
 		this.totalRecordsCount = totalRecordsCount;
 		this.category = category;
 		this.keyword = keyword;
+		this.boardType = boardType;
 		
 		//전체 페이지 수
 		totalPageCount = (totalRecordsCount + countPerPage - 1) / countPerPage;

@@ -57,14 +57,14 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService bService;
-	private final String REDIRECT_LIST = "redirect:/boardList";
+	private final String REDIRECT_LIST = "redirect:/emp/boardList";
 	
 	//글 목록보기
-	@GetMapping("boardList")
+	@GetMapping("emp/boardList")
 	public String boardList(String id, String category, String keyword, Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
 		log.debug("BoardList() 실행");
 		log.debug("page : {}", page);
-		PageNavigator navi = bService.getPageNavigator(pagePerGroup, countPerPage, page, category, keyword);
+		PageNavigator navi = bService.getPageNavigator(pagePerGroup, countPerPage, page, category, keyword,id);
 		log.debug(navi.toString());
 		List<Board> board = bService.boardSelectAll(navi);
 		log.debug("Board: {}",board);
@@ -77,14 +77,14 @@ public class BoardController {
 	}
 	
 	//글쓰기화면 보여주기
-	@GetMapping("boardWrite")
+	@GetMapping("emp/boardWrite")
 	public String boardWrite(String id, Model model) {
 		model.addAttribute("id",id);
 		return "board/boardWrite";
 	}
 	
 	//글쓰기
-	@PostMapping("boardWrite")
+	@PostMapping("emp/boardWrite")
 	public String boardWrite(Board board,@AuthenticationPrincipal UserDetails user, @RequestParam MultipartFile file) {
 		log.debug("boardWrite() 실행");
 		board.setUserId(user.getUsername());
@@ -105,7 +105,7 @@ public class BoardController {
 	}
 	
 	//글보기
-	@GetMapping("boardRead")
+	@GetMapping("emp/boardRead")
 	public String boardRead(int boardNum, Model model) {
 		log.debug("boardRead() 실행");
 		bService.addBoardViewCount(boardNum);
@@ -115,14 +115,15 @@ public class BoardController {
 		return "board/boardRead";
 	}
 	//글 삭제
-	@GetMapping("boardDelete")
-	public String boardDelete(int boardNum,String id) {
+	@GetMapping("emp/boardDelete")
+	public String boardDelete(int boardNum) {
 		log.debug("boardDelete() 실행");
+		String id = bService.boardSelect(boardNum).getBoardType();
 		bService.boardDelete(boardNum);
 		return REDIRECT_LIST+"?id="+id;
 	}
 	// 수정화면 보여주기
-	@GetMapping("boardUpdate")
+	@GetMapping("emp/boardUpdate")
 	public String boardUpdate(int boardNum, Model model) {
 		log.debug("boardUpdate() 실행");
 		Board board = bService.boardSelect(boardNum);
@@ -132,7 +133,7 @@ public class BoardController {
 	}
 	
 	// 글 수정
-	@PostMapping("boardUpdate")
+	@PostMapping("emp/boardUpdate")
 	public String boardUpdate(Board board) {
 		log.debug("boardUpdate() 실행");
 		log.debug("Board : {}", board);
@@ -142,7 +143,7 @@ public class BoardController {
 	}
 	
 	// 파일 다운로드 받기
-	@GetMapping("/download")
+	@GetMapping("emp/download")
 	public String downloadFile(int boardNum, HttpServletResponse response) {
 		log.debug("BoardNum : {}",boardNum);
 		// 글 정보 조회
@@ -183,7 +184,7 @@ public class BoardController {
 		return "redirect:/list"; // 얘는 동작안함
 	}
 	
-	@GetMapping("/display")
+	@GetMapping("emp/display")
 	public ResponseEntity<Resource> display(int boardNum){
 		log.debug("display()");
 		log.debug("boardNum : {}",boardNum);

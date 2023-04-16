@@ -20,14 +20,7 @@ private BoardDAO bDao;
 	public int boardWirte(Board board) {
 		return bDao.boardWirte(board);
 	}
-//	@Override
-//	public List<Board> boardSelectAll(String category, String keyword) {
-//		Map<String,Object> map = new HashMap<>();
-//		map.put("category", category);
-//		map.put("keyword", keyword);
-//		
-//		return bDao.boardSelectAll(map);
-//	}
+
 	@Override
 	public Board boardSelect(int boardNum) {
 		return bDao.boardSelect(boardNum);
@@ -45,12 +38,13 @@ private BoardDAO bDao;
 		return bDao.addBoardViewCount(boardNum);
 	}
 	@Override
-	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String category, String keyword) {
+	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String category, String keyword, String boardType) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("category", category);
 		map.put("keyword", keyword);
+		map.put("boardType",boardType);
 		int total = bDao.countBoard(map);
-		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page, total, category, keyword);
+		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page, total, category, keyword, boardType);
 		
 		return navi;
 	}
@@ -60,6 +54,7 @@ private BoardDAO bDao;
 		Map<String,Object> map = new HashMap<>();
 		map.put("category", navi.getCategory());
 		map.put("keyword", navi.getKeyword());
+		map.put("boardType", navi.getBoardType());
 		
 		return bDao.boardSelectAll(rb,map);
 	}

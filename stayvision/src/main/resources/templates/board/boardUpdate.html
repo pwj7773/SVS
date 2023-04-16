@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>글 수정하기</h1>
-<form action="/boardUpdate" method="post">
+<form th:action="@{|/${board.boardType}/boardUpdate|}" method="post">
 <input type="hidden" name="boardNum" th:value="${board.boardNum}">
 	<table>
 		<tr>
