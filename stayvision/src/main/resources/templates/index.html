@@ -22,7 +22,7 @@
 <span sec:authorize = "isAuthenticated()">
 	<a href="loginafter">after</a>
 </span>
-
-<a href="boardList">임직원 커뮤니티</a>
+<a th:href="@{/emp/boardList(id='emp')}">임직원 커뮤니티</a>
+<a th:href="@{/notice/boardList(id='notice')}">공지사항</a>
 </body>
 </html>
