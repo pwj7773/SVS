@@ -21,6 +21,18 @@
 		<th th:text="*{viewCount}" class="text-center"></th>
 	</tr>
 	<tr>
+		<th>첨부파일</th>
+		<td colspan = "5">
+			<span th:text="|첨부파일 없습니다.|" th:unless="*{originalFile != null}"></span>
+			<div th:if = "*{originalFile != null}">
+			<a th:if="*{originalFile != null}" th:href="@{/download(boardNum=*{boardNum})}">
+				<span th:text="*{originalFile}"></span>
+				<img th:if = "${#strings.endsWith(board.savedFile,'jpg') or #strings.endsWith(board.savedFile,'png') or #strings.endsWith(board.savedFile,'gif')}" th:src="@{/display(boardNum=*{boardNum})}" width="20">
+			</a>
+			</div>	
+		</td>
+	</tr>
+	<tr>
 		<td th:text="*{content}" colspan = "6" class="text-center"></td>
 	</tr>
 </table>
