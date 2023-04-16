@@ -5,12 +5,18 @@
 <title>[글쓰기]</title>
 </head>
 <body>
-	<form action="boardWrite" method="post">
+	<form action="boardWrite" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<th>제목</th>
 				<td>
 					<input name = "title" id="title" type = "text">
+				</td>
+			</tr>
+			<tr>
+				<th>파일첨부</th>
+				<td>
+					<input type="file" name="file">
 				</td>
 			</tr>
 			<tr>
