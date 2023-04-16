@@ -76,9 +76,21 @@
  		BOARDNUM = #{boardNum}
  </update>
  
- <select id = "countBoard" resultType = "int">
-	SELECT count(*) FROM BOARD
-	ORDER BY INPUT_DATE DESC
+ <select id = "countBoard" parameterType="Map" resultType = "int">
+	SELECT count(*) 
+	FROM 
+		BOARD
+	<where>
+		<if test="category eq 'title'">
+			TITLE LIKE'%'||#{keyword}||'%'
+		</if>
+		<if test="category eq 'content'">
+			CONTENT LIKE'%'||#{keyword}||'%'
+		</if>
+		<if test="category eq 'userId'">
+			USER_ID LIKE'%'||#{keyword}||'%'
+		</if>
+	</where>
 </select>
 </mapper>
 

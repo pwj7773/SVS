@@ -46,7 +46,10 @@ private BoardDAO bDao;
 	}
 	@Override
 	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String category, String keyword) {
-		int total = bDao.countBoard();
+		Map<String,Object> map = new HashMap<>();
+		map.put("category", category);
+		map.put("keyword", keyword);
+		int total = bDao.countBoard(map);
 		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page, total, category, keyword);
 		
 		return navi;
