@@ -5,61 +5,97 @@
 <meta charset="UTF-8">
 <title>[계정 승인 관리]</title>
 <script>
-	function refuse() {
-		let refcf = confirm("정말 거절하시겠습니까?");
-		
-		if (refcf == true) {
-			alert("거절 되었습니다.");
+	function checkForm() {
+		if (confirm("정말 하시겠습니까?")) {
+			return true; // 폼을 서밋합니다.
 		} else {
-			
+			return false; // 폼을 서밋하지 않습니다.
 		}
-		
-		
 	}
+	
+	function selectAll1(selectAll1)  {
+		  const checkboxes 
+		       = document.getElementsByName('checkedValue1');
+		  
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = selectAll1.checked;
+		  })
+		}
+	
+	function selectAll2(selectAll2)  {
+		  const checkboxes 
+		       = document.getElementsByName('checkedValue2');
+		  
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = selectAll2.checked;
+		  })
+		}
 </script>
 </head>
 <body>
 <h1>계정 승인 관리 페이지</h1>
 <div>
 	<h3>회원 목록</h3>
-	<table border="1">
-		<tr>
-			<th>아이디(이름)</th>
-			<th>사용자 등급</th>
-		</tr>
-		<tr th:each = "m : ${mlist}">
-			<td th:text = "${m.id}"></td>
-			<td>
-				<span th:if="${m.roleName == 'ROLE_ADMIN'}">관리자</span>
-        		<span th:if="${m.roleName == 'ROLE_EMP'}">직원</span>
-        		<span th:if="${m.roleName == 'ROLE_USER'}">사용자</span>
-        	</td>
-		</tr>
-	</table>
+	<form action="memberdelete" method="post" onsubmit="return checkForm();">
+		<table border="1">
+			<tr>
+				<th>아이디 (이름)</th>
+				<th>사용자 등급</th>
+				<td>
+					<input type="checkbox" name="checkedValue1" value="selectall1" onclick="selectAll1(this)">
+				</td>
+			</tr>
+			<tr th:each = "m : ${mlist}">
+				<td>
+			      <span th:text="${m.id}"></span>
+			      <span>(</span>
+			      <span th:text="${m.name}"></span>
+			      <span>)</span>
+			    </td>
+			    <td>
+					<span th:if="${m.roleName == 'ROLE_ADMIN'}">관리자</span>
+	        		<span th:if="${m.roleName == 'ROLE_EMP'}">직원</span>
+	        		<span th:if="${m.roleName == 'ROLE_USER'}">사용자</span>
+	        	</td>
+	        	<td th:if="${m.roleName != 'ROLE_ADMIN'}">
+	        		<input type="checkbox" th:value="${m.id}" name="checkedValue1">
+	        	</td>
+	        	<td th:if="${m.roleName == 'ROLE_ADMIN'}"></td>
+			</tr>
+		</table><br>
+		<input type="submit" value="삭제">
+	</form>
 </div>
 <div>
 	<h3>가입 승인 대기 목록</h3>
-	<form action="adminapproval" method="post">
+	<form action="adminapproval" method="post" onsubmit="return checkForm();">
 		<table border="1">
 			<tr>
-				<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<th>아이디(이름)</th>
+				<th>아이디 (이름)</th>
 				<th>사용자 등급</th>
+				<td>
+					<input type="checkbox" name="checkedValue2" value="selectall2" onclick="selectAll2(this)">
+				</td>
 			</tr>
 			<tr th:each = "s : ${slist}">
 				<td>
-					<input type="checkbox" th:value="${s.id}" name="checkedValue">
-				</td>
-					<td th:text = "${s.id}"></td>
+			      <span th:text="${s.id}"></span>
+			      <span>(</span>
+			      <span th:text="${s.name}"></span>
+			      <span>)</span>
+			    </td>
 				<td>
 					<span th:if="${s.roleName == 'ROLE_ADMIN'}">관리자</span>
         			<span th:if="${s.roleName == 'ROLE_EMP'}">직원</span>
         			<span th:if="${s.roleName == 'ROLE_USER'}">사용자</span>
         		</td>
+				<td>
+					<input type="checkbox" th:value="${s.id}" name="checkedValue2">
+				</td>
 			</tr>
 		</table><br>
 		<input type="submit" name="approval" value="승인">
-		<input type="submit" name="refuse" value="거절" onclick="return refuse();">
+		<input type="submit" name="refuse" id="refuse" value="거절">
 	</form>
 </div>
 <br><a href="loginafter">뒤로</a>

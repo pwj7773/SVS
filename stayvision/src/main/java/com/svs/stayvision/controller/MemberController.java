@@ -62,9 +62,21 @@ public class MemberController {
 		return "adminapproval";
 	}
 	
+	@PostMapping("memberdelete")
+	public String memberdelete(@RequestParam String[] checkedValue1) {
+		for (String id : checkedValue1) {
+			Member member = new Member();
+			member.setId(id);
+			// System.out.println(id);
+			mService.adminrefuse(member);
+		}
+		
+		return "redirect:/adminapproval";
+	}
+	
 	@PostMapping(value = "/adminapproval", params = "approval")
-	public String adminapproval(@RequestParam String[] checkedValue) {
-		for (String id : checkedValue) {
+	public String adminapproval(@RequestParam String[] checkedValue2) {
+		for (String id : checkedValue2) {
 			Member member = new Member();
 			member.setId(id);
 			// System.out.println(id);
@@ -75,8 +87,8 @@ public class MemberController {
 	}
 	
 	@PostMapping(value = "/adminapproval", params = "refuse")
-	public String adminrefuse(@RequestParam String[] checkedValue) {
-		for (String id : checkedValue) {
+	public String adminrefuse(@RequestParam String[] checkedValue2) {
+		for (String id : checkedValue2) {
 			Member member = new Member();
 			member.setId(id);
 			// System.out.println(id);
@@ -85,4 +97,5 @@ public class MemberController {
 		
 		return "redirect:/adminapproval";
 	}
+	
 }
