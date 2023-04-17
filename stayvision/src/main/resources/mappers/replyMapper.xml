@@ -12,7 +12,7 @@
 		(REPLY_SEQ.NEXTVAL,#{replyText},#{userId},#{boardNum})
 </insert>
 <!-- 댓글 조회하기(1) : 글 하나에 달려 있는 댓글 다 가져오기 -->
-<select id="findReplyByBoardNum" parameterType="int" resultType="Reply">
+<select id="findReplyByBoardNum" resultType="Reply">
 	SELECT
 		REPLYNUM,
 		REPLYTEXT,
@@ -49,6 +49,11 @@
 	DELETE FROM REPLY
 	WHERE REPLYNUM = #{replyNum}
 </delete>
+
+<select id="countReply" resultType = "int">
+	SELECT count(*)
+	FROM REPLY
+</select>
 </mapper>
 
 
