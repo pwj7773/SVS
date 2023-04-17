@@ -4,16 +4,106 @@
 <meta charset="UTF-8">
 <title>[회원가입하기]</title>
 <script src = "js/jquery-3.6.3.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#id").on("keyup", function(){
+			//this : #userId 요소
+			// id입력창에 입력된 값 가져오기
+			let currentValue = $(this).val();
+			console.log(currentValue);
+			// ajax로 서버에서 같은 아이디가 있는지 확인하기
+			$.ajax({
+				url : "/checkId",
+				method : "post",
+				data : {"id" : currentValue},
+				success : function(result){
+					// 있으면 있다고 표시
+					// 없으면 없다고 표시
+					if(result == "OK"){
+						$("#msg").text("사용 가능한 ID입니다.");
+					}else if (result == "NG"){
+						$("#msg").text("사용 중인 ID입니다.");
+					}
+					
+				}
+			});
+		});
+	});
+	// 회원가입 입력창 검증하는 함수
+	// 유효하면 -> 서버로 보냄 아니면 -> 여기서 머무름
+	function checkValue() {
+		// ID가 비어있거나 3~10자가 아니면 무효
+		// 비밀번호가 비어있거나 4~8글자가 아니면 무효
+		// 비밀번호 입력창과 비밀번호 확인창의 값이 다르면 무효
+		// 이름이 없거나 한글자, 7자이상 무효
+		// 이름에 숫자 들어있으면 무효
+		// 이메일이 비어있으면 무효
+		let userIdValue = document.getElementById("id").value;
+		let pw1Value = document.getElementById("pw1").value;
+		let pw2Value = document.getElementById("pw2").value;
+		let nameValue = document.getElementById("name").value;
+		let emailValue = document.getElementById("email").value;
+		
+		let namesplit = nameValue.split("");
+		
+		
+		if (userIdValue === '' || userIdValue.length < 3 || userIdValue > 10) {
+			alert("잘못된 아이디입니다.");
+			document.getElementById("id").focus(); 
+			return false;
+		}
+		
+		if (pw1Value === '' || pw1Value.length < 4 || pw1Value.length > 8) {
+			alert("잘못된 비밀번호입니다.");
+			document.getElementById("pw1").focus(); 
+			return false;
+		}
+		
+		if (pw2Value !== pw1Value) {
+			alert("비밀번호가 일치하지 않습니다.");
+			document.getElementById("pw2").focus(); 
+			return false;
+		}
+		
+		if (nameValue === '' || nameValue.length == 1 || nameValue.length > 7) {
+			alert("잘못된 이름입니다.");
+			document.getElementById("name").focus(); 
+			return false;
+		}
+		
+		for(let i = 0; i < namesplit.length; i++) {
+			if(!isNaN(namesplit[i])) {
+				alert("이름에는 숫자가 입력되지 않습니다.");
+				document.getElementById("name").focus(); 
+				return false;
+			}	
+		}
+		
+		if (emailValue === '') {
+			alert("이메일을 입력하세요.");
+			document.getElementById("email").focus();
+			return false;
+		}
+		
+		//아이디 중복확인 했는지?
+		let checkIdMsg = document.getElementById("msg").innerText;
+		if(!checkIdMsg.includes("가능")){
+			alert("유효하지 않은 아이디 입니다.");
+			return false;
+		}
+	}
+	
+</script>
 </head>
 <body>
 <h1>[회원가입]</h1>
 
-<form action="/insert" method="post" >
+<form action="/insert" method="post" onsubmit = "return checkValue();">
 	<table>
 		<tr>
 			<th>아이디</th>
 			<td>
-				<input name="id" type = "text" id = "userId">
+				<input name="id" type = "text" id = "id">
 				<span id="msg"></span>
 			</td>
 		</tr>
@@ -55,7 +145,7 @@
 		<tr>
 			<th colspan = "2">
 				<input type = "submit" value = "가입하기">
-		</tr>
+		</tr>	
 	</table>
 </form>
 <a href="../">뒤로</a>

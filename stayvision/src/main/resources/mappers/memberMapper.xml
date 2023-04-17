@@ -52,6 +52,41 @@
  	USER_ID = #{id}
  </delete>
  
+ <select id = "findOneMember" parameterType="String" resultType="Member">
+ SELECT
+ 	USER_ID as id,
+ 	USER_NAME as name,
+ 	USER_PW as pw,
+ 	EMAIL,
+ 	PHONE,
+ 	ENABLED,
+ 	ROLENAME,
+ 	USER_NUM AS userNum
+ FROM
+ 	MEMBER
+ WHERE
+ 	USER_ID = #{id}
+ </select>
+ 
+ <update id="memberupdate" parameterType = "Member">
+ 	UPDATE MEMBER
+ 	SET
+ 		USER_PW = #{pw},
+ 		USER_NAME = #{name},
+ 		EMAIL = #{email},
+ 		PHONE = #{phone}
+	WHERE
+		USER_ID = #{id}
+ </update>
+ 
+ <update id="memberdisabled" parameterType="Member">
+ UPDATE MEMBER
+ SET
+ 	ENABLED=0
+ WHERE
+ 	USER_ID = #{id} 
+ </update>
+ 
 </mapper>
 
 

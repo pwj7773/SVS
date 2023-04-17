@@ -63,16 +63,18 @@
 	        	<td th:if="${m.roleName == 'ROLE_ADMIN'}"></td>
 			</tr>
 		</table><br>
-		<input type="submit" value="삭제">
+		<input type="submit" value="삭제" name="delete">
+		<input type="submit" value="비활성화" name="disabled">
 	</form>
 </div>
 <div>
 	<h3>가입 승인 대기 목록</h3>
+	<h5>(비활성화 계정 목록)</h5>
 	<form action="adminapproval" method="post" onsubmit="return checkForm();">
 		<table border="1">
 			<tr>
 				<th>아이디 (이름)</th>
-				<th>사용자 등급</th>
+				<th>요청 등급</th>
 				<td>
 					<input type="checkbox" name="checkedValue2" value="selectall2" onclick="selectAll2(this)">
 				</td>
