@@ -21,4 +21,6 @@ public interface MemberService {
 	public int memberupdate(Member member);
 
 	public int memberdisabled(Member member);
+
+	public int updateMember(Member member);
 }

@@ -78,5 +78,11 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.memberdisabled(member);
 	}
 
+	@Override
+	public int updateMember(Member member) {
+
+		return mDao.updateMember(member);
+	}
+
 	
 }

@@ -26,4 +26,6 @@ public interface MemberDAO {
 
 	public int memberdisabled(Member member);
 
+	public int updateMember(Member member);
+
 }

@@ -136,7 +136,6 @@ public class MemberController {
 		Member member = mService.findOneMember(id);
 		log.debug("Member : {}",member);
 		model.addAttribute("member",member);
-		log.debug("Member : {}",member);
 		
 		return "memberupdate";
 	}

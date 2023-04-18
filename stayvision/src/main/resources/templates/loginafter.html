@@ -8,10 +8,15 @@
 <body>
 <h1>로그인 후 화면</h1>
 <p sec:authorize="hasRole('USER')">
-	<a href="insertBusiness">숙박업소 정보 추가</a>
+	<a href="insertBusiness">숙박업소 정보 추가</a><br><br>
+	<a href="infoBusiness">내 숙박업소 정보</a>
 </p>
 <p sec:authorize="hasRole('ADMIN')">
-	<a href="adminapproval">계정 관리</a>
+	<a href="adminapproval">계정 관리</a><br><br>
+	<a href="infoBusiness2">전체 숙박업소 정보</a>
+</p>
+<p sec:authorize="hasRole('EMP')">
+	<a href="infoBusiness2">전체 숙박업소 정보</a>
 </p>
 <p>
 	<a href="memberupdate">회원 정보 수정</a>

@@ -87,6 +87,15 @@
  	USER_ID = #{id} 
  </update>
  
+ <update id="updateMember" parameterType="Member">
+ UPDATE MEMBER
+ SET
+ 	USER_NAME = #{name},
+ 	PHONE = #{phone}
+ WHERE
+ 	USER_ID = #{id} 
+ </update>
+ 
 </mapper>
 
 
