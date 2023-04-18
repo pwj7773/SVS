@@ -3,11 +3,14 @@ package com.svs.stayvision.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.svs.stayvision.service.Member.MemberService;
 import com.svs.stayvision.vo.Member;
@@ -62,9 +65,33 @@ public class MemberController {
 		return "adminapproval";
 	}
 	
+	@PostMapping(value= "/memberdelete", params = "delete")
+	public String memberdelete(@RequestParam String[] checkedValue1) {
+		for (String id : checkedValue1) {
+			Member member = new Member();
+			member.setId(id);
+			// System.out.println(id);
+			mService.adminrefuse(member);
+		}
+		
+		return "redirect:/adminapproval";
+	}
+	
+	@PostMapping(value= "/memberdelete", params = "disabled")
+	public String memberdisabled(@RequestParam String[] checkedValue1) {
+		for (String id : checkedValue1) {
+			Member member = new Member();
+			member.setId(id);
+			// System.out.println(id);
+			mService.memberdisabled(member);
+		}
+		
+		return "redirect:/adminapproval";
+	}
+	
 	@PostMapping(value = "/adminapproval", params = "approval")
-	public String adminapproval(@RequestParam String[] checkedValue) {
-		for (String id : checkedValue) {
+	public String adminapproval(@RequestParam String[] checkedValue2) {
+		for (String id : checkedValue2) {
 			Member member = new Member();
 			member.setId(id);
 			// System.out.println(id);
@@ -75,8 +102,8 @@ public class MemberController {
 	}
 	
 	@PostMapping(value = "/adminapproval", params = "refuse")
-	public String adminrefuse(@RequestParam String[] checkedValue) {
-		for (String id : checkedValue) {
+	public String adminrefuse(@RequestParam String[] checkedValue2) {
+		for (String id : checkedValue2) {
 			Member member = new Member();
 			member.setId(id);
 			// System.out.println(id);
@@ -85,4 +112,40 @@ public class MemberController {
 		
 		return "redirect:/adminapproval";
 	}
+	
+	//회원가입 유효성 검사
+	@PostMapping("/checkId")
+	@ResponseBody
+	public String checkId(String id) {
+		log.debug("checkId()");
+		log.debug("id : {}",id);
+		Member member = mService.findOneMember(id);
+		log.debug("member : {}",member);
+		if(member == null) {
+			return "OK";
+		}else {
+			return "NG";
+		}
+	}
+	
+	@GetMapping("/memberupdate")
+	public String memberupdate(@AuthenticationPrincipal UserDetails user,Model model) {
+		
+		String id = user.getUsername();
+		log.debug("id : {}",id);
+		Member member = mService.findOneMember(id);
+		log.debug("Member : {}",member);
+		model.addAttribute("member",member);
+		
+		return "memberupdate";
+	}
+	
+	
+	@PostMapping("/memberupdate")
+	public String memberupdate(Member member) {
+		log.debug("Member : {}",member);
+		mService.memberupdate(member);
+		return "redirect:/loginafter";
+	}
+	
 }

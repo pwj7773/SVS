@@ -54,5 +54,35 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.adminrefuse(member);
 	}
 
+	@Override
+	public Member findOneMember(String id) {
+		
+		return mDao.findOneMember(id);
+	}
+
+	@Override
+	public int memberupdate(Member member) {
+		
+		//비번 암호화
+		String encodedPassword = passwordEncoder.encode(member.getPw());
+				
+		//비번 새로 설정
+		member.setPw(encodedPassword);
+		
+		return mDao.memberupdate(member);
+	}
+
+	@Override
+	public int memberdisabled(Member member) {
+		
+		return mDao.memberdisabled(member);
+	}
+
+	@Override
+	public int updateMember(Member member) {
+
+		return mDao.updateMember(member);
+	}
+
 	
 }

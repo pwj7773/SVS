@@ -13,4 +13,6 @@ public class Business {
 	private String businessAddress;
 	private int totalRoom;
 	private String userId;
+	private String phone;
+	private String name;
 }

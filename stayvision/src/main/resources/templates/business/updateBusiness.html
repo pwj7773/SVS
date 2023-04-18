@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>[사업자 정보 수정]</title>
+<script>
+//	function checkValue() {
+		
+//		let businessName = document.getElementById("businessName").value;
+//		let businessAddress = document.getElementById("businessAddress").value;
+//		let totalRoom = document.getElementById("totalRoom").value;
+		
+		
+		
+//		if (businessName === '') {
+//			alert("상호명이 비어있습니다.");
+//			document.getElementById("businessName").focus(); 
+//			return false;
+//		}
+		
+//		if (businessAddress === '') {
+//			alert("주소가 비어있습니다.");
+//			document.getElementById("businessAddress").focus(); 
+//			return false;
+//		}
+		
+//		if (totalRoom <1) {
+//			alert("잘못된 객실 수 입니다.");
+//			document.getElementById("totalRoom").focus(); 
+//			return false;
+//		}
+		
+//	}
+</script>
+</head>
+<body>
+<h1>[사업자 정보 수정]</h1>
+
+<form action="/updateBusiness" method="post">
+	<table>
+		<tr>
+			<td colspan="2">
+				<input type="hidden" name="businessNum" id="businessNum" th:value="${business.businessNum}" readonly/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="hidden" name="userId" id="userId" th:value="${business.userId}" readonly/>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				대표자명
+			</th>
+			<td>
+				<input type="text" name="name" id="name" th:value="${business.name}">
+			</td>
+		</tr>
+		<tr>
+			<th>
+				연락처
+			</th>
+			<td>
+				<input type="text" name="phone" id="phone" th:value="${business.phone}">
+			</td>
+		</tr>
+		<tr>
+			<th>
+				상호명
+			</th>
+			<td>
+				<input type="text" name="businessName" id="businessName" th:value="${business.businessName}">
+			</td>
+		</tr>
+		<tr>
+			<th>
+				사업장 주소
+			</th>
+			<td>
+				<input type="text" name="businessAddress" id="businessAddress" th:value="${business.businessAddress}">
+			</td>
+		</tr>
+		<tr>
+			<th>
+				객실 수
+			</th>
+			<td>
+				<input type="number" name="totalRoom" id="totalRoom" th:value="${business.totalRoom}">
+			</td>
+		</tr>
+		<tr>
+			<th colspan = "2">
+				<input type = "submit" value = "정보 수정">
+			</th>
+		</tr>
+	</table>
+</form>
+<a href="../infoBusiness">뒤로</a>
+</body>
+</html>

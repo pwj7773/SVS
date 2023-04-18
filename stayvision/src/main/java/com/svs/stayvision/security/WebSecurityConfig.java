@@ -22,6 +22,7 @@ public class WebSecurityConfig {
 		hs.csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/",
+					"/checkId",
 					"/boardRead",
 					"/boardList",
 					"/insert",
