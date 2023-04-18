@@ -239,11 +239,13 @@ public class BoardController {
 	
 	@PostMapping("/loadReply")
 	@ResponseBody
-	public List<Reply> loadReply(int boardNum){
+	public List<Reply> loadReply(int boardNum,@RequestParam(name = "page", defaultValue = "1") int page){
 		log.debug("loadReply()");
 		log.debug("BoardNum : {}",boardNum);
-		
-		List<Reply> replyList = rService.getAllReply(boardNum);
+		log.debug("page : {}", page);
+		PageNavigator navi = rService.getPageNavigator(pagePerGroup, countPerPage, page);
+		log.debug(navi.toString());
+		List<Reply> replyList = rService.getAllReply(boardNum, navi);
 		log.debug("replyList size : {}",replyList.size());
 		return replyList;
 	}

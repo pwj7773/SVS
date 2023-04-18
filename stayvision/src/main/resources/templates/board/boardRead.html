@@ -193,7 +193,7 @@
 	</tr>
 </table>
 <a th:href="@{|/${board.boardType}/boardUpdate?boardNum=${board.boardNum}}|" class="btn btn-secondary">수정</a>
-<a th:href="@{|/${board.boardType}/boardDelete?boardNum=${board.boardNum}}|" class="btn btn-secondary">삭제</a>
+<a th:href="@{|/${board.boardType}/boardDelete?boardNum=${board.boardNum}}|" class="btn btn-secondary" onclick="javascript:return confirm('삭제 하시겠습니까?')">삭제</a>
 </div>
 </div>
 <!-- 댓글 구역 -->
