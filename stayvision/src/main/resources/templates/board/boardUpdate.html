@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[글수정하기]</title>
+</head>
+<body>
+<h1>글 수정하기</h1>
+<form th:action="@{|/${board.boardType}/boardUpdate|}" method="post">
+<input type="hidden" name="boardNum" th:value="${board.boardNum}">
+	<table>
+		<tr>
+			<th >제목</th>
+			<td>
+				<input th:value="${board.title}" name="title" type = "text">
+			</td>
+		</tr>
+		<tr>
+			<th>내용</th>
+			<td>
+				<textarea th:text="${board.content}" name="content" rows="5" cols="50"></textarea>
+			</td>
+		</tr>
+		
+		<tr>
+			<th colspan = "2">
+				<input type = "submit" value = "수정하기">
+				<input type = "button" value = "뒤로 가기" onclick="window.history.back()">
+			</th>
+		</tr>
+	</table>
+	<input th:value="${board.boardType}" type="hidden" name="boardType">
+</form>
+</body>
+</html>

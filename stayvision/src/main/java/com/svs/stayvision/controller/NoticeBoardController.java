@@ -28,15 +28,13 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import com.svs.stayvision.service.board.BoardService;
-import com.svs.stayvision.service.reply.ReplyService;
 import com.svs.stayvision.util.FileService;
 import com.svs.stayvision.util.PageNavigator;
 import com.svs.stayvision.vo.Board;
-import com.svs.stayvision.vo.Reply;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-public class BoardController {
+public class NoticeBoardController {
 	//게시판 목록의 페이지당 글 수
 	//annotation을 가져오는 곳이 lombok이 아닌것에 주! 의!
 	@Value("${user.board.page}")
@@ -59,12 +57,10 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService bService;
-	@Autowired
-	private ReplyService rService;
-	private final String REDIRECT_LIST = "redirect:/emp/boardList";
+	private final String REDIRECT_LIST = "redirect:/notice/boardList";
 	
 	//글 목록보기
-	@GetMapping("emp/boardList")
+	@GetMapping("notice/boardList")
 	public String boardList(String id, String category, String keyword, Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
 		log.debug("BoardList() 실행");
 		log.debug("page : {}", page);
@@ -81,14 +77,14 @@ public class BoardController {
 	}
 	
 	//글쓰기화면 보여주기
-	@GetMapping("emp/boardWrite")
+	@GetMapping("notice/boardWrite")
 	public String boardWrite(String id, Model model) {
 		model.addAttribute("id",id);
 		return "board/boardWrite";
 	}
 	
 	//글쓰기
-	@PostMapping("emp/boardWrite")
+	@PostMapping("notice/boardWrite")
 	public String boardWrite(Board board,@AuthenticationPrincipal UserDetails user, @RequestParam MultipartFile file) {
 		log.debug("boardWrite() 실행");
 		board.setUserId(user.getUsername());
@@ -109,7 +105,7 @@ public class BoardController {
 	}
 	
 	//글보기
-	@GetMapping("emp/boardRead")
+	@GetMapping("notice/boardRead")
 	public String boardRead(int boardNum, Model model) {
 		log.debug("boardRead() 실행");
 		bService.addBoardViewCount(boardNum);
@@ -119,7 +115,7 @@ public class BoardController {
 		return "board/boardRead";
 	}
 	//글 삭제
-	@GetMapping("emp/boardDelete")
+	@GetMapping("notice/boardDelete")
 	public String boardDelete(int boardNum) {
 		log.debug("boardDelete() 실행");
 		String id = bService.boardSelect(boardNum).getBoardType();
@@ -127,7 +123,7 @@ public class BoardController {
 		return REDIRECT_LIST+"?id="+id;
 	}
 	// 수정화면 보여주기
-	@GetMapping("emp/boardUpdate")
+	@GetMapping("notice/boardUpdate")
 	public String boardUpdate(int boardNum, Model model) {
 		log.debug("boardUpdate() 실행");
 		Board board = bService.boardSelect(boardNum);
@@ -137,7 +133,7 @@ public class BoardController {
 	}
 	
 	// 글 수정
-	@PostMapping("emp/boardUpdate")
+	@PostMapping("notice/boardUpdate")
 	public String boardUpdate(Board board) {
 		log.debug("boardUpdate() 실행");
 		log.debug("Board : {}", board);
@@ -147,7 +143,7 @@ public class BoardController {
 	}
 	
 	// 파일 다운로드 받기
-	@GetMapping("emp/download")
+	@GetMapping("notice/download")
 	public String downloadFile(int boardNum, HttpServletResponse response) {
 		log.debug("BoardNum : {}",boardNum);
 		// 글 정보 조회
@@ -188,7 +184,7 @@ public class BoardController {
 		return "redirect:/list"; // 얘는 동작안함
 	}
 	
-	@GetMapping("emp/display")
+	@GetMapping("notice/display")
 	public ResponseEntity<Resource> display(int boardNum){
 		log.debug("display()");
 		log.debug("boardNum : {}",boardNum);
@@ -217,66 +213,5 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<Resource>(resource,header,HttpStatus.OK);
-	}
-	
-	// 댓글 쓰기
-	@PostMapping("/insertReply")
-	@ResponseBody
-	public String insertReply(String replyText, int boardNum, @AuthenticationPrincipal UserDetails user) {
-		log.debug("replyText : {}",replyText);
-		log.debug("boardNum : {}",boardNum);
-		Reply r = new Reply();
-		r.setReplyText(replyText);
-		r.setBoardNum(boardNum);
-		r.setUserId(user.getUsername());
-		log.debug("reply: {}",r);
-		
-		rService.insertReply(r);
-		
-		return "OK";
-		
-	}
-	
-	@PostMapping("/loadReply")
-	@ResponseBody
-	public List<Reply> loadReply(int boardNum,@RequestParam(name = "page", defaultValue = "1") int page){
-		log.debug("loadReply()");
-		log.debug("BoardNum : {}",boardNum);
-		log.debug("page : {}", page);
-		PageNavigator navi = rService.getPageNavigator(pagePerGroup, countPerPage, page);
-		log.debug(navi.toString());
-		List<Reply> replyList = rService.getAllReply(boardNum, navi);
-		log.debug("replyList size : {}",replyList.size());
-		return replyList;
-	}
-	@PostMapping("/getOneReply")
-	@ResponseBody
-	public Reply getOneReply(int replyNum) {
-		log.debug("getOneReply()");
-		log.debug("replyNum : {}",replyNum);
-		Reply reply = rService.getOneReply(replyNum);
-		log.debug("reply : {}",reply);
-		return reply;
-	}
-	
-	//댓글 수정할때
-	@PostMapping("/updateReply")
-	@ResponseBody
-	public String updateReply(String replyText, int replyNum) {
-		log.debug("updateReply()");
-		log.debug("replyText : {}",replyText);
-		log.debug("replyNum : {}",replyNum);
-		Reply r = new Reply();
-		r.setReplyText(replyText);
-		r.setReplyNum(replyNum);
-		rService.updateReply(r);
-		return "업데이트함";
-	}
-	@PostMapping("/deleteReply")
-	@ResponseBody
-	public void deleteReply(int replyNum) {
-		log.debug("deleteReply()");
-		log.debug("replyNum : {}",replyNum);
-		rService.deleteReply(replyNum);
 	}
 }

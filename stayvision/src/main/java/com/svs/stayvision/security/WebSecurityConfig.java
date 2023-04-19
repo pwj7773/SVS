@@ -25,13 +25,12 @@ public class WebSecurityConfig {
 					"/checkId",
 					"/boardRead",
 					"/boardList",
-					"/boardWrite",
 					"/insert",
 					"/js/**",
 					"/img/**",
 					"/error")
 		.permitAll()					// 설정한 리소스의 접근을 인증 없이 사용 허가
-		.antMatchers("/adminapproval").hasRole("ADMIN")
+		.antMatchers("/emp/**").hasAnyRole("EMP", "ADMIN")
 		.anyRequest().authenticated()	// 위의 경로 이외에는 모두 로그인
 		.and()
 		.formLogin()					// 일반적인 폼을 이용한 로그인 처리/실패 방법을 사용
@@ -68,7 +67,7 @@ public class WebSecurityConfig {
 		auth.jdbcAuthentication()
 		.dataSource(dataSource)
 		.usersByUsernameQuery(userNameQueryforEnabled)
-		.authoritiesByUsernameQuery(userNameQueryforRole);
+		.authoritiesByUsernameQuery(userNameQueryforRole);  
 	}
 	
 	// 단방향 비밀번호 암호화

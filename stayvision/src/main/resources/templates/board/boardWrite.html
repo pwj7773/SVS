@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>[글쓰기]</title>
 </head>
 <body>
-	<form action="boardWrite" method="post">
+	<form th:action="@{|/${id}/boardWrite|}" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<th>제목</th>
 				<td>
 					<input name = "title" id="title" type = "text">
+				</td>
+			</tr>
+			<tr>
+				<th>파일첨부</th>
+				<td>
+					<input type="file" name="file">
 				</td>
 			</tr>
 			<tr>
@@ -26,6 +32,7 @@
 				</th>
 			</tr>
 		</table>
+		<input th:value="${id}" type="hidden" name="boardType">
 	</form>
 </body>
 </html>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.svs.stayvision.dao.BoardDAO">
+
+ <insert id="boardWirte" parameterType="Board">
+ 	INSERT INTO
+ 		BOARD (
+ 			BOARDNUM, 
+ 			TITLE,
+ 			CONTENT, 
+ 			USER_ID,
+ 			BOARDTYPE
+ 		<if test="originalFile != null and savedFile != null">
+ 			,ORIGINALFILE 
+ 			,SAVEDFILE
+ 		</if>
+ 		)
+	VALUES (
+			BOARD_SEQ.NEXTVAL, 
+			#{title}, 
+			#{content},
+			#{userId},
+			#{boardType}
+		<if test="originalFile != null and savedFile != null">
+			,#{originalFile} 
+			,#{savedFile}
+		</if>
+		)
+ </insert>
+ 
+ <select id="boardSelectAll" resultType="Board">
+ 	SELECT 
+ 		BOARDNUM,
+ 		TITLE,
+ 		CONTENT,
+ 		VIEW_COUNT as viewCount,
+ 		TO_CHAR(INPUT_DATE,'YYYY/MM/DD') as inputDate,
+ 		USER_ID as userId
+	FROM
+		Board
+	<where>
+		<if test="category eq 'title'">
+			TITLE LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
+		</if>
+		<if test="category eq 'content'">
+			CONTENT LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
+		</if>
+		<if test="category eq 'userId'">
+			USER_ID LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
+		</if>
+		<if test="(category == '' or category == null) and (keyword == '' or keyword == null)">
+		    BOARDTYPE = #{boardType}
+		</if>
+		</where>
+	ORDER BY
+		INPUT_DATE DESC
+ </select>
+ 
+ <select id="boardSelect" resultType="Board">
+ 	SELECT 
+ 		BOARDNUM,
+ 		TITLE,
+ 		CONTENT,
+ 		VIEW_COUNT as viewCount,
+ 		TO_CHAR(INPUT_DATE,'YYYY/MM/DD') as inputDate,
+ 		USER_ID as userId,
+ 		BOARDTYPE,
+ 		ORIGINALFILE,
+ 		SAVEDFILE
+	FROM
+		Board
+	WHERE BOARDNUM = #{boardNum}
+ </select>
+ 
+ <delete id="boardDelete">
+ 	DELETE 
+ 	FROM Board
+ 	WHERE BOARDNUM = #{boardNum}
+ </delete>
+ 
+ <update id="boardUpdate" parameterType="Board">
+  	UPDATE BOARD
+ 	SET
+ 		TITLE = #{title},
+ 		CONTENT = #{content}
+ 	WHERE
+ 		BOARDNUM = #{boardNum}
+ </update>
+ 
+ <update id="addBoardViewCount">
+   	UPDATE BOARD
+ 	SET
+ 		VIEW_COUNT = VIEW_COUNT + 1
+ 	WHERE
+ 		BOARDNUM = #{boardNum}
+ </update>
+ 
+ <select id = "countBoard" parameterType="Map" resultType = "int">
+	SELECT count(*) 
+	FROM 
+		BOARD
+	<where>
+		<if test="category eq 'title'">
+			TITLE LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
+		</if>
+		<if test="category eq 'content'">
+			CONTENT LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
+		</if>
+		<if test="category eq 'userId'">
+			USER_ID LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
+		</if>
+		<if test="(category == '' or category == null) and (keyword == '' or keyword == null)">
+		    BOARDTYPE = #{boardType}
+		</if>
+	</where>
+</select>
+</mapper>
+
+
+
+
