@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>사업장 정보</title>
+</head>
+<body>
+<div sec:authorize="hasRole('USER')">
+	<h1>[내 사업장 정보]</h1>
+</div>
+<div sec:authorize="!hasRole('USER')">
+	<h1>[전체 사업장 정보]</h1>
+</div>	
+	<div>
+		<table border="1">
+			<tr>
+				<th>등록 번호</th>
+				<th>상호명</th>
+				<th>대표</th>
+				<th>주소</th>
+				<th>연락처</th>
+				<th>수정</th>
+			</tr>
+	 			<tr th:each = "b : ${blist}">
+				<td><span th:text="${b.businessNum}"></span></td>
+				<td><span th:text="${b.businessName}"></span></td>
+				<td><span th:text="${b.name}"></span></td>
+				<td><span th:text="${b.businessAddress}"></span></td>
+				<td><span th:text="${b.phone}"></span></td>
+				<td>
+					<a th:href="@{/updateBusiness/{businessNum}(businessNum=${b.businessNum})}">수정</a>
+				</td>
+			</tr>
+		</table>
+	</div><br>
+	<div sec:authorize="!hasRole('USER')">
+		<form action="infoBusiness2" method="get">
+			<select name="category">
+				<option value="businessName" th:selected="${category == 'businessName'}">상호명</option>
+				<option value="businessAddress" th:selected="${category == 'businessAddress'}">주소</option>
+				<option value="name" th:selected="${category == 'name'}">대표</option>
+			</select>
+			<input type="text" name="keyword" th:value="${keyword}" placeholder="검색어를 입력해주세요.">
+			<input type="submit" value="검색">
+		</form>
+	</div>
+	<br>
+	<a href="loginafter">뒤로</a>
+</body>
+</html>

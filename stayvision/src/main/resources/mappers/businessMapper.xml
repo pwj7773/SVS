@@ -4,13 +4,87 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="com.svs.stayvision.dao.BusinessDAO">
+
  <insert id = "insertBusiness" parameterType="Business">
  
  	INSERT INTO
- 		 BUSINESS (BUSINESS_NUM, BUSINESS_NAME, BUSINESS_ADDRESS, TOTAL_ROOM, USER_ID)
+ 		 BUSINESS (BUSINESS_NUM, BUSINESS_NAME, BUSINESS_ADDRESS, TOTAL_ROOM, USER_ID, PHONE)
  	VALUES
- 		(BUSINESS_SEQ.NEXTVAL ,#{businessName}, #{businessAddress}, #{totalRoom}, #{userId})
+ 		(BUSINESS_SEQ.NEXTVAL ,#{businessName}, #{businessAddress}, #{totalRoom}, #{userId}, #{phone})
  </insert>
+ 
+ <select id = "findOneBusiness" parameterType="int" resultType="Business">
+ SELECT
+    b.business_num as businessNum,
+    b.business_name as businessName,
+    b.business_address as businessAddress,
+    b.total_room as totalRoom,
+    user_id as userId,
+    b.phone as phone,
+    m.user_name as name
+ FROM
+    member m join business b using(user_id)
+ where
+    b.business_num = #{businessNum}
+ </select>
+ 
+ <select id="selectBusiness" resultType="Business">
+ SELECT
+    b.business_num as businessNum,
+    b.business_name as businessName,
+    b.business_address as businessAddress,
+    b.total_room as totalRoom,
+    user_id as userId,
+    b.phone as phone,
+    m.user_name as name
+ FROM
+    member m join business b using(user_id)
+ where
+    user_id = #{id}
+ order by
+    businessNum
+ </select>
+ 
+ <select id="selectBusinessAll" resultType="Business">
+ SELECT
+    b.business_num as businessNum,
+    b.business_name as businessName,
+    b.business_address as businessAddress,
+    b.total_room as totalRoom,
+    user_id as userId,
+    b.phone as phone,
+    m.user_name as name
+ FROM
+    member m join business b using(user_id)
+    <if test="category != null and keyword != null">
+		<where>
+			<if test="category eq 'businessName'">
+				b.business_name LIKE'%'||#{keyword}||'%'
+			</if>
+			<if test="category eq 'businessAddress'">
+				b.business_address LIKE'%'||#{keyword}||'%'
+			</if>
+			<if test="category eq 'name'">
+				m.user_name LIKE'%'||#{keyword}||'%'
+			</if>
+		</where>
+	</if>
+ order by
+    businessNum
+ </select>
+ 
+ <update id="updateBusiness" parameterType="Business">
+ UPDATE BUSINESS
+ SET
+    business_name = #{businessName},
+    business_address = #{businessAddress},
+    total_room = #{totalRoom},
+    PHONE = #{phone}
+ where 
+    business_num = #{businessNum}
+ 
+ </update>
+ 
 </mapper> 
 
 

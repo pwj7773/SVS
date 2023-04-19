@@ -22,6 +22,7 @@ public class WebSecurityConfig {
 		hs.csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/",
+					"/checkId",
 					"/boardRead",
 					"/boardList",
 					"/insert",
@@ -30,7 +31,7 @@ public class WebSecurityConfig {
 					"/css/**",
 					"/error")
 		.permitAll()					// 설정한 리소스의 접근을 인증 없이 사용 허가
-		.antMatchers("/emp/**").hasRole("EMP")
+		.antMatchers("/emp/**").hasAnyRole("EMP", "ADMIN")
 		.anyRequest().authenticated()	// 위의 경로 이외에는 모두 로그인
 		.and()
 		.formLogin()					// 일반적인 폼을 이용한 로그인 처리/실패 방법을 사용
@@ -38,7 +39,7 @@ public class WebSecurityConfig {
 		.loginProcessingUrl("/login").permitAll()	// 인증처리 URL. 로그인 폼의 action 속성 값 지정
 		.usernameParameter("id")	// 로그인 폼 아이디의 name 속성
 		.passwordParameter("pw")	// 로그인 폼 비밀번호의 name 속성
-		.defaultSuccessUrl("/loginafter")
+		.defaultSuccessUrl("/loginafter")// 로그인 후 페이지 이동
 		.and()
 		.logout()
 		.logoutSuccessUrl("/").permitAll()	// 로그아웃 성공 시에 이동할 URL

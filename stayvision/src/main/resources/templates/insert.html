@@ -1,18 +1,108 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/insert.css">
-    <script src = "js/jquery-3.6.3.min.js"></script>
-    <title>회원가입</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/insert.css">
+<title>[회원가입하기]</title>
+<script src = "js/jquery-3.6.3.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#id").on("keyup", function(){
+			//this : #userId 요소
+			// id입력창에 입력된 값 가져오기
+			let currentValue = $(this).val();
+			console.log(currentValue);
+			// ajax로 서버에서 같은 아이디가 있는지 확인하기
+			$.ajax({
+				url : "/checkId",
+				method : "post",
+				data : {"id" : currentValue},
+				success : function(result){
+					// 있으면 있다고 표시
+					// 없으면 없다고 표시
+					if(result == "OK"){
+						$("#msg").text("사용 가능한 ID입니다.");
+					}else if (result == "NG"){
+						$("#msg").text("사용 중인 ID입니다.");
+					}
+					
+				}
+			});
+		});
+	});
+	// 회원가입 입력창 검증하는 함수
+	// 유효하면 -> 서버로 보냄 아니면 -> 여기서 머무름
+	function checkValue() {
+		// ID가 비어있거나 3~10자가 아니면 무효
+		// 비밀번호가 비어있거나 4~8글자가 아니면 무효
+		// 비밀번호 입력창과 비밀번호 확인창의 값이 다르면 무효
+		// 이름이 없거나 한글자, 7자이상 무효
+		// 이름에 숫자 들어있으면 무효
+		// 이메일이 비어있으면 무효
+		let userIdValue = document.getElementById("id").value;
+		let pw1Value = document.getElementById("pw1").value;
+		let pw2Value = document.getElementById("pw2").value;
+		let nameValue = document.getElementById("name").value;
+		let emailValue = document.getElementById("email").value;
+		
+		let namesplit = nameValue.split("");
+		
+		
+		if (userIdValue === '' || userIdValue.length < 3 || userIdValue > 10) {
+			alert("잘못된 아이디입니다.");
+			document.getElementById("id").focus(); 
+			return false;
+		}
+		
+		if (pw1Value === '' || pw1Value.length < 4 || pw1Value.length > 8) {
+			alert("잘못된 비밀번호입니다.");
+			document.getElementById("pw1").focus(); 
+			return false;
+		}
+		
+		if (pw2Value !== pw1Value) {
+			alert("비밀번호가 일치하지 않습니다.");
+			document.getElementById("pw2").focus(); 
+			return false;
+		}
+		
+		if (nameValue === '' || nameValue.length == 1 || nameValue.length > 7) {
+			alert("잘못된 이름입니다.");
+			document.getElementById("name").focus(); 
+			return false;
+		}
+		
+		for(let i = 0; i < namesplit.length; i++) {
+			if(!isNaN(namesplit[i])) {
+				alert("이름에는 숫자가 입력되지 않습니다.");
+				document.getElementById("name").focus(); 
+				return false;
+			}	
+		}
+		
+		if (emailValue === '') {
+			alert("이메일을 입력하세요.");
+			document.getElementById("email").focus();
+			return false;
+		}
+		
+		//아이디 중복확인 했는지?
+		let checkIdMsg = document.getElementById("msg").innerText;
+		if(!checkIdMsg.includes("가능")){
+			alert("유효하지 않은 아이디 입니다.");
+			return false;
+		}
+	}
+	
+</script>
 </head>
 
 <body>
@@ -65,12 +155,57 @@
                     <input name="roleName" id="roleUser"value="ROLE_USER" type="radio" class="form-check-input" required="">
                     <label class="form-check-label" for="roleUser">개인 사업자</label>
                 </div>
-
-            </div>
-            <button class="col-3 my-2 btn btn-secondary " type="submit">가입하기</button>
-
-        </form>
-    </div>
+<form action="/insert" method="post" onsubmit = "return checkValue();">
+	<table>
+		<tr>
+			<th>아이디</th>
+			<td>
+				<input name="id" type = "text" id = "id">
+				<span id="msg"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>비밀번호</th>
+			<td>
+				<input name="pw" type = "password" id = "pw1">
+			</td>
+		</tr>
+		<tr>
+			<th>비밀번호 확인</th>
+			<td>
+				<input type = "password" id = "pw2">
+			</td>
+		</tr>
+		<tr>
+			<th>이름</th>
+			<td>
+				<input name="name" type = "text" id = "name">
+			</td>
+		</tr>
+		<tr>
+			<th>이메일</th>
+			<td>
+				<!-- input type = "email" 속성은 입력된 값이 메일주소 형식인지 꼼꼼하게 체크한다 -->
+				<input name="email" type = "text" id = "email">
+			</td>
+		</tr>
+		<tr>
+			<th>전화번호</th>
+			<td>
+				<input name="phone" type = "tel" id = "phone">
+			</td>
+		</tr>
+		<tr>
+			<td><input name="roleName" type="radio" value="ROLE_EMP" checked>영업사원</td>
+			<td><input name="roleName" type="radio" value="ROLE_USER">개인 사업자</td>
+		</tr>
+		<tr>
+			<th colspan = "2">
+				<button class="col-3 my-2 btn btn-secondary " type="submit">가입하기</button>
+		</tr>	
+	</table>
+</form>
+<a href="../">뒤로</a>
 </body>
 
 </html>

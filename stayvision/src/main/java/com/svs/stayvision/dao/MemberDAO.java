@@ -20,4 +20,12 @@ public interface MemberDAO {
 
 	public int adminrefuse(Member member);
 
+	public Member findOneMember(String id);
+
+	public int memberupdate(Member member);
+
+	public int memberdisabled(Member member);
+
+	public int updateMember(Member member);
+
 }

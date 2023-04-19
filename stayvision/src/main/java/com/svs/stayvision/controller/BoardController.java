@@ -28,13 +28,15 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import com.svs.stayvision.service.board.BoardService;
+import com.svs.stayvision.service.reply.ReplyService;
 import com.svs.stayvision.util.FileService;
 import com.svs.stayvision.util.PageNavigator;
 import com.svs.stayvision.vo.Board;
+import com.svs.stayvision.vo.Reply;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,6 +59,8 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService bService;
+	@Autowired
+	private ReplyService rService;
 	private final String REDIRECT_LIST = "redirect:/emp/boardList";
 	
 	//글 목록보기
@@ -213,5 +217,66 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<Resource>(resource,header,HttpStatus.OK);
+	}
+	
+	// 댓글 쓰기
+	@PostMapping("/insertReply")
+	@ResponseBody
+	public String insertReply(String replyText, int boardNum, @AuthenticationPrincipal UserDetails user) {
+		log.debug("replyText : {}",replyText);
+		log.debug("boardNum : {}",boardNum);
+		Reply r = new Reply();
+		r.setReplyText(replyText);
+		r.setBoardNum(boardNum);
+		r.setUserId(user.getUsername());
+		log.debug("reply: {}",r);
+		
+		rService.insertReply(r);
+		
+		return "OK";
+		
+	}
+	
+	@PostMapping("/loadReply")
+	@ResponseBody
+	public List<Reply> loadReply(int boardNum,@RequestParam(name = "page", defaultValue = "1") int page){
+		log.debug("loadReply()");
+		log.debug("BoardNum : {}",boardNum);
+		log.debug("page : {}", page);
+		PageNavigator navi = rService.getPageNavigator(pagePerGroup, countPerPage, page);
+		log.debug(navi.toString());
+		List<Reply> replyList = rService.getAllReply(boardNum, navi);
+		log.debug("replyList size : {}",replyList.size());
+		return replyList;
+	}
+	@PostMapping("/getOneReply")
+	@ResponseBody
+	public Reply getOneReply(int replyNum) {
+		log.debug("getOneReply()");
+		log.debug("replyNum : {}",replyNum);
+		Reply reply = rService.getOneReply(replyNum);
+		log.debug("reply : {}",reply);
+		return reply;
+	}
+	
+	//댓글 수정할때
+	@PostMapping("/updateReply")
+	@ResponseBody
+	public String updateReply(String replyText, int replyNum) {
+		log.debug("updateReply()");
+		log.debug("replyText : {}",replyText);
+		log.debug("replyNum : {}",replyNum);
+		Reply r = new Reply();
+		r.setReplyText(replyText);
+		r.setReplyNum(replyNum);
+		rService.updateReply(r);
+		return "업데이트함";
+	}
+	@PostMapping("/deleteReply")
+	@ResponseBody
+	public void deleteReply(int replyNum) {
+		log.debug("deleteReply()");
+		log.debug("replyNum : {}",replyNum);
+		rService.deleteReply(replyNum);
 	}
 }
