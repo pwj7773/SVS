@@ -1,54 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>[로그인]</title>
-<script>
-	function checkForm(){
-		let id = document.getElementById("id").value;
-		let pw = document.getElementById("pw").value;
-
-		// trim() : 문자열의 앞 또는 뒤에 붙어있는 공백 삭제
-		if(id.trim().length == 0 || pw.trim().length == 0){
-			alert("아이디 또는 비밀번호가 비어있습니다.");
-			return false;
-		}
-		
-		return true;
-	}
-</script>
-<style>
-	#error{
-		color : red;
-		font-size: small;
-	}
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login[스프링]</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script src="/js/loginscript.js"></script>
 </head>
-<body>
 
-	<h1>[로그인]</h1>
-<form action="/login" method="post" onsubmit="return checkForm();">
-	<table>
-		<tr>
-			<th>아이디</th>
-			<td>
-				<input name="id" type = "text" id="id">
-			</td>
-		</tr>
-		<tr>
-			<th>비밀번호</th>
-			<td>
-				<input name="pw" type = "password" id="pw"> 
-			</td>
-		</tr>
-		<tr>
-			<th colspan = "2">
-				<input type = "submit" value = "로그인">
-			</th>
-			
-		</tr>
-	</table>
-</form>
-<span  id="error" th:if="${param.error} != null">아이디 또는 비밀번호가 일치 하지 않습니다.</span>
+<body>
+    <div class="image">
+        <!-- <img src="/img/background.jpg" class="login-img img-fluid" alt=""> -->
+    </div>
+    <div class="container d-flex flex-column">
+        <form class="login-form justify-content-center" action="/login" method="post" onsubmit="return checkForm();">
+            <div class="mb-3">
+                <label for="id" class="form-label">아이디</label>
+                <input type="text" class="form-control" name="id" id="id" aria-describedby="idhelp" placeholder="아이디를 입력하세요">
+
+            </div>
+            <div class="mb-3">
+                <label for="pw" class="form-label">비밀번호</label>
+                <input type="password" class="form-control" name="pw" id="pw" placeholder="비밀번호를 입력하세요">
+            </div>
+            
+            <div class="col text-center">
+                <input type="submit" class="btn btn-primary" value="로그인">
+            </div>
+            <div class="col text-center" id="error" th:if="${param.error} != null">아이디 또는 비밀번호가 일치 하지 않습니다</div>
+        </form>
+        <br>
+        <div>
+            <a href="/insert" class="btn btn-secondary btn-sm">회원가입</a>
+        </div>
+    </div>
 </body>
+
 </html>

@@ -28,6 +28,7 @@ public class WebSecurityConfig {
 					"/insert",
 					"/js/**",
 					"/img/**",
+					"/css/**",
 					"/error")
 		.permitAll()					// 설정한 리소스의 접근을 인증 없이 사용 허가
 		.antMatchers("/emp/**").hasAnyRole("EMP", "ADMIN")
