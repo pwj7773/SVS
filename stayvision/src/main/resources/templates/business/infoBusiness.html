@@ -15,9 +15,9 @@
 	<div>
 		<table border="1">
 			<tr>
-				<th>업체 번호</th>
+				<th>등록 번호</th>
 				<th>상호명</th>
-				<th>대표자</th>
+				<th>대표</th>
 				<th>주소</th>
 				<th>연락처</th>
 				<th>수정</th>
@@ -33,6 +33,17 @@
 				</td>
 			</tr>
 		</table>
+	</div><br>
+	<div sec:authorize="!hasRole('USER')">
+		<form action="infoBusiness2" method="get">
+			<select name="category">
+				<option value="businessName" th:selected="${category == 'businessName'}">상호명</option>
+				<option value="businessAddress" th:selected="${category == 'businessAddress'}">주소</option>
+				<option value="name" th:selected="${category == 'name'}">대표</option>
+			</select>
+			<input type="text" name="keyword" th:value="${keyword}" placeholder="검색어를 입력해주세요.">
+			<input type="submit" value="검색">
+		</form>
 	</div>
 	<br>
 	<a href="loginafter">뒤로</a>

@@ -90,8 +90,7 @@
  <update id="updateMember" parameterType="Member">
  UPDATE MEMBER
  SET
- 	USER_NAME = #{name},
- 	PHONE = #{phone}
+ 	USER_NAME = #{name}
  WHERE
  	USER_ID = #{id} 
  </update>

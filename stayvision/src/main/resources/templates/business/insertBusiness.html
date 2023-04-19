@@ -10,6 +10,7 @@
 		let businessName = document.getElementById("businessName").value;
 		let businessAddress = document.getElementById("businessAddress").value;
 		let totalRoom = document.getElementById("totalRoom").value;
+		let phone = document.getElementById("phone").value;
 		
 		
 		
@@ -28,6 +29,12 @@
 		if (totalRoom <1) {
 			alert("잘못된 객실 수 입니다.");
 			document.getElementById("totalRoom").focus(); 
+			return false;
+		}
+		
+		if (phone === '') {
+			alert("전화번호가 비어있습니다.");
+			document.getElementById("phone").focus(); 
 			return false;
 		}
 		
@@ -61,6 +68,14 @@
 			</th>
 			<td>
 				<input type="number" name="totalRoom" id="totalRoom">
+			</td>
+		</tr>
+		<tr>
+			<th>
+				사업장 전화번호
+			</th>
+			<td>
+				<input type="text" name="phone" id="phone">
 			</td>
 		</tr>
 		<tr>

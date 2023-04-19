@@ -13,5 +13,4 @@ public interface BoardService {
 	public int addBoardViewCount(int boardNum);
 	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String category, String keyword, String boardType);
 	public List<Board> boardSelectAll(PageNavigator navi);
-	
 }

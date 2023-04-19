@@ -27,13 +27,14 @@ public class BusinessController {
 	@Autowired
 	private MemberService mService;
 	
-	// 숙박업소 정보 추가
+	// 숙박업소 정보 추가 페이지 이동
 	@GetMapping("/insertBusiness")
 	public String insertBusiness() {
 		log.debug("insertBusiness() 실행됨");
 		return "business/insertBusiness";
 	}
 	
+	// 숙박업소 정보 추가
 	@PostMapping("/insertBusiness")
 	public String insertBusiness(Business business, @AuthenticationPrincipal UserDetails user) {
 		log.debug("insertBusiness() 실행됨");
@@ -45,6 +46,7 @@ public class BusinessController {
 		return "redirect:/loginafter";
 	}
 	
+	// ROLE_USER의 내 숙박업소 정보 조회
 	@GetMapping("/infoBusiness")
 	public String infoBusiness(@AuthenticationPrincipal UserDetails user,Model model) {
 		
@@ -58,19 +60,23 @@ public class BusinessController {
 		return "business/infoBusiness";
 	}
 	
+	// ROLE_ADMIN, ROLE_EMP의 전체 숙박업소 정보 조회
 	@GetMapping("/infoBusiness2")
-	public String infoBusiness2(@AuthenticationPrincipal UserDetails user,Model model) {
+	public String infoBusiness2(String category, String keyword, @AuthenticationPrincipal UserDetails user,Model model) {
 		
-		String id = user.getUsername();
-		log.debug("id : {}",id);
-		List<Business> bList = bService.selectBusinessAll(id);
+		
+		List<Business> bList = bService.selectBusinessAll(category, keyword);
 		log.debug("bList Size : {}", bList.size());
+		
 		model.addAttribute("blist",bList);
+		model.addAttribute("category", category);
+		model.addAttribute("keyword", keyword);
 		//log.debug("blist : {}",bList);
 		
 		return "business/infoBusiness";
 	}
 	
+	// 숙박업소 정보 수정 페이지 이동
 	@GetMapping("/updateBusiness/{businessNum}")
 	public String updateBusiness(@PathVariable Integer businessNum, Model model) {
 		log.debug("businessNum : {}",businessNum);
@@ -81,6 +87,7 @@ public class BusinessController {
 		return "business/updateBusiness";
 	}
 	
+	// 숙박업소 정보 수정
 	@PostMapping("/updateBusiness")
 	public String updateBusiness(Business business) {
 		
@@ -89,7 +96,7 @@ public class BusinessController {
 		Member member = mService.findOneMember(id);
 		log.debug("Member : {}",member);
 		member.setName(business.getName());
-		member.setPhone(business.getPhone());
+		// member.setPhone(business.getPhone());
 		log.debug("Member2 : {}",member);
 		
 		log.debug("businessUPDATE : {}",business);
@@ -99,6 +106,5 @@ public class BusinessController {
 		
 		return "redirect:/loginafter";
 	}
-	
 	
 }

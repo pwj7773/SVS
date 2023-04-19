@@ -2,7 +2,9 @@ package com.svs.stayvision.service.Business;
 
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,9 +37,14 @@ public class BusinessServiceImpl implements BusinessService {
 	}
 
 	@Override
-	public List<Business> selectBusinessAll(String id) {
-		// TODO Auto-generated method stub
-		return bDao.selectBusinessAll(id);
+	public List<Business> selectBusinessAll(String category,String keyword) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//맵에 넣는 key값은 마이바티스가 파라미터로 사요할 이름
+		//value는 실제 값
+		map.put("category", category);
+		map.put("keyword", keyword);
+		
+		return bDao.selectBusinessAll(map);
 	}
 
 	@Override
