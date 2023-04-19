@@ -3,9 +3,7 @@ package com.svs.stayvision.service.reply;
 
 
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +47,8 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page) {
-		int total = rDao.countReply();
+	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, int boardNum) {
+		int total = rDao.countReply(boardNum);
 		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page, total, null, null, null);
 		return navi;
 	}

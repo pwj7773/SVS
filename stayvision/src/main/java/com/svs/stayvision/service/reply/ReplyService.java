@@ -12,5 +12,5 @@ public interface ReplyService {
 	public Reply getOneReply(int replyNum);
 	public int updateReply(Reply r);
 	public int deleteReply(int replyNum);
-	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page);
+	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, int boardNum);
 }

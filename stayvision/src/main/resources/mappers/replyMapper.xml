@@ -53,6 +53,7 @@
 <select id="countReply" resultType = "int">
 	SELECT count(*)
 	FROM REPLY
+	WHERE BOARDNUM = #{boardNum}
 </select>
 </mapper>
 
