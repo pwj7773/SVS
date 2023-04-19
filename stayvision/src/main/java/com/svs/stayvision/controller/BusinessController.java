@@ -89,7 +89,7 @@ public class BusinessController {
 		Member member = mService.findOneMember(id);
 		log.debug("Member : {}",member);
 		member.setName(business.getName());
-		member.setPhone(business.getPhone());
+		// member.setPhone(business.getPhone());
 		log.debug("Member2 : {}",member);
 		
 		log.debug("businessUPDATE : {}",business);
@@ -99,6 +99,5 @@ public class BusinessController {
 		
 		return "redirect:/loginafter";
 	}
-	
 	
 }

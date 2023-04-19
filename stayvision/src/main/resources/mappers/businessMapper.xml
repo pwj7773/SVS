@@ -8,9 +8,9 @@
  <insert id = "insertBusiness" parameterType="Business">
  
  	INSERT INTO
- 		 BUSINESS (BUSINESS_NUM, BUSINESS_NAME, BUSINESS_ADDRESS, TOTAL_ROOM, USER_ID)
+ 		 BUSINESS (BUSINESS_NUM, BUSINESS_NAME, BUSINESS_ADDRESS, TOTAL_ROOM, USER_ID, PHONE)
  	VALUES
- 		(BUSINESS_SEQ.NEXTVAL ,#{businessName}, #{businessAddress}, #{totalRoom}, #{userId})
+ 		(BUSINESS_SEQ.NEXTVAL ,#{businessName}, #{businessAddress}, #{totalRoom}, #{userId}, #{phone})
  </insert>
  
  <select id = "findOneBusiness" parameterType="int" resultType="Business">
@@ -35,7 +35,7 @@
     b.business_address as businessAddress,
     b.total_room as totalRoom,
     user_id as userId,
-    m.phone as phone,
+    b.phone as phone,
     m.user_name as name
  FROM
     member m join business b using(user_id)
@@ -52,7 +52,7 @@
     b.business_address as businessAddress,
     b.total_room as totalRoom,
     user_id as userId,
-    m.phone as phone,
+    b.phone as phone,
     m.user_name as name
  FROM
     member m join business b using(user_id)
@@ -65,7 +65,8 @@
  SET
     business_name = #{businessName},
     business_address = #{businessAddress},
-    total_room = #{totalRoom}
+    total_room = #{totalRoom},
+    PHONE = #{phone}
  where 
     business_num = #{businessNum}
  
