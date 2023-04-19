@@ -69,7 +69,7 @@
     PHONE = #{phone}
  where 
     business_num = #{businessNum}
- 
+
  
  </update>
  
