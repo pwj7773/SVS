@@ -20,7 +20,7 @@
     b.business_address as businessAddress,
     b.total_room as totalRoom,
     user_id as userId,
-    m.phone as phone,
+    b.phone as phone,
     m.user_name as name
  FROM
     member m join business b using(user_id)
