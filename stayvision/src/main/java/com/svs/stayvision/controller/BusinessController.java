@@ -62,13 +62,15 @@ public class BusinessController {
 	
 	// ROLE_ADMIN, ROLE_EMP의 전체 숙박업소 정보 조회
 	@GetMapping("/infoBusiness2")
-	public String infoBusiness2(@AuthenticationPrincipal UserDetails user,Model model) {
+	public String infoBusiness2(String category, String keyword, @AuthenticationPrincipal UserDetails user,Model model) {
 		
-		String id = user.getUsername();
-		log.debug("id : {}",id);
-		List<Business> bList = bService.selectBusinessAll(id);
+		
+		List<Business> bList = bService.selectBusinessAll(category, keyword);
 		log.debug("bList Size : {}", bList.size());
+		
 		model.addAttribute("blist",bList);
+		model.addAttribute("category", category);
+		model.addAttribute("keyword", keyword);
 		//log.debug("blist : {}",bList);
 		
 		return "business/infoBusiness";

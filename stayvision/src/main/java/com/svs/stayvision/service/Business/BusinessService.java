@@ -12,7 +12,7 @@ public interface BusinessService {
 
 	public List<Business> selectBusiness(String id);
 
-	public List<Business> selectBusinessAll(String id);
+	public List<Business> selectBusinessAll(String category,String keyword);
 
 	public int updateBusiness(Business business);
 }

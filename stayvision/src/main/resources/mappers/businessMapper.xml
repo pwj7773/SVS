@@ -56,6 +56,19 @@
     m.user_name as name
  FROM
     member m join business b using(user_id)
+    <if test="category != null and keyword != null">
+		<where>
+			<if test="category eq 'businessName'">
+				b.business_name LIKE'%'||#{keyword}||'%'
+			</if>
+			<if test="category eq 'businessAddress'">
+				b.business_address LIKE'%'||#{keyword}||'%'
+			</if>
+			<if test="category eq 'name'">
+				m.user_name LIKE'%'||#{keyword}||'%'
+			</if>
+		</where>
+	</if>
  order by
     businessNum
  </select>
