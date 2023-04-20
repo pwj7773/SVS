@@ -43,48 +43,49 @@
 </head>
 <body>
 <h1>[사업자 정보 추가]</h1>
-
-<form action="/insertBusiness" method="post" onsubmit="return checkValue()">
-	<table>
-		<tr>
-			<th>
-				상호명
-			</th>
-			<td>
-				<input type="text" name="businessName" id="businessName">
-			</td>
-		</tr>
-		<tr>
-			<th>
-				사업장 주소
-			</th>
-			<td>
-				<input type="text" name="businessAddress" id="businessAddress">
-			</td>
-		</tr>
-		<tr>
-			<th>
-				객실 수
-			</th>
-			<td>
-				<input type="number" name="totalRoom" id="totalRoom">
-			</td>
-		</tr>
-		<tr>
-			<th>
-				사업장 전화번호
-			</th>
-			<td>
-				<input type="text" name="phone" id="phone">
-			</td>
-		</tr>
-		<tr>
-			<th colspan = "2">
-				<input type = "submit" value = "정보 추가">
-			</th>
-		</tr>
-	</table>
-</form>
-<a href="loginafter">뒤로</a>
+<div sec:authorize="hasRole('USER')">
+	<form action="/insertBusiness" method="post" onsubmit="return checkValue()">
+		<table>
+			<tr>
+				<th>
+					상호명
+				</th>
+				<td>
+					<input type="text" name="businessName" id="businessName">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					사업장 주소
+				</th>
+				<td>
+					<input type="text" name="businessAddress" id="businessAddress">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					객실 수
+				</th>
+				<td>
+					<input type="number" name="totalRoom" id="totalRoom">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					사업장 전화번호
+				</th>
+				<td>
+					<input type="text" name="phone" id="phone">
+				</td>
+			</tr>
+			<tr>
+				<th colspan = "2">
+					<input type = "submit" value = "정보 추가">
+				</th>
+			</tr>
+		</table>
+	</form>
+	<a href="loginafter">뒤로</a>
+</div>
 </body>
 </html>

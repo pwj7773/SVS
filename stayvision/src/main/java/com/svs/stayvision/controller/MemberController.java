@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.svs.stayvision.service.Business.BusinessService;
 import com.svs.stayvision.service.Member.MemberService;
 import com.svs.stayvision.service.board.BoardService;
 import com.svs.stayvision.vo.Board;
+import com.svs.stayvision.vo.Business;
 import com.svs.stayvision.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +28,8 @@ public class MemberController {
 	private MemberService mService;
 	@Autowired
 	private BoardService bService;
+	@Autowired
+	private BusinessService buService;
 	
 	@GetMapping("login")
 	public String login() {
@@ -149,6 +153,9 @@ public class MemberController {
 		Member member = mService.findOneMember(id);
 		log.debug("Member : {}",member);
 		model.addAttribute("member",member);
+		List<Business> bList = buService.selectBusiness(id);
+		log.debug("bList Size : {}", bList.size());
+		model.addAttribute("blist",bList);
 		
 		return "memberupdate";
 	}

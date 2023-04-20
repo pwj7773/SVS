@@ -129,6 +129,29 @@
 		</tr>
 	</table>
 </form>
-<br><a href="/loginafter">뒤로</a>
+<div sec:authorize="hasRole('USER')">
+	<h1>[내 사업장 정보]</h1>
+	<table border="1">
+		<tr>
+			<th>등록 번호</th>
+			<th>상호명</th>
+			<th>대표</th>
+			<th>주소</th>
+			<th>연락처</th>
+			<th>수정</th>
+		</tr>
+ 			<tr th:each = "b : ${blist}">
+			<td><span th:text="${b.businessNum}"></span></td>
+			<td><span th:text="${b.businessName}"></span></td>
+			<td><span th:text="${b.name}"></span></td>
+			<td><span th:text="${b.businessAddress}"></span></td>
+			<td><span th:text="${b.phone}"></span></td>
+			<td>
+				<a th:href="@{/updateBusiness/{businessNum}(businessNum=${b.businessNum})}">수정</a>
+			</td>
+		</tr>
+	</table>
+</div>
+<br><a href="/loginafter">뒤로1</a>
 </body>
 </html>
