@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.svs.stayvision.service.Member.MemberService;
+import com.svs.stayvision.service.board.BoardService;
+import com.svs.stayvision.vo.Board;
 import com.svs.stayvision.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 	@Autowired
 	private MemberService mService;
+	@Autowired
+	private BoardService bService;
 	
 	@GetMapping("login")
 	public String login() {
@@ -48,7 +52,16 @@ public class MemberController {
 	
 	// 로그인 후 화면 이동
 	@GetMapping("/loginafter")
-	public String loginafter() {
+	public String loginafter(Model model) {
+		List<Board> notice = bService.boardPreview("notice");
+		List<Board> complain = bService.boardPreview("complain");
+		List<Board> emp = bService.boardPreview("emp");
+		log.debug("notice{}",notice);
+		log.debug("complain{}",complain);
+		log.debug("emp{}",emp);
+		model.addAttribute("notice",notice);
+		model.addAttribute("complain",complain);
+		model.addAttribute("emp",emp);
 		return "loginafter";
 	}
 	

@@ -59,4 +59,10 @@ private BoardDAO bDao;
 		return bDao.boardSelectAll(rb,map);
 	}
 
+	@Override
+	public List<Board> boardPreview(String boardType) {
+		RowBounds rb = new RowBounds(0, 5);
+		return bDao.boardPreview(rb,boardType);
+	}
+
 }
