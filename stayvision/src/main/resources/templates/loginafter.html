@@ -31,14 +31,6 @@
 				width="100px" alt=""></span>
 		</a>
 
-		<ul class="nav top nav-pills">
-			<button type="button" class="btn nav-item btn-outline-primary"
-				sec:authorize="not isAuthenticated()" onclick="location.href='#'">
-				Login</button>
-			<button type="button" class="btn nav-item btn-outline-primary"
-				sec:authorize="isAuthenticated()" onclick="confirmLogout()">
-				Logout</button>
-		</ul>
 	</header>
 	<div class=" d-flex flex-row justify ">
 		<div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary">
@@ -59,28 +51,23 @@
 			</div>
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto">
-				<li class="nav-item"><a href="/infoBusiness"
+				<li sec:authorize="hasAnyRole('ADMIN','EMP')"><a href="/infoBusiness"
 					class="nav-link link-body-emphasis"> <svg
 							class="bi pe-none me-1" width="16" height="40">
-							<img width="20" src="/img/hotel.png" alt=""></svg> 업체정보
-				</a></li>
-				<li sec:authorize="hasAnyRole('ADMIN','EMP')"><a href="/infoBusiness2"
-					class="nav-link link-body-emphasis"> <svg
-							class="bi pe-none me-1" width="16" height="40">
-							<img width="20" src="/img/hotel.png" alt=""></svg> 업체관리
+							<img width="20" src="/img/hotel.png"></svg> 업체관리
 				</a></li>
 				<li><a href="#" class="nav-link link-body-emphasis"> <svg
 							class="bi pe-none me-1" width="16" height="40">
-							<img width="20" src="/img/clock.png" alt=""></svg> 예약통계
+							<img width="20" src="/img/clock.png"></svg> 예약통계
 				</a></li>
 				<li><a href="#" class="nav-link link-body-emphasis"> <svg
 							class="bi pe-none me-1" width="16" height="40">
-							<img width="20" src="/img/statics.png" alt=""></svg> 통계분석
+							<img width="20" src="/img/statics.png"></svg> 통계분석
 				</a></li>
 				<li sec:authorize="hasRole('ADMIN')"><a href="adminapproval"
 					class="nav-link link-body-emphasis"> <svg
 							class="bi pe-none me-1" width="16" height="40">
-							<img width="20" src="/img/user.png" alt=""></svg> 회원목록관리
+							<img width="20" src="/img/user.png"></svg> 회원목록관리
 				</a></li>
 				<li><a href="/loginafter" class="nav-link link-body-emphasis"> <svg
 							class="bi pe-none me-1" width="16" height="40">
