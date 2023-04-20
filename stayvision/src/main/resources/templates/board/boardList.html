@@ -7,7 +7,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>LoginAfter</title>
+<title>글 목록</title>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
 <script>
@@ -34,37 +34,54 @@
 				</a>
 			</div>
 			<div class="list-group list-group-flush">
-				<a href="/infoBusiness"
-					class="list-group-item list-group-item-action list-group-item-light p-3">
-					<svg class="bi pe-none me-1" width="16" height="40">
+				<div sec:authorize="hasAnyRole('ADMIN','EMP')">
+					<a href="/infoBusiness"
+						class="list-group-item list-group-item-action list-group-item-light p-3">
+						<svg class="bi pe-none me-1" width="16" height="40">
 							<img width="20" src="/img/hotel.png">
 					    </svg> 업체관리
-				</a> <a th:href="@{/complain/boardList(id='complain')}"
-					class="list-group-item list-group-item-action list-group-item-light p-3">
-					<svg class="bi pe-none me-1" width="16" height="40">
+					</a>
+				</div>
+				<div>
+					<a th:href="@{/complain/boardList(id='complain')}"
+						class="list-group-item list-group-item-action list-group-item-light p-3">
+						<svg class="bi pe-none me-1" width="16" height="40">
 							<img width="20" src="/img/complain.png">
 					    </svg> 민원게시판
-				</a> <a href="#"
-					class="list-group-item list-group-item-action list-group-item-light p-3">
-					<svg class="bi pe-none me-1" width="16" height="40">
+					</a>
+				</div>
+				<div>
+					<a href="#"
+						class="list-group-item list-group-item-action list-group-item-light p-3">
+						<svg class="bi pe-none me-1" width="16" height="40">
 							<img width="20" src="/img/clock.png">
 					    </svg> 예약통계
-				</a> <a href="#"
-					class="list-group-item list-group-item-action list-group-item-light p-3">
-					<svg class="bi pe-none me-1" width="16" height="40">
+					</a>
+				</div>
+				<div>
+					<a href="#"
+						class="list-group-item list-group-item-action list-group-item-light p-3">
+						<svg class="bi pe-none me-1" width="16" height="40">
 							<img width="20" src="/img/statics.png">
 					    </svg> 통계분석
-				</a> <a href="/adminapproval"
-					class="list-group-item list-group-item-action list-group-item-light p-3">
-					<svg class="bi pe-none me-1" width="16" height="40">
+					</a>
+				</div>
+				<div sec:authorize="hasRole('ADMIN')">
+					<a href="/adminapproval"
+						class="list-group-item list-group-item-action list-group-item-light p-3">
+						<svg class="bi pe-none me-1" width="16" height="40">
 							<img width="20" src="/img/user.png">
 					    </svg> 회원목록관리
-				</a> <a href="/loginafter"
-					class="list-group-item list-group-item-action list-group-item-light p-3">
-					<svg class="bi pe-none me-1" width="16" height="40">
+					</a>
+				</div>
+				<div>
+					<a href="/loginafter"
+						class="list-group-item list-group-item-action list-group-item-light p-3">
+						<svg class="bi pe-none me-1" width="16" height="40">
 							<img width="20" src="/img/home.png">
 					    </svg> 홈화면
-				</a>
+					</a>
+				</div>
 
 			</div>
 		</div>
