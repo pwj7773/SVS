@@ -46,22 +46,9 @@ public class BusinessController {
 		return "redirect:/loginafter";
 	}
 	
-	// ROLE_USER의 내 숙박업소 정보 조회
-	@GetMapping("/infoBusiness")
-	public String infoBusiness(@AuthenticationPrincipal UserDetails user,Model model) {
-		
-		String id = user.getUsername();
-		log.debug("id : {}",id);
-		List<Business> bList = bService.selectBusiness(id);
-		log.debug("bList Size : {}", bList.size());
-		model.addAttribute("blist",bList);
-		log.debug("blist : {}",bList);
-		
-		return "business/infoBusiness";
-	}
 	
 	// ROLE_ADMIN, ROLE_EMP의 전체 숙박업소 정보 조회
-	@GetMapping("/infoBusiness2")
+	@GetMapping("/infoBusiness")
 	public String infoBusiness2(String category, String keyword, @AuthenticationPrincipal UserDetails user,Model model) {
 		
 		
