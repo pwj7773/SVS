@@ -24,4 +24,6 @@ public interface BoardDAO {
 
 	public int countBoard(Map<String, Object> map);
 
+	public List<Board> boardPreview(RowBounds rb, String boardType);
+
 }

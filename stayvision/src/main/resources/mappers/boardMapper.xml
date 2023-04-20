@@ -117,6 +117,19 @@
 		</if>
 	</where>
 </select>
+
+<select id="boardPreview" resultType ="Board">
+ 	SELECT 
+ 		TITLE,
+ 		TO_CHAR(INPUT_DATE,'YYYY/MM/DD') as inputDate,
+ 		USER_ID as userId
+	FROM
+		Board
+	WHERE
+		BOARDTYPE = #{boardType}
+	ORDER BY
+		INPUT_DATE DESC
+</select>
 </mapper>
 
 
