@@ -27,9 +27,8 @@
 		</a>
 	</header>
 
+
 	<div class=" d-flex flex-row justify ">
-	
-	
 		<div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary h-auto">
 			<svg class="bi pe-none me-1" width="40" height="32">
       </svg>
@@ -53,7 +52,8 @@
 							class="bi pe-none me-1" width="16" height="40">
 							<img width="20" src="/img/hotel.png" alt=""></svg> 업체관리
 				</a></li>
-				<li><a th:href="@{/complain/boardList(id='complain')}" class="nav-link link-body-emphasis"> <svg
+				<li><a th:href="@{/complain/boardList(id='complain')}"
+					class="nav-link link-body-emphasis"> <svg
 							class="bi pe-none me-1" width="16" height="40">
 							<img width="20" src="/img/complain.png" alt=""></svg> 민원게시판
 				</a></li>
@@ -76,7 +76,10 @@
 				</a></li>
 			</ul>
 		</div>
-		
+
+
+
+
 		<!-- 오른쪽 컨텐츠 영역 -->
 		<div
 			class="w-100 main_content wrapper p-5 mx-auto justify-content-center">
@@ -100,13 +103,13 @@
 					</tr>
 				</table>
 				<br> <br> <br>
-					
-				
+
+
 				<div sec:authorize="hasAnyRole('ADMIN','EMP')">
 					<div
 						class="emp_cm w-100 d-flex flex-row justify-content-between align-items-center">
 						<p style="font-size: 32px; font-weight: 900;">[임직원 게시판]</p>
-						<a th:href="@{/complain/boardList(id='complain')}">☞목록보기</a>
+						<a th:href="@{/complain/boardList(id='emp')}">☞목록보기</a>
 
 					</div>
 					<table class="community w-100 p-1 mx-auto justify-content-around">
