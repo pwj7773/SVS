@@ -273,7 +273,7 @@
 		<td colspan = "5">
 			<span th:text="|첨부파일 없습니다.|" th:unless="*{originalFile != null}"></span>
 			<div th:if = "*{originalFile != null}">
-			<a th:if="*{originalFile != null}" th:href="@{|/$*{boardType}/download?boardNum=*{boardNum}|}">
+			<a th:if="*{originalFile != null}" th:href="@{|/*{boardType}/download?boardNum=*{boardNum}|}">
 				<span th:text="*{originalFile}"></span>
 				<img th:if = "${#strings.endsWith(board.savedFile,'jpg') or #strings.endsWith(board.savedFile,'png') or #strings.endsWith(board.savedFile,'gif')}" th:src="@{|/*{boardType}/display?boardNum=*{boardNum}}|" width="20">
 			</a>
