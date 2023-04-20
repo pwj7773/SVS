@@ -8,7 +8,9 @@ import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -239,15 +241,18 @@ public class BoardController {
 	
 	@PostMapping("/loadReply")
 	@ResponseBody
-	public List<Reply> loadReply(int boardNum,@RequestParam(name = "page", defaultValue = "1") int page){
+	public Map loadReply(int boardNum,@RequestParam(name = "page", defaultValue = "1") int page){
 		log.debug("loadReply()");
 		log.debug("BoardNum : {}",boardNum);
 		log.debug("page : {}", page);
-		PageNavigator navi = rService.getPageNavigator(pagePerGroup, countPerPage, page);
+		PageNavigator navi = rService.getPageNavigator(pagePerGroup, countPerPage, page, boardNum);
 		log.debug(navi.toString());
 		List<Reply> replyList = rService.getAllReply(boardNum, navi);
 		log.debug("replyList size : {}",replyList.size());
-		return replyList;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("replyList", replyList);
+		map.put("navi", navi);
+		return map;
 	}
 	@PostMapping("/getOneReply")
 	@ResponseBody

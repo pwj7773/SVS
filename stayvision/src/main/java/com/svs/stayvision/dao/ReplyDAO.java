@@ -1,7 +1,6 @@
 package com.svs.stayvision.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -16,7 +15,7 @@ public interface ReplyDAO {
 	public Reply findReplyByReplyNum(int replyNum);
 	public int updateReply(Reply r);
 	public int deleteReply(int replyNum);
-	public int countReply();
+	public int countReply(int boardNum);
 	public List<Reply> findReplyByBoardNum(int boardNum, RowBounds rb);
 	
 }

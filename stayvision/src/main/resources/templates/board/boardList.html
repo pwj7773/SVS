@@ -72,19 +72,28 @@
       <a class="page-link" th:href = "|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
-     
+    </li>
+    <li class="page-item">
+      <a class="page-link" th:href = "|javascript:pagingFormSubmit(${navi.currentPage - 1})|" aria-label="Previous">
+        <span aria-hidden="true">＜</span>
+      </a>
     </li>
     <th:block th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
 	<li class="page-item" th:if="${counter != 0}">
 		<a class="page-link" th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>
 	</li>
 	</th:block>
-
+    <li class="page-item">
+      <a class="page-link" th:href = "|javascript:pagingFormSubmit(${navi.currentPage + 1})|" aria-label="Next">
+        <span aria-hidden="true">＞</span>
+      </a>
+    </li>
     <li class="page-item">
       <a class="page-link" th:href = "|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
+
   </ul>
 </div>
 </body>
