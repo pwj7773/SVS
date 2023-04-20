@@ -108,7 +108,7 @@
 <body>
     <div class="container d-flex justify-content-center align-items-center flex-column">
         <div class="text-center mb2"><img src="/img/logo (2).png" alt=""></div>
-        <form action="/insert" method="post" class="insert-form needs-validation justify-content-center row">
+        <form action="/insert" method="post" class="insert-form needs-validation justify-content-center row" onsubmit = "return checkValue();">
             <div class="justify-content-center row">
                 <div class="col-9">
                     <label for="userId" class="form-label">아이디</label>
@@ -155,57 +155,8 @@
                     <input name="roleName" id="roleUser"value="ROLE_USER" type="radio" class="form-check-input" required="">
                     <label class="form-check-label" for="roleUser">개인 사업자</label>
                 </div>
-<form action="/insert" method="post" onsubmit = "return checkValue();">
-	<table>
-		<tr>
-			<th>아이디</th>
-			<td>
-				<input name="id" type = "text" id = "id">
-				<span id="msg"></span>
-			</td>
-		</tr>
-		<tr>
-			<th>비밀번호</th>
-			<td>
-				<input name="pw" type = "password" id = "pw1">
-			</td>
-		</tr>
-		<tr>
-			<th>비밀번호 확인</th>
-			<td>
-				<input type = "password" id = "pw2">
-			</td>
-		</tr>
-		<tr>
-			<th>이름</th>
-			<td>
-				<input name="name" type = "text" id = "name">
-			</td>
-		</tr>
-		<tr>
-			<th>이메일</th>
-			<td>
-				<!-- input type = "email" 속성은 입력된 값이 메일주소 형식인지 꼼꼼하게 체크한다 -->
-				<input name="email" type = "text" id = "email">
-			</td>
-		</tr>
-		<tr>
-			<th>전화번호</th>
-			<td>
-				<input name="phone" type = "tel" id = "phone">
-			</td>
-		</tr>
-		<tr>
-			<td><input name="roleName" type="radio" value="ROLE_EMP" checked>영업사원</td>
-			<td><input name="roleName" type="radio" value="ROLE_USER">개인 사업자</td>
-		</tr>
-		<tr>
-			<th colspan = "2">
-				<button class="col-3 my-2 btn btn-secondary " type="submit">가입하기</button>
-		</tr>	
-	</table>
-</form>
-<a href="../">뒤로</a>
+                	<button class="col-3 my-2 btn btn-secondary " type="submit">가입하기</button>
+                </form>
 </body>
 
 </html>
