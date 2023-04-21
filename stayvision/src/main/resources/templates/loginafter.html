@@ -15,7 +15,7 @@
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
 		<div class="border-end bg-white" id="sidebar-wrapper">
-			<div class="sidebar-heading border-bottom bg-light">
+			<div class="sidebar-heading border-bottom bg-white">
 				<a href="/loginafter"
 					class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
 					<svg class="bi me-2" width="40" height="32"></svg> <span
@@ -108,7 +108,7 @@
 				</div>
 			</nav>
 			<!-- Page content-->
-			<div class="container-fluid">
+			<div class="main-content container-fluid">
 				<div>
 					<div
 						class="emp_cm w-100 d-flex flex-row justify-content-between align-items-center">
@@ -117,40 +117,39 @@
 
 					</div>
 					<table class=" w-100   ">
-						<tr>
-							<th class="text-center">제목</th>
-							<th class="text-center">작성자</th>
-							<th class="text-center">작성일</th>
-						</tr>
+                        <tr>
+                            <th class="text-center">제목</th>
+                            <th class="text-center">작성자</th>
+                            <th class="text-center">작성일</th>
+                        </tr>
 
-						<tr th:each="n : ${notice}">
-							<td th:text="${n.title}" class="text-center">1</td>
-							<td th:text="${n.userId}" class="text-center">1</td>
-							<td th:text="${n.inputDate}" class="text-center">1</td>
-						</tr>
-					</table>
-				</div>
-				<br> <br> <br>
-				<div sec:authorize="hasAnyRole('ADMIN','EMP')">
-					<div
-						class="w-100 d-flex flex-row justify-content-between align-items-center">
-						<p style="font-size: 32px; font-weight: 900;">[임직원 게시판]</p>
-						<a th:href="@{/complain/boardList(id='emp')}">☞목록보기</a>
+                        <tr th:each="n : ${notice}">
+                            <td th:text="${n.title}" class="title text-center"></td>
+                            <td th:text="${n.userId}" class="text-center"></td>
+                            <td th:text="${n.inputDate}" class="text-center"></td>
+                        </tr>
+                    </table>
+                </div>
+                <br> <br> <br>
+                <div sec:authorize="hasAnyRole('ADMIN','EMP')">
+                    <div class="w-100 d-flex flex-row justify-content-between align-items-center">
+                        <p style="font-size: 32px; font-weight: 900;">[임직원 게시판]</p>
+                        <a th:href="@{/complain/boardList(id='emp')}">☞목록보기</a>
 
-					</div>
-					<table class=" w-100  ">
-						<tr>
-							<th class="text-center">제목</th>
-							<th class="text-center">작성자</th>
-							<th class="text-center">작성일</th>
-						</tr>
+                    </div>
+                    <table class=" w-100  ">
+                        <tr>
+                            <th class="text-center">제목</th>
+                            <th class="text-center">작성자</th>
+                            <th class="text-center">작성일</th>
+                        </tr>
 
-						<tr th:each="e : ${emp}">
-							<td th:text="${e.title}" class="text-center"></td>
-							<td th:text="${e.userId}" class="text-center"></td>
-							<td th:text="${e.inputDate}" class="text-center"></td>
-						</tr>
-					</table>
+                        <tr th:each="e : ${emp}">
+                            <td th:text="${e.title}" class="title text-center"></td>
+                            <td th:text="${e.userId}" class="text-center"></td>
+                            <td th:text="${e.inputDate}" class="text-center"></td>
+                        </tr>
+                    </table>
 				</div>
 			</div>
 		</div>

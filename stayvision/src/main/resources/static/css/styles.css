@@ -10863,3 +10863,39 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: -15rem;
   }
 }
+
+
+
+/* 메인화면 배열 */
+.main-content{
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 20px;
+  
+}
+.main-content table {
+  width: 100%;
+ 
+}
+
+
+.main-content td.title, .main-content th.title {
+  width: 60%;
+}
+.main-content th{
+  background-color: #bfd1ec;
+}
+
+.main-content td, .main-content th {
+  width: 20%;
+}
+.main-content td{
+  border-bottom: 1px solid;
+}
+
+.main-content.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 40vw; /* 최대 너비 지정 */
+}
