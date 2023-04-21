@@ -21,7 +21,9 @@
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
 	<script src="/js/Myscript.js"></script>
+	<script src = "js/jquery-3.6.3.min.js"></script>
 <script>
+
 	function checkForm() {
 		if (confirm("정말 하시겠습니까?")) {
 			return true; // 폼을 서밋합니다.
@@ -47,7 +49,62 @@
 		    checkbox.checked = selectAll2.checked;
 		  })
 		}
+	
+	function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+      }
+
+	window.onload = function() {
+		  document.getElementById("defaultOpen").click();
+		};
+
 </script>
+<style>
+      /* 탭 버튼 스타일 */
+      .tab button {
+        background-color: #f2f2f2;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 10px 20px;
+        font-size: 18px;
+        width: 15%;
+        border-radius: 8px 8px 0 0;
+      }
+      
+      /* 선택된 탭 버튼 스타일 */
+      .tab button.active {
+        background-color: #ccc;
+      }
+      
+      /* 탭 내용 스타일 */
+      .tabcontent {
+        display: none;
+        padding: 50px;
+        border: 1px solid #ccc;
+        border-top: none;
+        border-radius: 0 8px 8px 8px;
+      }
+      
+      /* 선택된 탭 내용 스타일 */
+      .tabcontent.active {
+        display: block;
+      }
+      
+		.container-custom {
+			padding: 100px;
+		}
+    </style>
 </head>
 <body>
 <div class="d-flex" id="wrapper">
@@ -146,47 +203,47 @@
 			</div>
 		</nav>
 		<!-- Page content-->
-		
-		<!-- 오른쪽 컨텐츠 영역 -->
-		<div
-			class="container-fluid">
-			<div class="main_content p-1 mx-auto justify-content-around">
-				<div
-					class="emp_cm w-50 d-flex flex-row justify-content-between align-items-center">
-	<div>
-	<h3>회원 목록</h3>
-	<form action="memberdelete" method="post" onsubmit="return checkForm();">
-		<table class="table table-sm">
-			<tr>
-				<th>아이디 (이름)</th>
-				<th>사용자 등급</th>
-				<td>
-					<input type="checkbox" name="checkedValue1" value="selectall1" onclick="selectAll1(this)">
-				</td>
-			</tr>
-			<tr th:each = "m : ${mlist}">
-				<td>
-			      <span th:text="${m.id}"></span>
-			      <span>(</span>
-			      <span th:text="${m.name}"></span>
-			      <span>)</span>
-			    </td>
-			    <td>
-					<span th:if="${m.roleName == 'ROLE_ADMIN'}">관리자</span>
-	        		<span th:if="${m.roleName == 'ROLE_EMP'}">직원</span>
-	        		<span th:if="${m.roleName == 'ROLE_USER'}">사용자</span>
-	        	</td>
-	        	<td th:if="${m.roleName != 'ROLE_ADMIN'}">
-	        		<input type="checkbox" th:value="${m.id}" name="checkedValue1">
-	        	</td>
-	        	<td th:if="${m.roleName == 'ROLE_ADMIN'}"></td>
-			</tr>
-		</table>
-				<input type="submit" value="삭제" name="delete">
-				<input type="submit" value="비활성화" name="disabled">
-	</form>
-	</div>
-	<div>
+	<div class="container-fluid px-5 pt-4">
+	<div class="px-3">
+	
+	<div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'tab1')" id="defaultOpen">회원 목록</button>
+      <button class="tablinks" onclick="openTab(event, 'tab2')">승인 대기 목록</button>
+    </div>
+    <div id="tab1" class="tabcontent active">
+    	<h3>회원 목록</h3>
+		<form action="memberdelete" method="post" onsubmit="return checkForm();">
+			<table class="table table-sm">
+				<tr>
+					<th>아이디 (이름)</th>
+					<th>사용자 등급</th>
+					<td>
+						<input type="checkbox" name="checkedValue1" value="selectall1" onclick="selectAll1(this)">
+					</td>
+				</tr>
+				<tr th:each = "m : ${mlist}">
+					<td>
+				      <span th:text="${m.id}"></span>
+				      <span>(</span>
+				      <span th:text="${m.name}"></span>
+				      <span>)</span>
+				    </td>
+				    <td>
+						<span th:if="${m.roleName == 'ROLE_ADMIN'}">관리자</span>
+		        		<span th:if="${m.roleName == 'ROLE_EMP'}">직원</span>
+		        		<span th:if="${m.roleName == 'ROLE_USER'}">사용자</span>
+		        	</td>
+		        	<td th:if="${m.roleName != 'ROLE_ADMIN'}">
+		        		<input type="checkbox" th:value="${m.id}" name="checkedValue1">
+		        	</td>
+		        	<td th:if="${m.roleName == 'ROLE_ADMIN'}"></td>
+				</tr>
+			</table>
+					<input type="submit" value="삭제" name="delete">
+					<input type="submit" value="비활성화" name="disabled">
+		</form>
+    </div>
+	<div id="tab2" class="tabcontent">
 		<h3>가입 승인 대기 목록</h3>
 		<h5>(비활성화 계정 목록)</h5>
 		<form action="adminapproval" method="post" onsubmit="return checkForm();">
@@ -220,7 +277,6 @@
 		</form>
 	</div>
 	</div>
-</div>
 </div>
 </div>
 </div>

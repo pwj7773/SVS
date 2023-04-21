@@ -119,8 +119,9 @@
 			<h1>[내 사업장 정보]</h1>
 		</div>
 		<div sec:authorize="!hasRole('USER')">
-			<h1>[전체 사업장 정보]</h1>
+			
 		</div>
+		<div class="container-fluid px-4">
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -158,6 +159,7 @@
 		</div>
 		</form>
 	</div>
+		</div>
 	</div>
 </div><br>
 </div>
