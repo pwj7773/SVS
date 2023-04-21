@@ -21,7 +21,7 @@
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
 		<div class="border-end bg-white" id="sidebar-wrapper">
-			<div class="sidebar-heading border-bottom bg-light">
+			<div class="sidebar-heading border-bottom bg-white">
 				<a href="/loginafter"
 					class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
 					<svg class="bi me-2" width="40" height="32"></svg> <span
@@ -131,7 +131,8 @@
 					<td scope="row"><span th:text="${b.businessNum}"></span></td>
 					<td><span th:text="${b.businessName}"></span></td>
 					<td><span th:text="${b.name}"></span></td>
-					<td><span th:text="${b.businessAddress}"></span></td>
+					<td><a href="" onclick="window.open('popup', '주소 상세보기', 'width=600, height=600, scrollbars=no'); return false;">
+    					<span th:text="${b.businessAddress}"></span></a></td>
 					<td><span th:text="${b.phone}"></span></td>
 					<td>
 						<a th:href="@{/updateBusiness/{businessNum}(businessNum=${b.businessNum})}">수정</a>
