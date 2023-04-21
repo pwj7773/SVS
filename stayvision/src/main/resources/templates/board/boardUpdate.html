@@ -7,9 +7,71 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>글 수정</title>
+<title>[글쓰기]</title>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/summernote/summernote-lite.css">
+<script src="/js/jquery-3.6.3.min.js"></script>
+<script>
+	$(document)
+			.ready(
+					function() {
+						//여기 아래 부분
+						$('#summernote')
+								.summernote(
+										{
+											height : 300, // 에디터 높이
+											minHeight : null, // 최소 높이
+											maxHeight : null, // 최대 높이
+											focus : true, // 에디터 로딩후 포커스를 맞출지 여부
+											lang : "ko-KR", // 한글 설정
+											placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
+											toolbar : [
+													// [groupName, [list of button]]
+													[ 'fontname',
+															[ 'fontname' ] ],
+													[ 'fontsize',
+															[ 'fontsize' ] ],
+													[
+															'style',
+															[
+																	'bold',
+																	'italic',
+																	'underline',
+																	'strikethrough',
+																	'clear' ] ],
+													[
+															'color',
+															[ 'forecolor',
+																	'color' ] ],
+													[ 'table', [ 'table' ] ],
+													[
+															'para',
+															[ 'ul', 'ol',
+																	'paragraph' ] ],
+													[ 'height', [ 'height' ] ],
+													[
+															'insert',
+															[ 'picture',
+																	'link',
+																	'video' ] ],
+													[
+															'view',
+															[ 'fullscreen',
+																	'help' ] ] ],
+											fontNames : [ 'Arial',
+													'Arial Black',
+													'Comic Sans MS',
+													'Courier New', '맑은 고딕',
+													'궁서', '굴림체', '굴림', '돋움체',
+													'바탕체' ],
+											fontSizes : [ '8', '9', '10', '11',
+													'12', '14', '16', '18',
+													'20', '22', '24', '28',
+													'30', '36', '50', '72' ]
+										});
+					});
+</script>
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
@@ -120,8 +182,8 @@
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea th:text="${board.content}" name="content"
-									rows="5" cols="50"></textarea></td>
+							<td><textarea th:utext="${board.content}" id="summernote"
+									name="content" rows="5" cols="50"></textarea></td>
 						</tr>
 
 						<tr>
@@ -132,7 +194,6 @@
 					</table>
 					<input th:value="${board.boardType}" type="hidden" name="boardType">
 				</form>
-
 			</div>
 		</div>
 	</div>
@@ -142,5 +203,7 @@
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
 	<script src="/js/Myscript.js"></script>
+	<script src="/js/summernote/summernote-lite.js"></script>
+	<script src="/js/summernote/lang/summernote-ko-KR.js"></script>
 </body>
 </html>
