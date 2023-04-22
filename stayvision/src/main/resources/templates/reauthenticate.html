@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<head>
+<title>[회원 정보 확인]</title>
+<script>
+	
+	function checkValue() {
+		
+		
+		let pw1Value = document.getElementById("pw1").value;
+		
+		if (pw1Value === '' || pw1Value.length < 4 || pw1Value.length > 15) {
+			alert("잘못된 비밀번호입니다.");
+			document.getElementById("pw1").focus(); 
+			return false;
+		}
+		
+	}
+	
+</script>
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+<section layout:fragment="content">
+<div class="container-fluid p-4">
+<div class="px-4">
+<h3>회원정보 확인</h3>
+<form action="/reauthenticate" method="post" onsubmit = "return checkValue()">
+	<table>
+		<tr>
+			<th>비밀번호</th>
+			<td>
+				<input name="password" type = "password" id = "password" placeholder="비밀번호를 입력하세요" class="form-control">
+			</td>
+		</tr>
+		<tr>
+			<th colspan = "2" style="text-align: center;">
+				<input type = "submit" value = "비밀번호 확인">
+		</tr>
+	</table>
+</form>
+</div>
+</div>
+</section>
+</body>
+</html>
