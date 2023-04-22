@@ -156,19 +156,20 @@
 						class="btn btn-secondary"
 						onclick="javascript:return confirm('삭제 하시겠습니까?')">삭제</a>
 				</div>
+				<br>
 
-
-				<!-- 댓글 구역 -->
-				<div id="reply">
-					<div id="reList"></div>
-					<textarea id="replyText" rows="3" cols="30"></textarea>
+				<div class="card-body">
+					<!-- Comment -->
+					<textarea id="replyText" class="form-control" rows="3"
+						placeholder="댓글을 입력하세요."></textarea>
 					<br> <input type="button" value="댓글달기" id="btnReply">
 					<input type="button" value="댓글수정" id="btnUpdate"> <input
-						type="hidden" id="selectedReply" value="">
+						type="hidden" id="selectedReply" value=""> <br> <br>
 				</div>
+				<!-- 댓글 구역 -->
+				<div id="reList"></div>
+
 				<div id="paging"></div>
-
-
 				<input type="hidden" id="boardNum" th:value=${board.boardNum}>
 				<input type="hidden" id="login" th:value="${#authentication.name}">
 
@@ -183,6 +184,6 @@
 	<script src="/js/Myscript.js"></script>
 	<script src="/js/jquery-3.6.3.min.js"></script>
 	<script src="/js/boardRead.js"></script>
-	
+
 </body>
 </html>
