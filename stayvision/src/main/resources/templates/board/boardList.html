@@ -123,23 +123,27 @@
 				<div class="table-responsive w-100 p-3 ">
 					<h1 th:text="${param.id}"></h1>
 					<table class="table table-bordered table-hover ">
-						<tr>
-							<th >글 번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일시</th>
-							<th>조회수</th>
-						</tr>
-						<tr th:each="b : ${board}">
-							<td th:text="${b.boardNum}"></td>
-							<td><a
-								th:href="@{|/${id}/boardRead?boardNum=${b.boardNum}|}"> <span
-									th:text="${b.title}"></span>&nbsp;
-							</a></td>
-							<td th:text="${b.userId}"></td>
-							<td th:text="${b.inputDate}"></td>
-							<td th:text="${b.viewCount}"></td>
-						</tr>
+						<thead>
+							<tr>
+								<th>글 번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성일시</th>
+								<th>조회수</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="b : ${board}">
+								<td th:text="${b.boardNum}"></td>
+								<td><a
+									th:href="@{|/${id}/boardRead?boardNum=${b.boardNum}|}"> <span
+										th:text="${b.title}"></span>&nbsp;
+								</a></td>
+								<td th:text="${b.userId}"></td>
+								<td th:text="${b.inputDate}"></td>
+								<td th:text="${b.viewCount}"></td>
+							</tr>
+						</tbody>
 					</table>
 					<a th:href="@{|/${id}/boardWrite?id=${id}|}"
 						class="btn btn-secondary">글쓰기</a> <br> <br>
