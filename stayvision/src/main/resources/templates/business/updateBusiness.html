@@ -162,18 +162,17 @@
 					</div>
 				</div>
 			</nav>
-<h1>[사업자 정보 수정]</h1>
-
+<div class="container-fluid px-5 pt-4">
 <form action="/updateBusiness" method="post" onsubmit="return checkValue()">
 	<table>
 		<tr>
 			<td colspan="2">
-				<input type="hidden" name="businessNum" id="businessNum" th:value="${business.businessNum}" readonly/>
+				<input type="hidden" name="businessNum" id="businessNum" th:value="${business.businessNum}" class="form-control" readonly/>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="hidden" name="userId" id="userId" th:value="${business.userId}" readonly/>
+				<input type="hidden" name="userId" id="userId" th:value="${business.userId}" class="form-control" readonly/>
 			</td>
 		</tr>
 		<tr>
@@ -181,7 +180,7 @@
 				대표자명
 			</th>
 			<td>
-				<input type="text" name="name" id="name" th:value="${business.name}">
+				<input type="text" name="name" id="name" th:value="${business.name}" class="form-control">
 			</td>
 		</tr>
 		<tr>
@@ -189,7 +188,7 @@
 				연락처
 			</th>
 			<td>
-				<input type="text" name="phone" id="phone" th:value="${business.phone}">
+				<input type="text" name="phone" id="phone" th:value="${business.phone}" class="form-control">
 			</td>
 		</tr>
 		<tr>
@@ -197,7 +196,7 @@
 				상호명
 			</th>
 			<td>
-				<input type="text" name="businessName" id="businessName" th:value="${business.businessName}">
+				<input type="text" name="businessName" id="businessName" th:value="${business.businessName}" class="form-control">
 			</td>
 		</tr>
 		<tr>
@@ -205,7 +204,7 @@
 				사업장 주소
 			</th>
 			<td>
-				<input type="text" name="businessAddress" id="businessAddress" th:value="${business.businessAddress}">
+				<input type="text" name="businessAddress" id="businessAddress" th:value="${business.businessAddress}" class="form-control">
 			</td>
 		</tr>
 		<tr>
@@ -213,16 +212,17 @@
 				객실 수
 			</th>
 			<td>
-				<input type="number" name="totalRoom" id="totalRoom" th:value="${business.totalRoom}">
+				<input type="number" name="totalRoom" id="totalRoom" th:value="${business.totalRoom}" class="form-control">
 			</td>
 		</tr>
 		<tr>
-			<th colspan = "2">
+			<th colspan = "2" style="text-align: center;">
 				<input type = "submit" value = "정보 수정">
 			</th>
 		</tr>
 	</table>
 </form>
+</div>
 </div></div>
 </body>
 </html>

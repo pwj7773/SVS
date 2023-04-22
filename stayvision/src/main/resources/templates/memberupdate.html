@@ -40,7 +40,7 @@
 			return false;
 		}
 		
-		if (pw1Value === '' || pw1Value.length < 4 || pw1Value.length > 8) {
+		if (pw1Value === '' || pw1Value.length < 4 || pw1Value.length > 15) {
 			alert("잘못된 비밀번호입니다.");
 			document.getElementById("pw1").focus(); 
 			return false;
@@ -188,56 +188,57 @@
 					</div>
 				</div>
 			</nav>
-<div class="container-fluid">
-<h1>[회원정보수정]</h1>
+<div class="container-fluid p-4">
+<div class="px-4">
+<h3>회원정보 수정</h3>
 <form action="/memberupdate" method="post" onsubmit = "return checkValue()">
 	<table>
 		<tr>
 			<th>아이디</th>
 			<td>
-				<input name="id" type = "text" id = "userId" th:value="${member.id}" readonly="readonly">
+				<input name="id" type = "text" id = "userId" th:value="${member.id}" readonly="readonly" class="form-control">
 			</td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>
 			<td>
-				<input name="pw" type = "password" id = "pw1" placeholder="비밀번호를 입력하세요">
+				<input name="pw" type = "password" id = "pw1" placeholder="비밀번호를 입력하세요" class="form-control">
 			</td>
 		</tr>
 		<tr>
 			<th>비밀번호 확인</th>
 			<td>
-				<input type = "password" id = "pw2" placeholder="비밀번호를 입력하세요">
+				<input type = "password" id = "pw2" placeholder="비밀번호를 입력하세요" class="form-control">
 			</td>
 		</tr>
 		<tr>
 			<th>이름</th>
 			<td>
-				<input name="name" type = "text" id = "name" th:value="${member.name}">
+				<input name="name" type = "text" id = "name" th:value="${member.name}" class="form-control">
 			</td>
 		</tr>
 		<tr>
 			<th>이메일</th>
 			<td>
 				<!-- input type = "email" 속성은 입력된 값이 메일주소 형식인지 꼼꼼하게 체크한다 -->
-				<input type = "text" name="email" id = "email" th:value="${member.email}">
+				<input type = "text" name="email" id = "email" th:value="${member.email}" class="form-control">
 			</td>
 		</tr>
 		<tr>
 			<th>전화번호</th>
 			<td>
-				<input type="text" name="phone" id="phone" th:value="${member.phone}">
+				<input type="text" name="phone" id="phone" th:value="${member.phone}" class="form-control">
 			</td>
 		</tr>
 		<tr>
-			<th colspan = "2">
+			<th colspan = "2" style="text-align: center;">
 				<input type = "submit" value = "수정하기">
 		</tr>
 	</table>
 </form>
 <div sec:authorize="hasRole('USER')"><br>
 	<a href="insertBusiness">사업장 정보 추가</a><br><br>
-	<h1>[내 사업장 정보]</h1>
+	<h3>사업장 정보</h3>
 	<table class="table">
 		<tr>
 			<th>등록 번호</th>
@@ -258,6 +259,7 @@
 			</td>
 		</tr>
 	</table>
+</div>
 </div>
 </div>
 </div>
