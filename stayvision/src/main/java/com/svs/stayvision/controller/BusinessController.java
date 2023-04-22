@@ -64,15 +64,18 @@ public class BusinessController {
 		return "business/infoBusiness";
 	}
 	
-	@GetMapping("/popup")
-	public String popup(String category, String keyword, @AuthenticationPrincipal UserDetails user, Model model) {
-	    List<Business> bList = bService.selectBusinessAll(category, keyword);
-	    model.addAttribute("blist", bList);
-	    log.debug("blist : {}",bList);
+	// 지도 띄위기
+	@GetMapping("/popup/{businessNum}")
+	public String popup(@PathVariable Integer businessNum, Model model) {
+		
+		log.debug("businessNum : {}",businessNum);
+		
+		Business business = bService.findOneBusiness(businessNum);
+	    log.debug("business : {}",business);
+	    model.addAttribute("business", business);
 	    return "business/popup";
 	}
 
-	
 	
 	// 숙박업소 정보 수정 페이지 이동
 	@GetMapping("/updateBusiness/{businessNum}")

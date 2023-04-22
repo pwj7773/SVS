@@ -28,7 +28,7 @@
 					<td scope="row"><span th:text="${b.businessNum}"></span></td>
 					<td><span th:text="${b.businessName}"></span></td>
 					<td><span th:text="${b.name}"></span></td>
-					<td><a href="" onclick="window.open('popup', '주소 상세보기', 'width=600, height=600, scrollbars=no'); return false;">
+					<td><a href="" th:bNum="${b.businessNum}" th:onclick="window.open('popup/'+(this.getAttribute('bNum')), '주소 상세보기', 'width=600, height=600, scrollbars=no');">
     					<span th:text="${b.businessAddress}"></span></a></td>
 					<td><span th:text="${b.phone}"></span></td>
 					<td>

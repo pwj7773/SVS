@@ -3,9 +3,7 @@ package com.svs.stayvision.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import com.svs.stayvision.service.Business.BusinessService;
 import com.svs.stayvision.service.Member.MemberService;
 import com.svs.stayvision.service.board.BoardService;
@@ -34,6 +31,9 @@ public class MemberController {
 	private BoardService bService;
 	@Autowired
 	private BusinessService buService;
+	
+	@Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 	
 	@GetMapping("login")
 	public String login() {
@@ -176,20 +176,25 @@ public class MemberController {
     public String reauthenticate() {
         return "reauthenticate"; // 새로운 인증 정보를 입력받을 폼을 보여줌
     }
-	
+
 	@PostMapping("/reauthenticate")
 	public String reauthenticate(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("password") String password, RedirectAttributes attributes) {
 		
-		// 입력한 비밀번호가 일치하는지 확인
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        boolean isPasswordCorrect = passwordEncoder.matches(password, userDetails.getPassword());
-        if (!isPasswordCorrect) {
-            attributes.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
-            return "redirect:/account/edit";
-        }
+		log.debug(password);
+	    // 입력한 비밀번호가 일치하는지 확인
+		log.debug("userDetails.getPassword() : {}", userDetails.getPassword());
 		
-		return "redirect:/memberupdate";
+		// String encodedPassword = passwordEncoder.encode(password);
+		
+	    boolean isPasswordCorrect = passwordEncoder.matches(password, userDetails.getPassword());
+	    
+	    if (!isPasswordCorrect) {
+	        attributes.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+	        return "redirect:/reauthenticate";
+	    }
+	    
+	    return "redirect:/memberupdate";
 	}
-	
+
+
 }
