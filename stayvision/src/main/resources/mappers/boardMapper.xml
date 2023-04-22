@@ -86,6 +86,10 @@
  	SET
  		TITLE = #{title},
  		CONTENT = #{content}
+ 		<if test="originalFile != null and savedFile != null">
+ 			,ORIGINALFILE = #{originalFile} 
+ 			,SAVEDFILE = #{savedFile}
+ 		</if>
  	WHERE
  		BOARDNUM = #{boardNum}
  </update>

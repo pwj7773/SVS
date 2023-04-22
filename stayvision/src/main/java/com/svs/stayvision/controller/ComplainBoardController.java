@@ -134,12 +134,23 @@ public class ComplainBoardController {
 	
 	// 글 수정
 	@PostMapping("complain/boardUpdate")
-	public String boardUpdate(Board board) {
+	public String boardUpdate(Board board,@RequestParam MultipartFile file) {
 		log.debug("boardUpdate() 실행");
+		log.debug("File : {}", file.getOriginalFilename());
+		// file이 있으면 저장하고 아니면 건너뛰자...
+		if (file.isEmpty() == false) { // 파일이 비어있지 않다면
+			// FileService 사용해서 파일 저장
+			String savedFileName = FileService.saveFile(file, uploadPath);
+			log.debug("savedFileName : {}", savedFileName);
+
+			// Board 객체에 원래 파일 이름과 서버에 저장된 파일 이름 설정
+			board.setOriginalFile(file.getOriginalFilename());
+			board.setSavedFile(savedFileName);
+		}
 		log.debug("Board : {}", board);
 		bService.boardUpdate(board);
-		return REDIRECT_LIST+"?id="+board.getBoardType();
-		
+		return REDIRECT_LIST + "?id=" + board.getBoardType();
+
 	}
 	
 	// 파일 다운로드 받기
