@@ -10893,7 +10893,7 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   border-bottom: 1px solid;
 }
 
-.main-content.title {
+.main-content .title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

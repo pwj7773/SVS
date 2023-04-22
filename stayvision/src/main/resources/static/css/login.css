@@ -18,8 +18,8 @@ padding: 0;
 
 /* 애니메이션을 적용하고자 하는 요소에 .image 클래스를 추가합니다. */
 .image {
-    height: 100vh;
-    width:100vw;
+    height: 100%;
+    background-size: cover;
     background-image: url('/img/hotelphoto.jpg');
     background-repeat: no-repeat;
     background-position: center;
@@ -29,7 +29,7 @@ padding: 0;
     right: 0;
     bottom: 0;
     animation: transY 2s ease-in-out;
-    z-index: -1; /* 다른 요소보다 위에 표시되도록 설정 */
+    z-index: -1; /* 다른 요소보다 뒤에 표시되도록 설정 */
 }
 
 .image::after {
