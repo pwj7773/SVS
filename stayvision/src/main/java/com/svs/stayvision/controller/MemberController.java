@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.svs.stayvision.service.Business.BusinessService;
 import com.svs.stayvision.service.Member.MemberService;
 import com.svs.stayvision.service.board.BoardService;
@@ -168,4 +167,28 @@ public class MemberController {
 		return "redirect:/loginafter";
 	}
 	
+	@GetMapping("/reauthenticate")
+    public String reauthenticate() {
+        return "reauthenticate"; // 새로운 인증 정보를 입력받을 폼을 보여줌
+    }
+
+	@PostMapping("/reauthenticate")
+	public String reauthenticate(@AuthenticationPrincipal UserDetails user, String pw, Model model) {
+		
+		log.debug(pw);
+	    // 입력한 비밀번호가 일치하는지 확인
+		String id = user.getUsername();
+		
+		int result = mService.checkMember(id, pw);
+		
+		if(result != 0) { //affected row(영향을 받은 행이 1개 이상)
+			return "redirect:/memberupdate";
+		}else {
+			model.addAttribute("msg","비밀번호가 틀렸습니다.");
+			return "reauthenticate";
+		}
+
+	}
+
+
 }

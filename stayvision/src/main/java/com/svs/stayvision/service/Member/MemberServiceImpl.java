@@ -84,5 +84,17 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.updateMember(member);
 	}
 
+	@Override
+	public int checkMember(String id, String pw) {
+		//비번 암호화
+		boolean pwMatch = passwordEncoder.matches(pw, mDao.findOneMember(id).getPassword());
+		
+		if(pwMatch) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+
 	
 }
