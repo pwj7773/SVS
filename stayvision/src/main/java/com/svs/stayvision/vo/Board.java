@@ -14,7 +14,6 @@ public class Board {
 	private String content;
 	private String inputDate;
 	private int viewCount;
-	private int recommend;
 	private int replyCount;
 	private String boardType;
 	private String originalFile; 

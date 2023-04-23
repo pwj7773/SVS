@@ -15,25 +15,26 @@
 <body>
 	<!-- 컨텐츠 -->
 	<section layout:fragment="content">
+		<br>
 		<div class="col-md-auto">
 			<div th:object="${board}">
 				<div class="card card-primary card-outline">
 					<div class="card-header">
 						<div>
 							<h4 class="card-title">
-								<span>[</span> <span th:text="*{boardType}"></span><span> ]</span> <span th:text="*{title}"></span>
+								<span th:text="[+*{boardType}+]"></span> <span th:text="*{title}"></span>
 							</h4>
 						</div>
 						<div class="float-right">
-							<span>조회 <span th:text="*{viewCount}"></span></span> <span>댓글
+							<span>조회 <span th:text="*{viewCount}"></span></span> <span th:text="'댓글 '+*{replyCount}">댓글
 								3</span>
 						</div>
-						&nbsp;<span><em th:text="*{userId}">작성자</em> &nbsp; &#124; &nbsp;</span>
-						<span th:text="*{inputDate}">2023.04.23 11:00:21</span>
+						&nbsp;<span><em th:text="*{userId}">작성자</em> &nbsp; &#124;
+							&nbsp;</span> <span th:text="*{inputDate}">2023.04.23 11:00:21</span>
 					</div>
 					<div class="card-body">
-						<div style="overflow: hidden; width: 900px;">
-							<p th:utext="*{content}">글 내용</p>
+						<div th:utext="*{content}" style="overflow: hidden; width: 900px;">
+
 						</div>
 					</div>
 					<hr>
@@ -68,8 +69,9 @@
 					<!-- Comment -->
 					<textarea id="replyText" class="form-control" rows="3"
 						placeholder="댓글을 입력하세요."></textarea>
-					<br> <input class="btn btn-primary" type="button" value="댓글" id="btnReply">
-					<input class="btn btn-primary" type="button" value="수정" id="btnUpdate"> <input
+					<br> <input class="btn btn-primary" type="button" value="댓글"
+						id="btnReply"> <input class="btn btn-primary"
+						type="button" value="수정" id="btnUpdate"> <input
 						type="hidden" id="selectedReply" value=""> <br> <br>
 				</div>
 			</div>

@@ -16,7 +16,12 @@
 }
 
 a {
-	color: black;
+  color: black; 
+  text-decoration: none; 
+}
+
+a:hover {
+  text-decoration: underline; 
 }
 
 .page-link {
@@ -58,7 +63,7 @@ a {
 	<!-- 컨텐츠 -->
 	<section layout:fragment="content">
 		<br>
-		<div style="max-width: 1500px; margin: 0 auto;">
+		<div>
 			<div class="card card-primary card-outline">
 				<div class="card-header">
 					<h3 class="card-title" th:text="${param.id}"></h3>
@@ -81,6 +86,7 @@ a {
 								<td class="title" style="max-width: 200px;"><a
 									th:href="@{|/${id}/boardRead?boardNum=${b.boardNum}|}"> <span
 										th:text="${b.title}"></span>&nbsp;
+										<span th:text="[ +${b.replyCount}+ ]" class="fw-bold"></span>
 								</a></td>
 								<td th:text="${b.userId}"></td>
 								<td th:text="${b.inputDate}"></td>
