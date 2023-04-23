@@ -23,4 +23,6 @@ public interface MemberService {
 	public int memberdisabled(Member member);
 
 	public int updateMember(Member member);
+
+	public int checkMember(String id, String pw);
 }

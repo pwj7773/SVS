@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.svs.stayvision.service.Business.BusinessService;
 import com.svs.stayvision.service.Member.MemberService;
 import com.svs.stayvision.service.board.BoardService;
@@ -31,9 +29,6 @@ public class MemberController {
 	private BoardService bService;
 	@Autowired
 	private BusinessService buService;
-	
-	@Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 	
 	@GetMapping("login")
 	public String login() {
@@ -178,22 +173,21 @@ public class MemberController {
     }
 
 	@PostMapping("/reauthenticate")
-	public String reauthenticate(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("password") String password, RedirectAttributes attributes) {
+	public String reauthenticate(@AuthenticationPrincipal UserDetails user, String pw, Model model) {
 		
-		log.debug(password);
+		log.debug(pw);
 	    // 입력한 비밀번호가 일치하는지 확인
-		log.debug("userDetails.getPassword() : {}", userDetails.getPassword());
+		String id = user.getUsername();
 		
-		// String encodedPassword = passwordEncoder.encode(password);
+		int result = mService.checkMember(id, pw);
 		
-	    boolean isPasswordCorrect = passwordEncoder.matches(password, userDetails.getPassword());
-	    
-	    if (!isPasswordCorrect) {
-	        attributes.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
-	        return "redirect:/reauthenticate";
-	    }
-	    
-	    return "redirect:/memberupdate";
+		if(result != 0) { //affected row(영향을 받은 행이 1개 이상)
+			return "redirect:/memberupdate";
+		}else {
+			model.addAttribute("msg","비밀번호가 틀렸습니다.");
+			return "reauthenticate";
+		}
+
 	}
 
 
