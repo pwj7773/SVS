@@ -167,8 +167,8 @@ function loadReply(page) {
 				replyDiv += item.replyText;
 				replyDiv += "<br> <br>"
 				if(item.userId === login){
-					replyDiv += "<a href = 'javascript:getOneReply(" + item.replyNum + ");'>수정하기</a> &nbsp;";
-					replyDiv += "<a href = 'javascript:deleteReply(" + item.replyNum + ");'>삭제하기</a>";
+					replyDiv += "<a href = 'javascript:getOneReply(" + item.replyNum + ");'>수정</a> &nbsp;";
+					replyDiv += "<a href = 'javascript:deleteReply(" + item.replyNum + ");'>삭제</a>";
 				}
 				replyDiv += "</div>"
 				replyDiv += "</div>";

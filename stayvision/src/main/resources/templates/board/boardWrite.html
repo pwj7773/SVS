@@ -6,6 +6,11 @@
 <head>
 <title>[글쓰기]</title>
 <link rel="stylesheet" href="/css/summernote/summernote-lite.css">
+<style>
+.float-right {
+	float: right !important;
+}
+</style>
 <script src="/js/summernote/summernote-lite.js"></script>
 <script src="/js/summernote/lang/summernote-ko-KR.js"></script>
 <script>
@@ -16,7 +21,7 @@
 						$('#summernote')
 								.summernote(
 										{
-											height : 300, // 에디터 높이
+											height : 500, // 에디터 높이
 											minHeight : null, // 최소 높이
 											maxHeight : null, // 최대 높이
 											focus : true, // 에디터 로딩후 포커스를 맞출지 여부
@@ -51,10 +56,7 @@
 															[ 'picture',
 																	'link',
 																	'video' ] ],
-													[
-															'view',
-															[ 'fullscreen',
-																	'help' ] ] ],
+													[ 'view', [ 'help' ] ] ],
 											fontNames : [ 'Arial',
 													'Arial Black',
 													'Comic Sans MS',
@@ -100,31 +102,50 @@
 <body>
 	<!-- 컨텐츠 -->
 	<section layout:fragment="content">
-		<h1>글 쓰기</h1>
-		<form th:action="@{|/${id}/boardWrite|}" method="post"
-			enctype="multipart/form-data">
-			<table>
-				<tr>
-					<th>제목</th>
-					<td><input class="form-control" name="title" id="title"
-						type="text"></td>
-				</tr>
-				<tr>
-					<th>파일첨부</th>
-					<td><input class="form-control" type="file" name="file"></td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td><textarea id="summernote" name="content"></textarea></td>
-				</tr>
-				<tr>
-					<th colspan="2"><input type="submit" value="글쓰기"> <input
-						type="button" value="뒤로 가기" onclick="javascript:history.back()">
-					</th>
-				</tr>
-			</table>
-			<input th:value="${id}" type="hidden" name="boardType">
-		</form>
+		<br>
+		<div class="d-flex justify-content-left">
+			<form th:action="@{|/${id}/boardWrite|}" method="post"
+				enctype="multipart/form-data">
+
+				<div class="col-md-auto">
+					<div class="card card-primary card-outline">
+						<div class="card-header">
+							<h3 class="card-title">글쓰기</h3>
+						</div>
+
+						<div class="card-body">
+							<div class="form-group">
+								<input name="title" id="title" class="form-control"
+									placeholder="제목">
+							</div>
+
+							<div class="form-group">
+								<textarea id="summernote" name="content" class="form-control">
+                    </textarea>
+							</div>
+
+							<div class="form-group">
+								<div class="btn">
+									<input class="form-control" type="file" name="file">
+								</div>
+							</div>
+						</div>
+
+						<div class="card-footer">
+							<div class="float-right">
+								<input class="btn btn-primary" type="submit" value="등록">
+								<input class="btn btn-danger" type="button" value="취소"
+									onclick="javascript:history.back()">
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<input th:value="${id}" type="hidden" name="boardType">
+			</form>
+
+		</div>
 	</section>
 
 </body>

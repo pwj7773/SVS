@@ -32,47 +32,57 @@
  </insert>
  
  <select id="boardSelectAll" resultType="Board">
- 	SELECT 
- 		BOARDNUM,
- 		TITLE,
- 		CONTENT,
- 		VIEW_COUNT as viewCount,
- 		TO_CHAR(INPUT_DATE,'YYYY/MM/DD') as inputDate,
- 		USER_ID as userId
-	FROM
-		Board
-	<where>
-		<if test="category eq 'title'">
-			TITLE LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
-		</if>
-		<if test="category eq 'content'">
-			CONTENT LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
-		</if>
-		<if test="category eq 'userId'">
-			USER_ID LIKE'%'||#{keyword}||'%' AND BOARDTYPE = #{boardType}
-		</if>
-		<if test="(category == '' or category == null) and (keyword == '' or keyword == null)">
-		    BOARDTYPE = #{boardType}
-		</if>
-		</where>
-	ORDER BY
-		INPUT_DATE DESC
+SELECT 
+    B.BOARDNUM as BOARDNUM, 
+    B.TITLE as TITLE, 
+    B.CONTENT as CONTENT,
+    B.VIEW_COUNT as viewCount,
+    TO_CHAR(B.INPUT_DATE,'YYYY/MM/DD')as inputDate, 
+    B.USER_ID as userId,
+    COUNT(R.REPLYNUM) AS replyCount
+FROM 
+    BOARD B    
+LEFT OUTER JOIN 
+    REPLY R 
+ON 
+    B.BOARDNUM = R.BOARDNUM
+<where>
+	<if test="category eq 'title'">
+		B.TITLE LIKE'%'||#{keyword}||'%' AND B.BOARDTYPE = #{boardType}
+	</if>
+	<if test="category eq 'content'">
+		B.CONTENT LIKE'%'||#{keyword}||'%' AND B.BOARDTYPE = #{boardType}
+	</if>
+	<if test="category eq 'userId'">
+		B.USER_ID LIKE'%'||#{keyword}||'%' AND B.BOARDTYPE = #{boardType}
+	</if>
+	<if test="(category == '' or category == null) and (keyword == '' or keyword == null)">
+	    B.BOARDTYPE = #{boardType}
+	</if>
+</where>    
+GROUP BY 
+    B.BOARDNUM, B.TITLE, B.CONTENT, B.VIEW_COUNT, B.INPUT_DATE, 
+B.USER_ID, B.BOARDTYPE, B.ORIGINALFILE, B.SAVEDFILE, TO_CHAR(B.INPUT_DATE,'YYYY/MM/DD')    
+ORDER BY
+    B.INPUT_DATE DESC
  </select>
  
  <select id="boardSelect" resultType="Board">
- 	SELECT 
- 		BOARDNUM,
- 		TITLE,
- 		CONTENT,
- 		VIEW_COUNT as viewCount,
- 		TO_CHAR(INPUT_DATE,'YYYY/MM/DD') as inputDate,
- 		USER_ID as userId,
- 		BOARDTYPE,
- 		ORIGINALFILE,
- 		SAVEDFILE
-	FROM
-		Board
-	WHERE BOARDNUM = #{boardNum}
+SELECT B.BOARDNUM AS BOARDNUM, 
+       B.TITLE AS TITLE, 
+       B.CONTENT AS CONTENT, 
+       B.VIEW_COUNT AS VIEWCOUNT, 
+       TO_CHAR(B.INPUT_DATE, 'YYYY/MM/DD') AS INPUTDATE, 
+       B.USER_ID AS USERID,
+       B.BOARDTYPE AS BOARDTYPE,
+       B.ORIGINALFILE AS ORIGINALFILE,
+       B.SAVEDFILE AS SAVEDFILE,
+       COUNT(R.REPLYNUM) AS replyCount 
+FROM BOARD B 
+LEFT OUTER JOIN REPLY R ON B.BOARDNUM = R.BOARDNUM 
+WHERE B.BOARDNUM = #{boardNum}
+GROUP BY B.BOARDNUM, B.TITLE, B.CONTENT, B.VIEW_COUNT, B.INPUT_DATE, B.USER_ID, B.BOARDTYPE, B.ORIGINALFILE, B.SAVEDFILE, TO_CHAR(B.INPUT_DATE, 'YYYY/MM/DD') 
+ORDER BY B.INPUT_DATE DESC
  </select>
  
  <delete id="boardDelete">
