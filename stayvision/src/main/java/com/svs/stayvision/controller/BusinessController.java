@@ -105,7 +105,7 @@ public class BusinessController {
 		bService.updateBusiness(business);
 		mService.updateMember(member);
 		
-		return "redirect:/loginafter";
+		return "redirect:/infoBusiness";
 	}
 	
 }

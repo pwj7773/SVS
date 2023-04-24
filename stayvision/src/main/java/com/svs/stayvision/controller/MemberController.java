@@ -189,6 +189,21 @@ public class MemberController {
 		}
 
 	}
-
+	
+	// 내 정보 보기
+	@GetMapping("/myinfo")
+	public String myinfo(@AuthenticationPrincipal UserDetails user,Model model) {
+		
+		String id = user.getUsername();
+		log.debug("id : {}",id);
+		Member member = mService.findOneMember(id);
+		log.debug("Member : {}",member);
+		model.addAttribute("member",member);
+		List<Business> bList = buService.selectBusiness(id);
+		log.debug("bList Size : {}", bList.size());
+		model.addAttribute("blist",bList);
+		
+		return "myinfo";
+	}
 
 }

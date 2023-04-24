@@ -39,6 +39,14 @@
 					    </svg> 업체관리
 					</a>
 				</div>
+				<div sec:authorize="hasRole('USER')">
+					<a href="/infoBusiness"
+						class="list-group-item list-group-item-action list-group-item-light p-3">
+						<svg class="bi pe-none me-1" width="16" height="40">
+							<img width="20" src="/img/hotel.png">
+					    </svg> 내 사업체 정보
+					</a>
+				</div>
 				<div>
 					<a th:href="@{/complain/boardList(id='notice')}"
 						class="list-group-item list-group-item-action list-group-item-light p-3">
@@ -122,7 +130,7 @@
 								aria-expanded="false" th:text="|${#authentication.name}님 환영합니다|"></a>
 								<div class="dropdown-menu dropdown-menu-end"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="/reauthenticate">회원정보 수정</a> <a
+									<a class="dropdown-item" href="/myinfo">회원정보</a> <a
 										class="dropdown-item" onclick="confirmLogout()">로그아웃</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="#!">Something else here</a>
