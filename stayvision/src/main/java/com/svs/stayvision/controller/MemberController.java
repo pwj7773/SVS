@@ -164,7 +164,7 @@ public class MemberController {
 	public String memberupdate(Member member) {
 		log.debug("Member : {}",member);
 		mService.memberupdate(member);
-		return "redirect:/loginafter";
+		return "redirect:/myinfo";
 	}
 	
 	@GetMapping("/reauthenticate")
@@ -204,6 +204,12 @@ public class MemberController {
 		model.addAttribute("blist",bList);
 		
 		return "myinfo";
+	}
+	
+	@GetMapping("/reservation")
+	public String reservation() {
+		
+		return "reservation";
 	}
 
 }

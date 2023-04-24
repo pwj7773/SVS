@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout.html}">
+<head>
+    <title>[예약 차트 확인]</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+    <style>
+        #myChart {
+            width: 600px;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+  <section layout:fragment="content">
+    <div class="container-fluid p-4">
+      <div class="px-4">
+        <div>
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      const canvas = document.createElement('canvas');
+      canvas.id = 'myChart';
+      document.body.appendChild(canvas);
+
+      const ctx = document.getElementById('myChart');
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Red', 'Blue'],
+          datasets: [{
+            label: '# of Votes',
+            data: [300, 50],
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)'
+              ],
+            hoverOffset: 4
+          }]
+        },
+      });
+    });
+  </script>
+</body>
