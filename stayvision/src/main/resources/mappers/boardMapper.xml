@@ -39,7 +39,8 @@ SELECT
     B.VIEW_COUNT as viewCount,
     TO_CHAR(B.INPUT_DATE,'YYYY/MM/DD')as inputDate, 
     B.USER_ID as userId,
-    COUNT(R.REPLYNUM) AS replyCount
+    COUNT(R.REPLYNUM) AS replyCount,
+    B.BOARDTYPE as BOARDTYPE
 FROM 
     BOARD B    
 LEFT OUTER JOIN 
