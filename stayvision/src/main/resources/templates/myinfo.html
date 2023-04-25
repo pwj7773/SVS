@@ -15,32 +15,41 @@
   a:hover {
     color: RGB(221, 38, 22);
   }
+  
+  table {
+  border-spacing: 10px;
+  border-collapse: separate;
+  font-size: 13pt;
+  }
 </style>
 </head>
 <body>
 <section layout:fragment="content">
 <div class="container-fluid p-4">
 <div class="px-4">
-<h3>내 정보</h3>
-<table>
-	<tr>
-		<th>아이디</th>
-		<td th:text="${member.id}"></td>
-	</tr>
-	<tr>
-		<th>이름</th>
-		<td th:text="${member.name}"></td>
-	</tr>
-	<tr>
-		<th>이메일</th>
-		<td th:text="${member.email}"></td>
-	</tr>
-	<tr>
-		<th>전화번호</th>
-		<td th:text="${member.phone}"></td>
-	</tr>
-</table>
-<br><a href="/reauthenticate" class="btn btn-secondary">수정</a>
+	<div>
+	<h3>&nbsp;내 정보</h3>
+	<br>
+	<table class="">
+		<tr>
+			<th>아이디</th>
+			<td th:text="${member.id}"></td>
+		</tr>
+		<tr>
+			<th>이름</th>
+			<td th:text="${member.name}"></td>
+		</tr>
+		<tr>
+			<th>이메일</th>
+			<td th:text="${member.email}"></td>
+		</tr>
+		<tr>
+			<th>전화번호</th>
+			<td th:text="${member.phone}"></td>
+		</tr>
+	</table>
+	<br><span>&nbsp;</span><a href="/reauthenticate" class="btn btn-secondary">수정</a>
+	</div>
 </div>
 </div>
 </section>
