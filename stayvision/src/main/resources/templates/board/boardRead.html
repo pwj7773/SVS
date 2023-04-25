@@ -10,6 +10,20 @@
 }
 </style>
 <title>[글]</title>
+<script>
+	function handleKeyDown(event) {
+		if (event.keyCode === 13) {
+			switch (event.target.id) {
+			case 'replyText':
+				insertReply();
+				break;
+			case 'replyText2':
+				updateReply();
+				break;
+			}
+		}
+	}
+</script>
 <script src="/js/boardRead.js"></script>
 </head>
 <body>
@@ -22,12 +36,13 @@
 					<div class="card-header">
 						<div>
 							<h4 class="card-title">
-								<span th:text="[+*{boardType}+]"></span> <span th:text="*{title}"></span>
+								<span th:text="[+*{boardType}+]"></span> <span
+									th:text="*{title}"></span>
 							</h4>
 						</div>
 						<div class="float-right">
-							<span>조회 <span th:text="*{viewCount}"></span></span> <span th:text="'댓글 '+*{replyCount}">댓글
-								3</span>
+							<span>조회 <span th:text="*{viewCount}"></span></span> <span
+								th:text="'댓글 '+*{replyCount}">댓글 3</span>
 						</div>
 						&nbsp;<span><em th:text="*{userId}">작성자</em> &nbsp; &#124;
 							&nbsp;</span> <span th:text="*{inputDate}">2023.04.23 11:00:21</span>
@@ -54,7 +69,8 @@
 
 					<div class="card-footer">
 
-						<div class="float-right">
+						<div class="float-right"
+							th:if="${#authentication.name} == ${board.userId}">
 							<a
 								th:href="@{|/${board.boardType}/boardUpdate?boardNum=${board.boardNum}}|"
 								class="btn btn-secondary">수정</a> <a
@@ -66,21 +82,19 @@
 				</div>
 				<br>
 				<div>
-				
-				<div class="card-body">
-					<!-- Comment -->
-					<textarea id="replyText" class="form-control" rows="3"
-						placeholder="댓글을 입력하세요."></textarea>
-					<br> <input class="btn btn-primary" type="button" value="댓글"
-						id="btnReply"> <input class="btn btn-primary"
-						type="button" value="수정" id="btnUpdate"> <input
-						type="hidden" id="selectedReply" value=""> <br> <br>
-				</div>
+
+					<div class="card-body">
+						<!-- Comment -->
+						<textarea id="replyText" class="form-control" rows="3"
+							placeholder="댓글을 입력하세요." onkeydown="handleKeyDown(event)"></textarea>
+						<textarea id="replyText2" class="form-control" rows="3"
+							placeholder="댓글을 입력하세요." onkeydown="handleKeyDown(event)"></textarea>
+						<br> <input type="hidden" id="selectedReply" value="">
+						<br>
+					</div>
 				</div>
 			</div>
 		</div>
-
-
 
 		<!-- 댓글 구역 -->
 		<div id="reList"></div>
@@ -88,6 +102,7 @@
 		<div id="paging"></div>
 		<input type="hidden" id="boardNum" th:value=${board.boardNum}>
 		<input type="hidden" id="login" th:value="${#authentication.name}">
+
 	</section>
 </body>
 </html>
