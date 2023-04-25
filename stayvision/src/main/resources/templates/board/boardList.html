@@ -84,9 +84,9 @@ a:hover {
 							<tr th:each="b : ${board}">
 								<td th:text="${b.boardNum}"></td>
 								<td class="title" style="max-width: 100px;"><a
-									th:href="@{|/${id}/boardRead?boardNum=${b.boardNum}|}"> <span
+									th:href="@{|/boardRead?boardNum=${b.boardNum}|}"> <span
 										th:text="${b.title}"></span>&nbsp;
-								</a> <span th:if="${b.boardType} != complain" th:text="[ +${b.replyCount}+ ]" class="fw-bold"></span></td>
+								</a> <span th:if="${b.boardType} != complain " th:text="[ +${b.replyCount}+ ]" class="fw-bold"></span></td>
 								<td th:text="${b.userId}"></td>
 								<td th:text="${b.inputDate}"></td>
 								<td th:if="${b.boardType} != complain" th:text="${b.viewCount}"></td>
@@ -117,7 +117,7 @@ a:hover {
 				</div>
 				<div class="card-footer">
 					<div class="float-right" style="padding: 10px;">
-						<a th:href="@{|/${id}/boardWrite?id=${id}|}"
+						<a th:href="@{|/boardWrite?id=${id}|}"
 							class="btn btn-secondary">글쓰기</a>
 					</div>
 
