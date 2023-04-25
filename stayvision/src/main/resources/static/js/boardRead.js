@@ -125,6 +125,7 @@ function loadReply(page) {
 			let replyDiv="";
 			// 반복 $.each(반복할 뭉탱이, 뭉탱이로 할일)
 			$.each(data.replyList,function(index,item) {
+				replyDiv += "<div class='container center'>"
 				//hidden 태그에 들어있는 session 정보 가져오기
 				let login = $("#login").val();
 				if(item.userId === login){
@@ -139,6 +140,7 @@ function loadReply(page) {
 				replyDiv += '<div class="fw-bold">' + item.userId  + "</div>";
 				replyDiv += item.replyText;
 				replyDiv += "<br> <br>"
+				replyDiv += "</div>";
 				replyDiv += "</div>";
 				replyDiv += "</div>";
 			});
