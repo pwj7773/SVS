@@ -10867,12 +10867,12 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 
 
 /* 메인화면 배열 */
-.main-content{
+/*.main-content{
   padding-left: 50px;
   padding-right: 50px;
   padding-top: 20px;
   
-}
+}*/
 .main-content table {
   width: 100%;
  
