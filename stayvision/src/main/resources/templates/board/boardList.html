@@ -62,7 +62,7 @@ a:hover {
 	<!-- 컨텐츠 -->
 	<section layout:fragment="content">
 		<br>
-		<div>
+		<div class="container center">
 			<div class="card card-primary card-outline">
 				<div class="card-header">
 					<h3 class="card-title" th:text="${param.id}"></h3>
@@ -76,8 +76,8 @@ a:hover {
 								<th>제목</th>
 								<th>작성자</th>
 								<th>작성일시</th>
-								<th th:unless="${#strings.equals(param.id, 'complain')}" >조회수</th>
-								<th th:if="${#strings.equals(param.id, 'complain')}" >답변등록</th>
+								<th th:unless="${#strings.equals(param.id, 'complain')}">조회수</th>
+								<th th:if="${#strings.equals(param.id, 'complain')}">답변등록</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -86,7 +86,8 @@ a:hover {
 								<td class="title" style="max-width: 100px;"><a
 									th:href="@{|/boardRead?boardNum=${b.boardNum}|}"> <span
 										th:text="${b.title}"></span>&nbsp;
-								</a> <span th:if="${b.boardType} != complain " th:text="[ +${b.replyCount}+ ]" class="fw-bold"></span></td>
+								</a> <span th:if="${b.boardType} != complain "
+									th:text="[ +${b.replyCount}+ ]" class="fw-bold"></span></td>
 								<td th:text="${b.userId}"></td>
 								<td th:text="${b.inputDate}"></td>
 								<td th:if="${b.boardType} != complain" th:text="${b.viewCount}"></td>
@@ -100,16 +101,17 @@ a:hover {
 				</div>
 				<div class="form-group">
 					<div style="padding: 16px;">
-						<form th:action="@{|/${id}/boardList|}" method="get">
+						<form th:action="@{|/boardList|}" method="get">
 							<input th:value="${id}" type="hidden" name="id">
 							<div class="d-flex flex-row bd-highlight mb-3 w-50">
-								<select name="category" class="form-select">
+								<select name="category" class="form-select" style="width: 10vw;">
 									<option value="title" th:selected="${category  == 'title'}">제목</option>
 									<option value="content" th:selected="${category == 'content'}">내용</option>
 									<option value="userId" th:selected="${category == 'userId'}">작성자</option>
 								</select> <input th:value="${keyword}" type="text" name="keyword"
-									placeholder="Search..." class="form-control me-2"> <input
-									type="submit" value="검색하기" class="btn btn-outline-success">
+									placeholder="Search..." class="form-control me-2"
+									style="width: 10vw;"> <input type="submit" value="검색하기"
+									class="btn btn-outline-success">
 							</div>
 						</form>
 					</div>
@@ -117,8 +119,12 @@ a:hover {
 				</div>
 				<div class="card-footer">
 					<div class="float-right" style="padding: 10px;">
-						<a th:href="@{|/boardWrite?id=${id}|}"
-							class="btn btn-secondary">글쓰기</a>
+						<div th:unless="${#strings.equals(param.id, 'notice')}">
+							<a th:href="@{|/boardWrite?id=${id}|}" class="btn btn-secondary">글쓰기</a>
+						</div>
+						<div th:if="${#strings.equals(param.id, 'notice')}">
+							<a sec:authorize="hasRole('ADMIN')" th:href="@{|/boardWrite?id=${id}|}" class="btn btn-secondary">글쓰기</a>
+						</div>
 					</div>
 
 
@@ -157,7 +163,7 @@ a:hover {
 			</div>
 
 
-			<form th:action="@{|/${id}/boardList|}" method="get" id="pagingForm">
+			<form th:action="@{|/boardList|}" method="get" id="pagingForm">
 				<input th:value="${param.id}" type="hidden" name="id"> <input
 					type="hidden" name="page" id="page"> <input
 					th:value="${param.keyword}" type="hidden" name="keyword"> <input

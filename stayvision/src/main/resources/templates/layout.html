@@ -18,16 +18,17 @@
 <script src="/js/scripts.js"></script>
 <script src="/js/Myscript.js"></script>
 <script src="/js/jquery-3.6.3.min.js"></script>
+
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
-		<div class="border-end bg-white" id="sidebar-wrapper">
+		<div class="border-right bg-white" id="sidebar-wrapper">
 			<div class="sidebar-heading border-bottom bg-white">
 				<a href="/loginafter"
 					class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-					<svg class="bi me-2" width="40" height="32"></svg> <span
-					class="fs-4"><img src="/img/logo (2).png" width="100px"></span>
+					<svg class="bi me-2" width="35" height="32"></svg> <span
+					class="fs-6"><img src="/img/logo (2).png" width="73px"></span>
 				</a>
 			</div>
 			<div class="list-group list-group-flush">
@@ -114,8 +115,9 @@
 			<nav
 				class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 				<div class="container-fluid">
-					<button class="btn btn-primary" id="sidebarToggle">Toggle
-						Menu</button>
+				<button class="btn btn-lg" id="sidebarToggle">
+					<span class="navbar-toggler-icon" ></span>
+				</button>
 					<button class="navbar-toggler" type="button"
 						data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -142,11 +144,12 @@
 				</div>
 			</nav>
 			<!-- Page content-->
-			<div class="container-fluid">
+			<div class="flex-grow-1">
 				<section layout:fragment="content">
 					<p>Page content goes here</p>
 				</section>
 			</div>
+
 		</div>
 	</div>
 </body>
