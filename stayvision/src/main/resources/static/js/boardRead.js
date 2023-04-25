@@ -125,24 +125,31 @@ function loadReply(page) {
 			let replyDiv="";
 			// 반복 $.each(반복할 뭉탱이, 뭉탱이로 할일)
 			$.each(data.replyList,function(index,item) {
-				replyDiv += "<div class='container center'>"
+				replyDiv += "<div class='container center'>";
 				//hidden 태그에 들어있는 session 정보 가져오기
 				let login = $("#login").val();
+				replyDiv += '<div class="card">';
+				replyDiv += '<div class="card-header d-flex justify-content-between align-items-center">';
+				replyDiv += '<div class="d-flex align-items-center">';
+				replyDiv += '<img src="https://dummyimage.com/50x50/ced4da/6c757d.jpg">';
+				replyDiv += '<div class="mx-3">';
+				replyDiv += "<h5>" + item.userId + "</h5>";
+				replyDiv += '<font size="2">' + item.inputDate + "</font>";
+				replyDiv += "</div>";
+				replyDiv += "</div>";
 				if(item.userId === login){
-					replyDiv += '<div class="btn-group btn-group-sm float-right">';
-					replyDiv += "<a class='btn btn-outline-primary' href = 'javascript:getOneReply(" + item.replyNum + ");'>수정</a> &nbsp;";
+					replyDiv += '<div class="btn-group btn-group-sm">';
+					replyDiv += "<a class='btn btn-outline-primary' href = 'javascript:getOneReply(" + item.replyNum + ");'>수정</a>";
 					replyDiv += "<a class='btn btn-outline-primary' href = 'javascript:deleteReply(" + item.replyNum + ");'>삭제</a>";
-					replyDiv += '</div>';
+					replyDiv += "</div>";
 				}
-				replyDiv += '<div class="d-flex">';
-				replyDiv += '<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"></div>';
-				replyDiv += '<div class="ms-3">';
-				replyDiv += '<div class="fw-bold">' + item.userId  + "</div>";
-				replyDiv += item.replyText;
-				replyDiv += "<br> <br>"
+				replyDiv += "</div>";
+				replyDiv += '<div class="card-body">' + item.replyText;
 				replyDiv += "</div>";
 				replyDiv += "</div>";
 				replyDiv += "</div>";
+				replyDiv += "<br>";
+
 			});
 
 			// reList라는 id를 가진 요소에 replyTalbe에 있는 HTML 문자열을 추가하겠음
