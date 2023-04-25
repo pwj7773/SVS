@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout.html}">
+<head>
+    <title>[예약 차트 확인]</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+	<script src="/js/jquery-3.6.3.min.js"></script>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+    <style>
+        #myChart {
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+  <section layout:fragment="content">
+    <div class="container-fluid p-4">
+      <div class="px-4">
+      <h3>예약 통계</h3>
+      <h6>이런 느낌..</h6>
+        <div>
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  <script>
+    var ctx = $("#myChart");
+    
+    var pieLabels = ["Apple", "Pecan", "key Lime", "Cherry", "Coconut"];
+    
+    var pieData = [10, 10, 8, 4, 1];
+    
+    var pieColors = [
+    	"rgb(153,21,0)",
+    	"rgb(189,90,45)",
+    	"rgb(208,255,113)",
+    	"rgb(255,36,0)",
+    	"rgb(194,250,255)"
+    ]
+    
+    var myChart = new Chart(ctx, {
+    	type: 'pie',
+    	data: {
+    		labels: pieLabels,
+    		datasets: [
+    			{
+    				data:pieData,
+    				backgroundColor:pieColors
+    			}
+    		]
+    	},
+    	options: {
+    		maintainAspectRatio : false
+    	}
+    });
+  </script>
+  </section>
+</body>
+</html>

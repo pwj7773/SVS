@@ -32,7 +32,7 @@
 		}
 		
 		if (pw1Value === '' || pw1Value.length < 4 || pw1Value.length > 15) {
-			alert("잘못된 비밀번호입니다.");
+			alert("비밀번호는 4자이상 15자 이하입니다.");
 			document.getElementById("pw1").focus(); 
 			return false;
 		}
@@ -68,17 +68,32 @@
 			document.getElementById("phone").focus();
 			return false;
 		}
+		
 	}
 	
 </script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
+<style>
+  a {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: RGB(221, 38, 22);
+  }
+  
+  table {
+  border-spacing: 10px;
+  border-collapse: separate;
+  }
+</style>
 </head>
 <body>
 <section layout:fragment="content">
 <div class="container-fluid p-4">
 <div class="px-4">
-<h3>회원정보 수정</h3>
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원정보 수정</h4>
 <form action="/memberupdate" method="post" onsubmit = "return checkValue()">
 	<table>
 		<tr>
@@ -120,7 +135,8 @@
 		</tr>
 		<tr>
 			<th colspan = "2" style="text-align: center;">
-				<input type = "submit" value = "수정하기">
+				<input type = "submit" value = "수정하기" class="btn btn-secondary">
+			</th>
 		</tr>
 	</table>
 </form>
@@ -138,7 +154,8 @@
 		</tr>
  			<tr th:each = "b : ${blist}">
 			<td><span th:text="${b.businessNum}"></span></td>
-			<td><span th:text="${b.businessName}"></span></td>
+			<td><a href="" th:bNum="${b.businessNum}" th:onclick="window.open('popup/'+(this.getAttribute('bNum')), '주소 상세보기', 'width=600, height=600, scrollbars=no');">
+    					<span th:text="${b.businessName}"></span></a></td>
 			<td><span th:text="${b.name}"></span></td>
 			<td><span th:text="${b.businessAddress}"></span></td>
 			<td><span th:text="${b.phone}"></span></td>

@@ -43,7 +43,7 @@ public class BusinessController {
 		business.setUserId(user.getUsername());
 		bService.insertBusiness(business);
 		
-		return "redirect:/loginafter";
+		return "redirect:/infoBusiness";
 	}
 	
 	
@@ -104,7 +104,7 @@ public class BusinessController {
 		bService.updateBusiness(business);
 		mService.updateMember(member);
 		
-		return "redirect:/loginafter";
+		return "redirect:/infoBusiness";
 	}
 	
 }

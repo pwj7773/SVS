@@ -7,9 +7,19 @@
 <title>사업장 정보</title>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
+<style>
+  a {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: RGB(221, 38, 22);
+  }
+</style>
 </head>
 <body>
 	<section layout:fragment="content">
+	<br>
 	<div class="mx-auto">
 		<div class="container-fluid px-4 pt-4">
 		<table class="table table-hover">
@@ -23,7 +33,7 @@
 					<th scope="col">수정</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody sec:authorize="!hasRole('USER')">
 	 			<tr th:each = "b : ${blist}">
 					<td scope="row"><span th:text="${b.businessNum}"></span></td>
 					<td><span th:text="${b.businessName}"></span></td>
@@ -36,17 +46,32 @@
 					</td>
 				</tr>
 			</tbody>
+			<tbody sec:authorize="hasRole('USER')">
+	 			<tr th:each = "b : ${blist}" th:with="user=${#authentication.principal.username}">
+					<td scope="row" th:if="${user eq b.userId}"><span th:text="${b.businessNum}"></span></td>
+					<td th:if="${user eq b.userId}"><span th:text="${b.businessName}"></span></td>
+					<td th:if="${user eq b.userId}"><span th:text="${b.name}"></span></td>
+					<td th:if="${user eq b.userId}"><a href="" th:bNum="${b.businessNum}" th:onclick="window.open('popup/'+(this.getAttribute('bNum')), '주소 상세보기', 'width=600, height=600, scrollbars=no');">
+    					<span th:text="${b.businessAddress}"></span></a></td>
+					<td th:if="${user eq b.userId}"><span th:text="${b.phone}"></span></td>
+					<td th:if="${user eq b.userId}">
+						<a th:href="@{/updateBusiness/{businessNum}(businessNum=${b.businessNum})}">수정</a>
+					</td>
+				</tr>
+			</tbody>
 		</table><br>
+	<div sec:authorize="hasRole('USER')"><a href="insertBusiness">사업장 정보 추가</a></div>
 	<div sec:authorize="!hasRole('USER')">
 		<form action="infoBusiness" method="get">
-		<div class="col-md-20 mb-3">
-			<select name="category" class="custom-select mr-sm-2">
+		<div class="d-flex flex-row bd-highlight mb-3 w-50">
+			<select name="category" class="form-select" style="width: 10vw;">
 				<option value="businessName" th:selected="${category == 'businessName'}">상호명</option>
 				<option value="businessAddress" th:selected="${category == 'businessAddress'}">주소</option>
 				<option value="name" th:selected="${category == 'name'}">대표</option>
 			</select>
-			<input type="text" name="keyword" th:value="${keyword}" placeholder="검색어를 입력해주세요.">
-			<input type="submit" value="검색">
+			<div style="width: 1vw;"></div>
+				<input type="text" name="keyword" th:value="${keyword}" placeholder="검색어를 입력해주세요." class="form-control me-2">
+			<input type="submit" value="검색" class="btn btn-secondary">
 		</div>
 		</form>
 	</div>
