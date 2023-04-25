@@ -13,7 +13,7 @@
 		let pw1Value = document.getElementById("pw").value;
 		
 		if (pw1Value === '' || pw1Value.length < 4 || pw1Value.length > 15) {
-			alert("잘못된 비밀번호입니다.");
+			alert("비밀번호는 4자이상 15자 이하입니다.");
 			document.getElementById("pw").focus(); 
 			return false;
 		}
@@ -23,12 +23,18 @@
 </script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
+<style type="text/css">
+table {
+  border-spacing: 10px;
+  border-collapse: separate;
+}
+</style>
 </head>
 <body>
 <section layout:fragment="content">
 <div class="container-fluid p-4">
 <div class="px-4">
-<h3>회원정보 확인</h3><br>
+<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원정보 확인</h3><br>
 <form action="/reauthenticate" method="post" onsubmit = "return checkValue()">
 	<table>
 		<tr>
@@ -42,7 +48,7 @@
 				<input type = "submit" value = "비밀번호 확인" class="btn btn-secondary">
 		</tr>
 	</table><br>
-	<span th:if = "${msg != null}" th:text = "${msg}" id = "message"></span>
+	<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span th:if = "${msg != null}" th:text = "${msg}" id = "message"></span>
 </form>
 </div>
 </div>

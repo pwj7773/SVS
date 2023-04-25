@@ -56,8 +56,8 @@
 			return false;
 		}
 		
-		if (pw1Value === '' || pw1Value.length < 4 || pw1Value.length > 8) {
-			alert("잘못된 비밀번호입니다.");
+		if (pw1Value === '' || pw1Value.length < 4 || pw1Value.length > 15) {
+			alert("비밀번호는 4자이상 15자 이하입니다.");
 			document.getElementById("pw1").focus(); 
 			return false;
 		}

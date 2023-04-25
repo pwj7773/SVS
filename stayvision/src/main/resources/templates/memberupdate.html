@@ -32,7 +32,7 @@
 		}
 		
 		if (pw1Value === '' || pw1Value.length < 4 || pw1Value.length > 15) {
-			alert("잘못된 비밀번호입니다.");
+			alert("비밀번호는 4자이상 15자 이하입니다.");
 			document.getElementById("pw1").focus(); 
 			return false;
 		}
@@ -68,6 +68,7 @@
 			document.getElementById("phone").focus();
 			return false;
 		}
+		
 	}
 	
 </script>
@@ -81,13 +82,18 @@
   a:hover {
     color: RGB(221, 38, 22);
   }
+  
+  table {
+  border-spacing: 10px;
+  border-collapse: separate;
+  }
 </style>
 </head>
 <body>
 <section layout:fragment="content">
 <div class="container-fluid p-4">
 <div class="px-4">
-<h3>회원정보 수정</h3>
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원정보 수정</h4>
 <form action="/memberupdate" method="post" onsubmit = "return checkValue()">
 	<table>
 		<tr>
@@ -130,6 +136,7 @@
 		<tr>
 			<th colspan = "2" style="text-align: center;">
 				<input type = "submit" value = "수정하기" class="btn btn-secondary">
+			</th>
 		</tr>
 	</table>
 </form>

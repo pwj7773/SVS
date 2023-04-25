@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 public class WebSecurityConfig {
@@ -31,6 +32,7 @@ public class WebSecurityConfig {
 					"/css/**",
 					"/error")
 		.permitAll()					// 설정한 리소스의 접근을 인증 없이 사용 허가
+		.antMatchers("/adminapproval").hasRole("ADMIN") // 계정 승인 페이지 관리자만
 		.antMatchers("/emp/**").hasAnyRole("EMP", "ADMIN")
 		.anyRequest().authenticated()	// 위의 경로 이외에는 모두 로그인
 		.and()
@@ -41,6 +43,9 @@ public class WebSecurityConfig {
 		.passwordParameter("pw")	// 로그인 폼 비밀번호의 name 속성
 		.defaultSuccessUrl("/loginafter")// 로그인 후 페이지 이동
 		.and()
+		.exceptionHandling()
+        .accessDeniedHandler(new CustomAccessDeniedHandler())
+        .and()
 		.logout()
 		.logoutSuccessUrl("/").permitAll()	// 로그아웃 성공 시에 이동할 URL
 		.and()
@@ -76,5 +81,10 @@ public class WebSecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
+	
+	@Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
+    }
 	
 }
