@@ -46,7 +46,6 @@ public class BusinessController {
 		return "redirect:/infoBusiness";
 	}
 	
-
 	
 	// ROLE_ADMIN, ROLE_EMP의 전체 숙박업소 정보 조회
 	@GetMapping("/infoBusiness")

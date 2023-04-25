@@ -1,41 +1,8 @@
 $(document).ready(function() {
 	loadReply();
-	// 이벤트달기(다른 이벤트가 실행 될떄마다 on 매서드가 실행되는 것을 막기 위해서)
-	// 위로 가져옴
-	$("#btnUpdate").on("click", function() {
-		updateReply();
-	});
 
-	$("#btnReply").on("click", function() {
+	$("#replyText2").hide();
 
-		insertReply();
-
-	});
-
-
-	$("#btnUpdate").hide();
-
-	// btnRec라는 id를 버튼에 이벤트를 추가
-	$("#btnRec").on("click", function() {
-		// 여기에서 ajax로 server와 통신할거야~
-
-		// document.getElememtById("boardNum").value;
-		let bNum = $("#boardNum").val();
-		//alert(bNum);
-		$.ajax({
-			// 내가 필요한 설정들을 써서 서버에 보낼 수 있음~~!
-			url: "/recommend", // 호출할 서버의 url
-			method: "post", // get또는 psot
-			data: { "boardNum": bNum }, //url을 호출하면서 넘겨줄 data
-			success: function(data) {
-				if (isNaN(data)) {
-					alert(data);
-				} else {
-					$("#rec").text(data);
-				}
-			}
-		});
-	});
 });
 
 function insertReply() {
@@ -160,17 +127,19 @@ function loadReply(page) {
 			$.each(data.replyList,function(index,item) {
 				//hidden 태그에 들어있는 session 정보 가져오기
 				let login = $("#login").val();
+				if(item.userId === login){
+					replyDiv += '<div class="btn-group btn-group-sm float-right">';
+					replyDiv += "<a class='btn btn-outline-primary' href = 'javascript:getOneReply(" + item.replyNum + ");'>수정</a> &nbsp;";
+					replyDiv += "<a class='btn btn-outline-primary' href = 'javascript:deleteReply(" + item.replyNum + ");'>삭제</a>";
+					replyDiv += '</div>';
+				}
 				replyDiv += '<div class="d-flex">';
 				replyDiv += '<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"></div>';
 				replyDiv += '<div class="ms-3">';
 				replyDiv += '<div class="fw-bold">' + item.userId  + "</div>";
 				replyDiv += item.replyText;
 				replyDiv += "<br> <br>"
-				if(item.userId === login){
-					replyDiv += "<a href = 'javascript:getOneReply(" + item.replyNum + ");'>수정하기</a> &nbsp;";
-					replyDiv += "<a href = 'javascript:deleteReply(" + item.replyNum + ");'>삭제하기</a>";
-				}
-				replyDiv += "</div>"
+				replyDiv += "</div>";
 				replyDiv += "</div>";
 			});
 
@@ -191,13 +160,14 @@ function getOneReply(num) {
 		method: "post",
 		data: { "replyNum": num },
 		success: function(reply) {
+			
 			// 얘는 입력창				얘는 객체에 들어있느 댓글내용
-			$("#replyText").val(reply.replyText);
-
 			// 댓글 달기 버튼을 숨기고
-			$("#btnReply").hide();
+			$("#replyText").hide();
 			// 댓글 수정 버튼은 보여줘야함
-			$("#btnUpdate").show();
+			$("#replyText2").show();
+			$("#replyText2").focus();
+			$("#replyText2").val(reply.replyText);
 
 			// 숨겨진 selectedReply에 value를 글번호로 설정
 			$("#selectedReply").val(reply.replyNum);
@@ -208,7 +178,7 @@ function getOneReply(num) {
 
 function updateReply() {
 	//새로운 내용 가져오기
-	let newReply = $("#replyText").val();
+	let newReply = $("#replyText2").val();
 	let rNum = $("#selectedReply").val();
 	$.ajax({
 		url: "/updateReply",
@@ -216,9 +186,9 @@ function updateReply() {
 		data: { "replyText": newReply, "replyNum": rNum },
 		success: function(data) {
 			loadReply();
-			$("#btnUpdate").hide();
-			$("#replyText").val("");
-			$("#btnReply").show();
+			$("#replyText2").hide();
+			$("#replyText2").val("");
+			$("#replyText").show();
 		}
 
 	});

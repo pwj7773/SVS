@@ -4,6 +4,47 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout.html}">
 <head>
+<style>
+.title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.float-right {
+	float: right !important;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.page-link {
+	color: #000;
+	background-color: #fff;
+	border: 1px solid #ccc;
+}
+
+.page-item.active .page-link {
+	z-index: 1;
+	color: #555;
+	font-weight: bold;
+	background-color: #f1f1f1;
+	border-color: #ccc;
+}
+
+.page-link:focus, .page-link:hover {
+	color: #000;
+	background-color: #fafafa;
+	border-color: #ccc;
+}
+</style>
+
 <title>[글목록]</title>
 <script>
 	function pagingFormSubmit(currentPage) {
@@ -20,80 +61,115 @@
 <body>
 	<!-- 컨텐츠 -->
 	<section layout:fragment="content">
-		<div class="table-responsive w-100 p-3 ">
-			<h1 th:text="${param.id}"></h1>
-			<table class="table table-bordered table-hover ">
-				<thead>
-					<tr>
-						<th>글 번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>작성일시</th>
-						<th>조회수</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="b : ${board}">
-						<td th:text="${b.boardNum}"></td>
-						<td><a th:href="@{|/${id}/boardRead?boardNum=${b.boardNum}|}">
-								<span th:text="${b.title}"></span>&nbsp;
-						</a></td>
-						<td th:text="${b.userId}"></td>
-						<td th:text="${b.inputDate}"></td>
-						<td th:text="${b.viewCount}"></td>
-					</tr>
-				</tbody>
-			</table>
-			<a th:href="@{|/${id}/boardWrite?id=${id}|}"
-				class="btn btn-secondary">글쓰기</a> <br> <br>
+		<br>
+		<div>
+			<div class="card card-primary card-outline">
+				<div class="card-header">
+					<h3 class="card-title" th:text="${param.id}"></h3>
+				</div>
+
+				<div class="card-body">
+					<table class="table table-striped table-hover text-center ">
+						<thead class="table-dark">
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성일시</th>
+								<th th:unless="${#strings.equals(param.id, 'complain')}" >조회수</th>
+								<th th:if="${#strings.equals(param.id, 'complain')}" >답변등록</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="b : ${board}">
+								<td th:text="${b.boardNum}"></td>
+								<td class="title" style="max-width: 100px;"><a
+									th:href="@{|/boardRead?boardNum=${b.boardNum}|}"> <span
+										th:text="${b.title}"></span>&nbsp;
+								</a> <span th:if="${b.boardType} != complain " th:text="[ +${b.replyCount}+ ]" class="fw-bold"></span></td>
+								<td th:text="${b.userId}"></td>
+								<td th:text="${b.inputDate}"></td>
+								<td th:if="${b.boardType} != complain" th:text="${b.viewCount}"></td>
+								<span th:if="${b.boardType} == complain">
+									<td th:if="${b.replyCount} == 0">미등록</td>
+									<td th:if="${b.replyCount} != 0">답변완료</td>
+								</span>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="form-group">
+					<div style="padding: 16px;">
+						<form th:action="@{|/${id}/boardList|}" method="get">
+							<input th:value="${id}" type="hidden" name="id">
+							<div class="d-flex flex-row bd-highlight mb-3 w-50">
+								<select name="category" class="form-select">
+									<option value="title" th:selected="${category  == 'title'}">제목</option>
+									<option value="content" th:selected="${category == 'content'}">내용</option>
+									<option value="userId" th:selected="${category == 'userId'}">작성자</option>
+								</select> <input th:value="${keyword}" type="text" name="keyword"
+									placeholder="Search..." class="form-control me-2"> <input
+									type="submit" value="검색하기" class="btn btn-outline-success">
+							</div>
+						</form>
+					</div>
+
+				</div>
+				<div class="card-footer">
+					<div class="float-right" style="padding: 10px;">
+						<a th:href="@{|/boardWrite?id=${id}|}"
+							class="btn btn-secondary">글쓰기</a>
+					</div>
+
+
+
+					<div style="padding: 10px;">
+						<ul class="pagination justify-content-center">
+							<li class="page-item"><a class="page-link"
+								th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|"
+								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+							</a></li>
+							<li class="page-item"><a class="page-link"
+								th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|"
+								aria-label="Previous"> <span aria-hidden="true">＜</span>
+							</a></li>
+							<th:block
+								th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
+								<li class="page-item" th:if="${counter != 0}"><a
+									class="page-link" th:text="${counter}"
+									th:href="|javascript:pagingFormSubmit(${counter})|"></a></li>
+							</th:block>
+							<li class="page-item"><a class="page-link"
+								th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|"
+								aria-label="Next"> <span aria-hidden="true">＞</span>
+							</a></li>
+							<li class="page-item"><a class="page-link"
+								th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|"
+								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+							</a></li>
+
+						</ul>
+					</div>
+
+
+
+				</div>
+			</div>
+
+
 			<form th:action="@{|/${id}/boardList|}" method="get" id="pagingForm">
 				<input th:value="${param.id}" type="hidden" name="id"> <input
 					type="hidden" name="page" id="page"> <input
 					th:value="${param.keyword}" type="hidden" name="keyword"> <input
 					th:value="${param.category}" type="hidden" name="category">
 			</form>
-			<form th:action="@{|/${id}/boardList|}" method="get">
-				<input th:value="${id}" type="hidden" name="id">
-				<div class="d-flex flex-row bd-highlight mb-3 w-50">
-					<select name="category" class="form-select">
-						<option value="title" th:selected="${category  == 'title'}">제목</option>
-						<option value="content" th:selected="${category == 'content'}">내용</option>
-						<option value="userId" th:selected="${category == 'userId'}">작성자</option>
-					</select> <input th:value="${keyword}" type="text" name="keyword"
-						placeholder="Search..." class="form-control me-2"> <input
-						type="submit" value="검색하기" class="btn btn-outline-success">
-				</div>
-			</form>
+
+
+
 		</div>
 
 
-		<div>
-			<ul class="pagination justify-content-center">
-				<li class="page-item"><a class="page-link"
-					th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-				</a></li>
-				<li class="page-item"><a class="page-link"
-					th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|"
-					aria-label="Previous"> <span aria-hidden="true">＜</span>
-				</a></li>
-				<th:block
-					th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
-					<li class="page-item" th:if="${counter != 0}"><a
-						class="page-link" th:text="${counter}"
-						th:href="|javascript:pagingFormSubmit(${counter})|"></a></li>
-				</th:block>
-				<li class="page-item"><a class="page-link"
-					th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|"
-					aria-label="Next"> <span aria-hidden="true">＞</span>
-				</a></li>
-				<li class="page-item"><a class="page-link"
-					th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
 
-			</ul>
-		</div>
 	</section>
 
 </body>

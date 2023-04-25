@@ -63,10 +63,10 @@ public class BoardController {
 	private BoardService bService;
 	@Autowired
 	private ReplyService rService;
-	private final String REDIRECT_LIST = "redirect:/emp/boardList";
+	private final String REDIRECT_LIST = "redirect:/boardList";
 
 	// 글 목록보기
-	@GetMapping("emp/boardList")
+	@GetMapping("boardList")
 	public String boardList(String id, String category, String keyword, Model model,
 			@RequestParam(name = "page", defaultValue = "1") int page) {
 		log.debug("BoardList() 실행");
@@ -84,14 +84,14 @@ public class BoardController {
 	}
 
 	// 글쓰기화면 보여주기
-	@GetMapping("emp/boardWrite")
+	@GetMapping("boardWrite")
 	public String boardWrite(String id, Model model) {
 		model.addAttribute("id", id);
 		return "board/boardWrite";
 	}
 
 	// 글쓰기
-	@PostMapping("emp/boardWrite")
+	@PostMapping("boardWrite")
 	public String boardWrite(Board board, @AuthenticationPrincipal UserDetails user, @RequestParam MultipartFile file) {
 		log.debug("boardWrite() 실행");
 		board.setUserId(user.getUsername());
@@ -112,7 +112,7 @@ public class BoardController {
 	}
 
 	// 글보기
-	@GetMapping("emp/boardRead")
+	@GetMapping("boardRead")
 	public String boardRead(int boardNum, Model model) {
 		log.debug("boardRead() 실행");
 		bService.addBoardViewCount(boardNum);
@@ -123,7 +123,7 @@ public class BoardController {
 	}
 
 	// 글 삭제
-	@GetMapping("emp/boardDelete")
+	@GetMapping("boardDelete")
 	public String boardDelete(int boardNum) {
 		log.debug("boardDelete() 실행");
 		String id = bService.boardSelect(boardNum).getBoardType();
@@ -132,7 +132,7 @@ public class BoardController {
 	}
 
 	// 수정화면 보여주기
-	@GetMapping("emp/boardUpdate")
+	@GetMapping("boardUpdate")
 	public String boardUpdate(int boardNum, Model model) {
 		log.debug("boardUpdate() 실행");
 		Board board = bService.boardSelect(boardNum);
@@ -142,7 +142,7 @@ public class BoardController {
 	}
 
 	// 글 수정
-	@PostMapping("emp/boardUpdate")
+	@PostMapping("boardUpdate")
 	public String boardUpdate(Board board,@RequestParam MultipartFile file) {
 		log.debug("boardUpdate() 실행");
 		log.debug("File : {}", file.getOriginalFilename());
@@ -163,7 +163,7 @@ public class BoardController {
 	}
 
 	// 파일 다운로드 받기
-	@GetMapping("emp/download")
+	@GetMapping("download")
 	public String downloadFile(int boardNum, HttpServletResponse response) {
 		log.debug("BoardNum : {}", boardNum);
 		// 글 정보 조회
@@ -204,7 +204,7 @@ public class BoardController {
 		return "redirect:/list"; // 얘는 동작안함
 	}
 
-	@GetMapping("emp/display")
+	@GetMapping("display")
 	public ResponseEntity<Resource> display(int boardNum) {
 		log.debug("display()");
 		log.debug("boardNum : {}", boardNum);
