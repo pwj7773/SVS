@@ -21,16 +21,27 @@
   border-collapse: separate;
   font-size: 13pt;
   }
+
+  .line{
+  width:18vw;
+  border:1px solid #dcdac2;
+  text-align: center;
+  }
+
+  table th {
+  border: 1px solid #dcdac2;
+  background-color: #C8D7FF;
+  }
 </style>
 </head>
 <body>
 <section layout:fragment="content">
-<div class="container-fluid p-4">
+<div class="container-fluid pt-3">
 <div class="px-4">
-	<div>
-	<h3>&nbsp;내 정보</h3>
+	<div class="line">
+	<h4>내 정보</h4>
 	<br>
-	<table class="">
+	<table>
 		<tr>
 			<th>아이디</th>
 			<td th:text="${member.id}"></td>
@@ -47,8 +58,12 @@
 			<th>전화번호</th>
 			<td th:text="${member.phone}"></td>
 		</tr>
+		<tr>
+			<td colspan="2">
+				<a href="/reauthenticate" class="btn btn-secondary">수정</a>
+			</td>
+		</tr>
 	</table>
-	<br><span>&nbsp;</span><a href="/reauthenticate" class="btn btn-secondary">수정</a>
 	</div>
 </div>
 </div>
