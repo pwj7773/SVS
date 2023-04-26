@@ -5,6 +5,41 @@
 	layout:decorate="~{layout.html}">
 <head>
 <title>[사업자 정보 추가]</title>
+<style>
+  a {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: RGB(221, 38, 22);
+  }
+  
+  table {
+  border-collapse: separate;
+  font-size: 13pt;
+  text-align: center;
+  border-spacing: 10px;
+  box-sizing: border-box;
+  }
+
+  .line{
+  width:23vw;
+  border:1px solid #dcdac2;
+  text-align: center;
+  }
+
+  table th {
+  border: 1px solid #dcdac2;
+  background-color: #C8D7FF;
+  border-spacing: 10px;
+  }
+  
+  table td {
+  padding: 5px;
+  border-spacing: 10px;
+  }
+  
+</style>
 <script>
 	function checkValue() {
 		
@@ -46,16 +81,17 @@
 </head>
 <body>
 <section layout:fragment="content">
-<h1>[사업자 정보 추가]</h1>
-<div sec:authorize="hasRole('USER')">
-	<form action="/insertBusiness" method="post" onsubmit="return checkValue()">
+<div sec:authorize="hasRole('USER')" class="container-fluid p-4">
+	<div class="px-4">
+	<form action="/insertBusiness" method="post" onsubmit="return checkValue()" class="line">
+		<h4>사업자 정보 추가</h4>
 		<table>
 			<tr>
 				<th>
 					상호명
 				</th>
 				<td>
-					<input type="text" name="businessName" id="businessName">
+					<input type="text" name="businessName" id="businessName" class="form-control">
 				</td>
 			</tr>
 			<tr>
@@ -63,7 +99,7 @@
 					사업장 주소
 				</th>
 				<td>
-					<input type="text" name="businessAddress" id="businessAddress">
+					<input type="text" name="businessAddress" id="businessAddress" class="form-control">
 				</td>
 			</tr>
 			<tr>
@@ -71,7 +107,7 @@
 					객실 수
 				</th>
 				<td>
-					<input type="number" name="totalRoom" id="totalRoom">
+					<input type="number" name="totalRoom" id="totalRoom" class="form-control">
 				</td>
 			</tr>
 			<tr>
@@ -79,16 +115,17 @@
 					사업장 전화번호
 				</th>
 				<td>
-					<input type="text" name="phone" id="phone">
+					<input type="text" name="phone" id="phone" class="form-control">
 				</td>
 			</tr>
 			<tr>
-				<th colspan = "2">
-					<input type = "submit" value = "정보 추가">
-				</th>
+				<td colspan = "2">
+					<input type = "submit" value = "정보 추가" class="form-control">
+				</td>
 			</tr>
 		</table>
 	</form>
+	</div>
 </div>
 </section>
 </body>
