@@ -69,8 +69,8 @@
 				<option value="businessAddress" th:selected="${category == 'businessAddress'}">주소</option>
 				<option value="name" th:selected="${category == 'name'}">대표</option>
 			</select>
-			<div style="width: 10vw;">
-				<input type="text" name="keyword" th:value="${keyword}" placeholder="검색어를 입력해주세요." class="form-control me-2">
+			<div class="mx-2" style="width: 20vw;">
+				<input type="text" name="keyword" th:value="${keyword}" placeholder="검색어를 입력해주세요." class="form-control me-2 ">
 			</div>
 			<input type="submit" value="검색" class="btn btn-secondary">
 		</div>
