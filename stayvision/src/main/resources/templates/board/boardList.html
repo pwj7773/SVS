@@ -83,7 +83,7 @@ a:hover {
 						<tbody>
 							<tr th:each="b : ${board}">
 								<td th:text="${b.boardNum}"></td>
-								<td class="title" style="max-width: 100px;"><a
+								<td class="title" style="max-width: 300px;"><a
 									th:href="@{|/boardRead?boardNum=${b.boardNum}|}"> <span
 										th:text="${b.title}"></span>&nbsp;
 								</a> <span th:if="${b.boardType} != complain "
