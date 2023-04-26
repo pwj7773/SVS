@@ -53,72 +53,77 @@
 		
 	}
 </script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+        function search_businessAddress() {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    var addr = ''; // 최종 주소 변수
+                    // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        addr = data.roadAddress;
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        addr = data.jibunAddress;
+                    }
+                    // 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById("businessAddress").value = addr;
+                }
+            }).open();
+        }
+    </script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
 </head>
 <body>
-<section layout:fragment="content">
-<div class="container-fluid px-5 pt-4">
-<form action="/updateBusiness" method="post" onsubmit="return checkValue()">
-	<table>
-		<tr>
-			<td colspan="2">
-				<input type="hidden" name="businessNum" id="businessNum" th:value="${business.businessNum}" class="form-control" readonly/>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<input type="hidden" name="userId" id="userId" th:value="${business.userId}" class="form-control" readonly/>
-			</td>
-		</tr>
-		<tr>
-			<th>
-				대표자명
-			</th>
-			<td>
-				<input type="text" name="name" id="name" th:value="${business.name}" class="form-control">
-			</td>
-		</tr>
-		<tr>
-			<th>
-				연락처
-			</th>
-			<td>
-				<input type="text" name="phone" id="phone" th:value="${business.phone}" class="form-control">
-			</td>
-		</tr>
-		<tr>
-			<th>
-				상호명
-			</th>
-			<td>
-				<input type="text" name="businessName" id="businessName" th:value="${business.businessName}" class="form-control">
-			</td>
-		</tr>
-		<tr>
-			<th>
-				사업장 주소
-			</th>
-			<td>
-				<input type="text" name="businessAddress" id="businessAddress" th:value="${business.businessAddress}" class="form-control">
-			</td>
-		</tr>
-		<tr>
-			<th>
-				객실 수
-			</th>
-			<td>
-				<input type="number" name="totalRoom" id="totalRoom" th:value="${business.totalRoom}" class="form-control">
-			</td>
-		</tr>
-		<tr>
-			<th colspan = "2" style="text-align: center;">
-				<input type = "submit" value = "정보 수정" class="btn btn-secondary">
-			</th>
-		</tr>
-	</table>
-</form>
-</div>
-</section>
+	<section layout:fragment="content">
+		<div class="container-fluid px-5 pt-4">
+			<form action="/updateBusiness" method="post"
+				onsubmit="return checkValue()">
+				<table>
+					<tr>
+						<td colspan="2"><input type="hidden" name="businessNum"
+							id="businessNum" th:value="${business.businessNum}"
+							class="form-control" readonly /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="hidden" name="userId"
+							id="userId" th:value="${business.userId}" class="form-control"
+							readonly /></td>
+					</tr>
+					<tr>
+						<th>대표자명</th>
+						<td><input type="text" name="name" id="name"
+							th:value="${business.name}" class="form-control"></td>
+					</tr>
+					<tr>
+						<th>연락처</th>
+						<td><input type="text" name="phone" id="phone"
+							th:value="${business.phone}" class="form-control"></td>
+					</tr>
+					<tr>
+						<th>상호명</th>
+						<td><input type="text" name="businessName" id="businessName"
+							th:value="${business.businessName}" class="form-control">
+						</td>
+					</tr>
+					<tr>
+						<th>사업장 주소</th>
+						<td><input type="text" name="businessAddress" id="businessAddress" th:value="${business.businessAddress}" class="form-control">
+							<input type="button" onclick="search_businessAddress()"
+							value="주소 검색"></td>
+					</tr>
+					<tr>
+						<th>객실 수</th>
+						<td><input type="number" name="totalRoom" id="totalRoom"
+							th:value="${business.totalRoom}" class="form-control"></td>
+					</tr>
+					<tr>
+						<th colspan="2" style="text-align: center;"><input
+							type="submit" value="정보 수정" class="btn btn-secondary"></th>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</section>
 </body>
 </html>
