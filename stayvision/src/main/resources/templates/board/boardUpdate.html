@@ -102,50 +102,50 @@
 <body>
 	<!-- 컨텐츠 -->
 	<section layout:fragment="content">
-		<br>
-		<div class="container center">
-			<form th:action="@{|/boardUpdate|}" method="post"
-				enctype="multipart/form-data">
+		<div class="container center pt-4">
+			<div class="px-3">
+				<form th:action="@{|/boardUpdate|}" method="post"
+					enctype="multipart/form-data">
 
-				<div class="col-md-auto">
-					<div class="card card-primary card-outline">
-						<div class="card-header">
-							<h3 class="card-title">글수정</h3>
-						</div>
-
-						<div class="card-body">
-							<div class="form-group">
-								<input th:value="${board.title}" name="title" type="text"
-									class="form-control" placeholder="제목">
+					<div class="col-md-auto">
+						<div class="card card-primary card-outline">
+							<div class="card-header">
+								<h3 class="card-title">글수정</h3>
 							</div>
 
-							<div class="form-group">
-								<textarea th:utext="${board.content}" id="summernote"
-									name="content">
+							<div class="card-body">
+								<div class="form-group">
+									<input th:value="${board.title}" name="title" type="text"
+										class="form-control" placeholder="제목">
+								</div>
+
+								<div class="form-group">
+									<textarea th:utext="${board.content}" id="summernote"
+										name="content">
                     </textarea>
-							</div>
+								</div>
 
-							<div class="form-group">
-								<div class="btn">
-									<input class="form-control" type="file" name="file">
+								<div class="form-group">
+									<div class="btn">
+										<input class="form-control" type="file" name="file">
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="card-footer">
-							<div class="float-right">
-								<input class="btn btn-primary" type="submit" value="수정하기">
-								<input class="btn btn-danger" type="button" value="취소"
-									onclick="javascript:history.back()">
+							<div class="card-footer">
+								<div class="float-right">
+									<input class="btn btn-primary" type="submit" value="수정하기">
+									<input class="btn btn-danger" type="button" value="취소"
+										onclick="javascript:history.back()">
+								</div>
 							</div>
+
 						</div>
-
 					</div>
-				</div>
-				<input type="hidden" name="boardNum" th:value="${board.boardNum}">
-				<input th:value="${board.boardType}" type="hidden" name="boardType">
-			</form>
-
+					<input type="hidden" name="boardNum" th:value="${board.boardNum}">
+					<input th:value="${board.boardType}" type="hidden" name="boardType">
+				</form>
+			</div>
 		</div>
 	</section>
 

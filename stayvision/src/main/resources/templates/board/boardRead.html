@@ -29,67 +29,67 @@
 <body>
 	<!-- 컨텐츠 -->
 	<section layout:fragment="content">
-		<br>
-		<div class="col-md-auto">
-			<div th:object="${board}" class="container center">
-				<div class="card card-primary card-outline">
-					<div class="card-header">
-						<div>
-							<h4 class="card-title">
-								<span th:text="[+*{boardType}+]"></span> <span
-									th:text="*{title}"></span>
-							</h4>
+		<div class="col-md-auto pt-4">
+			<div class="px-3">
+				<div th:object="${board}" class="container center">
+					<div class="card card-primary card-outline">
+						<div class="card-header">
+							<div>
+								<h4 class="card-title">
+									<span th:text="[+*{boardType}+]"></span> <span
+										th:text="*{title}"></span>
+								</h4>
+							</div>
+							<div class="float-right">
+								<span>조회 <span th:text="*{viewCount}"></span></span> <span
+									th:text="'댓글 '+*{replyCount}">댓글 3</span>
+							</div>
+							&nbsp;<span><em th:text="*{userId}">작성자</em> &nbsp; &#124;
+								&nbsp;</span> <span th:text="*{inputDate}">2023.04.23 11:00:21</span>
 						</div>
-						<div class="float-right">
-							<span>조회 <span th:text="*{viewCount}"></span></span> <span
-								th:text="'댓글 '+*{replyCount}">댓글 3</span>
+						<div class="card-body">
+							<div th:utext="*{content}"
+								style="overflow: hidden; width: 900px;"></div>
 						</div>
-						&nbsp;<span><em th:text="*{userId}">작성자</em> &nbsp; &#124;
-							&nbsp;</span> <span th:text="*{inputDate}">2023.04.23 11:00:21</span>
-					</div>
-					<div class="card-body">
-						<div th:utext="*{content}" style="overflow: hidden; width: 900px;">
+						<hr>
+						<div class=" d-flex justify-content-start"
+							style="margin-left: 10px;">
+							<span th:text="|첨부파일 없습니다.|" th:unless="*{originalFile != null}"></span>
+							<div th:if="*{originalFile != null}">
+								<a th:if="*{originalFile != null}"
+									th:href="@{|/download?boardNum=*{boardNum}|}"> <span
+									th:text="*{originalFile}"></span> <img
+									th:if="${#strings.endsWith(board.savedFile,'jpg') or #strings.endsWith(board.savedFile,'png') or #strings.endsWith(board.savedFile,'gif')}"
+									th:src="@{|/display?boardNum=*{boardNum}}|" width="20">
+								</a>
+							</div>
+						</div>
 
+						<div class="card-footer">
+
+							<div class="float-right"
+								th:if="${#authentication.name} == ${board.userId}">
+								<a th:href="@{|/boardUpdate?boardNum=${board.boardNum}}|"
+									class="btn btn-secondary">수정</a> <a
+									th:href="@{|/boardDelete?boardNum=${board.boardNum}}|"
+									class="btn btn-secondary"
+									onclick="javascript:return confirm('삭제 하시겠습니까?')">삭제</a>
+							</div>
 						</div>
 					</div>
-					<hr>
-					<div class=" d-flex justify-content-start"
-						style="margin-left: 10px;">
-						<span th:text="|첨부파일 없습니다.|" th:unless="*{originalFile != null}"></span>
-						<div th:if="*{originalFile != null}">
-							<a th:if="*{originalFile != null}"
-								th:href="@{|/download?boardNum=*{boardNum}|}"> <span
-								th:text="*{originalFile}"></span> <img
-								th:if="${#strings.endsWith(board.savedFile,'jpg') or #strings.endsWith(board.savedFile,'png') or #strings.endsWith(board.savedFile,'gif')}"
-								th:src="@{|/display?boardNum=*{boardNum}}|" width="20">
-							</a>
-						</div>
-					</div>
+					<br>
+					<div>
 
-					<div class="card-footer">
+						<div class="card-body container center">
+							<div sec:authorize="hasAnyRole('ADMIN','EMP')">
+								<!-- Comment -->
+								<textarea id="replyText" class="form-control" rows="3"
+									placeholder="댓글을 입력하세요." onkeydown="handleKeyDown(event)"></textarea>
+								<textarea id="replyText2" class="form-control" rows="3"
+									placeholder="댓글을 입력하세요." onkeydown="handleKeyDown(event)"></textarea>
+								<br> <input type="hidden" id="selectedReply" value="">
 
-						<div class="float-right"
-							th:if="${#authentication.name} == ${board.userId}">
-							<a th:href="@{|/boardUpdate?boardNum=${board.boardNum}}|"
-								class="btn btn-secondary">수정</a> <a
-								th:href="@{|/boardDelete?boardNum=${board.boardNum}}|"
-								class="btn btn-secondary"
-								onclick="javascript:return confirm('삭제 하시겠습니까?')">삭제</a>
-						</div>
-					</div>
-				</div>
-				<br>
-				<div>
-
-					<div class="card-body container center">
-						<div sec:authorize="hasAnyRole('ADMIN','EMP')">
-							<!-- Comment -->
-							<textarea id="replyText" class="form-control" rows="3"
-								placeholder="댓글을 입력하세요." onkeydown="handleKeyDown(event)"></textarea>
-							<textarea id="replyText2" class="form-control" rows="3"
-								placeholder="댓글을 입력하세요." onkeydown="handleKeyDown(event)"></textarea>
-							<br> <input type="hidden" id="selectedReply" value="">
-							
+							</div>
 						</div>
 					</div>
 				</div>
