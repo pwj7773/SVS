@@ -4,69 +4,60 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout.html}">
 <head>
-<title>[내 회원 정보1]</title>
+<title>[내 회원 정보]</title>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
 <style>
-  a {
-    text-decoration: none;
-  }
-  
-  a:hover {
-    color: RGB(221, 38, 22);
-  }
-  
-  table {
-  border-spacing: 10px;
-  border-collapse: separate;
-  font-size: 13pt;
-  }
-
-  .line{
-  width:18vw;
-  border:1px solid #dcdac2;
-  text-align: center;
-  }
-
-  table th {
-  border: 1px solid #dcdac2;
-  background-color: #C8D7FF;
-  }
+/*.col-lg-3.col-md-4.label {
+  width: 15%;
+}
+.col-lg-9.col-md-8 {
+	width: 30%;
+}*/
 </style>
 </head>
 <body>
 <section layout:fragment="content">
-<div class="container-fluid pt-3">
-<div class="px-4">
-	<div class="line">
-	<h4>내 정보</h4>
-	<br>
-	<table>
-		<tr>
-			<th>아이디</th>
-			<td th:text="${member.id}"></td>
-		</tr>
-		<tr>
-			<th>이름</th>
-			<td th:text="${member.name}"></td>
-		</tr>
-		<tr>
-			<th>이메일</th>
-			<td th:text="${member.email}"></td>
-		</tr>
-		<tr>
-			<th>전화번호</th>
-			<td th:text="${member.phone}"></td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<a href="/reauthenticate" class="btn btn-secondary">수정</a>
-			</td>
-		</tr>
-	</table>
-	</div>
+<div class="card-body pt-3" style="width: 30%;">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title" style="font-weight: bold;">내 정보</h4>
+    </div>
+    
+    <div class="px-4"><br>
+    
+    <div class="row">
+      <div class="col-lg-3 col-md-4 label" style="color: #9285AE;">아이디</div>
+      <div class="col-lg-9 col-md-8"><span th:text="${member.id}"></span></div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-3 col-md-4 label" style="color: #9285AE;">이름</div>
+      <div class="col-lg-9 col-md-8"><span th:text="${member.name}"></span></div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-3 col-md-4 label" style="color: #9285AE;">이메일</div>
+      <div class="col-lg-9 col-md-8"><span th:text="${member.email}"></span></div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-3 col-md-4 label" style="color: #9285AE;">전화번호</div>
+      <div class="col-lg-9 col-md-8"><span th:text="${member.phone}"></span></div>
+    </div>
+
+    <div class="row">
+      <div>
+        <br>
+        <a href="/reauthenticate" class="btn btn-secondary">수정</a>
+      </div>
+	<br><br><br>
+    </div>
+    </div>
+
+  </div>
 </div>
-</div>
+
 </section>
 </body>
 </html>
