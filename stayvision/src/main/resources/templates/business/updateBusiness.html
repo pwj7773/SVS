@@ -70,59 +70,68 @@
                 }
             }).open();
         }
-</script>
+    </script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
 </head>
 <body>
 	<section layout:fragment="content">
-		<div class="container-fluid px-5 pt-4">
-			<form action="/updateBusiness" method="post"
-				onsubmit="return checkValue()">
-				<table>
-					<tr>
-						<td colspan="2"><input type="hidden" name="businessNum"
-							id="businessNum" th:value="${business.businessNum}"
-							class="form-control" readonly /></td>
-					</tr>
-					<tr>
-						<td colspan="2"><input type="hidden" name="userId"
-							id="userId" th:value="${business.userId}" class="form-control"
-							readonly /></td>
-					</tr>
-					<tr>
-						<th>대표자명</th>
-						<td><input type="text" name="name" id="name"
-							th:value="${business.name}" class="form-control"></td>
-					</tr>
-					<tr>
-						<th>연락처</th>
-						<td><input type="text" name="phone" id="phone"
-							th:value="${business.phone}" class="form-control"></td>
-					</tr>
-					<tr>
-						<th>상호명</th>
-						<td><input type="text" name="businessName" id="businessName"
-							th:value="${business.businessName}" class="form-control">
-						</td>
-					</tr>
-					<tr>
-						<th>사업장 주소</th>
-						<td><input type="text" name="businessAddress" id="businessAddress" th:value="${business.businessAddress}" class="form-control">
-							<input type="button" onclick="search_businessAddress()"
-							value="주소 검색"></td>
-					</tr>
-					<tr>
-						<th>객실 수</th>
-						<td><input type="number" name="totalRoom" id="totalRoom"
-							th:value="${business.totalRoom}" class="form-control"></td>
-					</tr>
-					<tr>
-						<th colspan="2" style="text-align: center;"><input
-							type="submit" value="정보 수정" class="btn btn-secondary"></th>
-					</tr>
-				</table>
-			</form>
+		<div class="pt-3 px-4">
+			<div class="card" style="width:35%;">
+			<!-- Profile Edit Form -->
+			<div class="card-header">
+			<h4 style="font-weight: bold;">사업장 정보 수정</h4>
+			</div>
+			<br>
+				<div class="my-div">
+					<form action="/updateBusiness" method="post" onsubmit = "return checkValue()">
+					
+					<input type="hidden" name="businessNum" id="businessNum" th:value="${business.businessNum}" class="form-control" readonly />
+					<input type="hidden" name="userId" id="userId" th:value="${business.userId}" class="form-control" readonly />
+					
+					<div class="row mb-3">
+					    <label for="name" class="col-md-4 col-lg-3 col-form-label">이름</label>
+					    <div class="col-md-8 col-lg-9">
+							<input name="name" type="text" class="form-control" id="name" th:value="${business.name}">
+					    </div>
+					</div>
+								
+					<div class="row mb-3">
+					    <label for="businessName" class="col-md-4 col-lg-3 col-form-label">상호명</label>
+					    <div class="col-md-8 col-lg-9">
+							<input name="businessName" type="text" class="form-control" id="businessName" th:value="${business.businessName}">
+					    </div>
+					</div>
+					  
+					<div class="row mb-3">
+					    <label for="businessAddress" class="col-md-4 col-lg-3 col-form-label">사업장 주소</label>
+					    <div class="col-md-8 col-lg-9">
+							<input type="button" onclick="search_businessAddress()" value="주소 검색" class="btn btn-outline-secondary btn-sm">
+					    	<input name="businessAddress" type="text" class="form-control" id="businessAddress" th:value="${business.businessAddress}">
+					    </div>
+					</div>
+				
+					<div class="row mb-3">
+					    <label for="totalRoom" class="col-md-4 col-lg-3 col-form-label">객실 수</label>
+					    <div class="col-md-8 col-lg-9">
+					    	<input name="totalRoom" type="number" class="form-control" id="totalRoom" th:value="${business.totalRoom}">
+					    </div>
+					</div>
+					
+					<div class="row mb-3">
+					    <label for="phone" class="col-md-4 col-lg-3 col-form-label">전화번호</label>
+					    <div class="col-md-8 col-lg-9">
+					    	<input name="phone" type="text" class="form-control" id="phone" th:value="${business.phone}">
+					    </div>
+					</div>	
+				
+					<div class="" style="text-align: right;">
+					    <button type="submit" class="btn btn-outline-primary">수정</button>
+					  	<span>&nbsp;&nbsp;&nbsp;</span><br><br>
+					</div>
+					</form><!-- End Profile Edit Form -->
+				</div>
+			</div>
 		</div>
 	</section>
 </body>

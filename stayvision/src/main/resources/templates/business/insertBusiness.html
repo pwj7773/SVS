@@ -11,6 +11,10 @@
 	  font-size: 14px;
 	  font-weight: bolder;
 	}
+	
+	.my-div {
+		margin: 10px;
+	}
 </style>
 <script>
 	function checkValue() {
@@ -48,53 +52,73 @@
 		
 	}
 </script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+        function search_businessAddress() {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    var addr = ''; // 최종 주소 변수
+                    // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        addr = data.roadAddress;
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        addr = data.jibunAddress;
+                    }
+                    // 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById("businessAddress").value = addr;
+                }
+            }).open();
+        }
+</script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
 </head>
 <body>
 <section layout:fragment="content">
-<div class="pt-3">
+<div class="pt-3 px-4">
 	<div class="card" style="width:35%;">
 	<!-- Profile Edit Form -->
 	<div class="card-header">
 	<h4 style="font-weight: bold;">사업장 정보 추가</h4>
 	</div>
 	<br>
-	<form action="/insertBusiness" method="post" onsubmit = "return checkValue()">
-	
-	  <div class="row mb-3">
-	    <label for="businessName" class="col-md-4 col-lg-3 col-form-label">상호명</label>
-	    <div class="col-md-8 col-lg-9">
-	      <input name="businessName" type="text" class="form-control" id="businessName">
-	    </div>
-	  </div>
-	  
-	  <div class="row mb-3">
-	    <label for="businessAddress" class="col-md-4 col-lg-3 col-form-label">사업장 주소</label>
-	    <div class="col-md-8 col-lg-9">
-	      <input name="businessAddress" type="text" class="form-control" id="businessAddress">
-	    </div>
-	  </div>
-
-	  <div class="row mb-3">
-	    <label for="totalRoom" class="col-md-4 col-lg-3 col-form-label">객실 수</label>
-	    <div class="col-md-8 col-lg-9">
-	      <input name="totalRoom" type="number" class="form-control" id="totalRoom">
-	    </div>
-	  </div>
-	
-	  <div class="row mb-3">
-	    <label for="phone" class="col-md-4 col-lg-3 col-form-label">전화번호</label>
-	    <div class="col-md-8 col-lg-9">
-	      <input name="phone" type="text" class="form-control" id="phone">
-	    </div>
-	  </div>	
-
-	  <div class="" style="text-align: right;">
-	    <button type="submit" class="btn btn-outline-primary">추가</button>
-	  	<span>&nbsp;&nbsp;&nbsp;</span><br><br>
-	  </div>
-	</form><!-- End Profile Edit Form -->
+		<div class="my-div">
+			<form action="/insertBusiness" method="post" onsubmit = "return checkValue()">			
+				<div class="row mb-3">
+			    	<label for="businessName" class="col-md-4 col-lg-3 col-form-label">상호명</label>
+			    	<div class="col-md-8 col-lg-9">
+			    		<input name="businessName" type="text" class="form-control" id="businessName">
+			    	</div>
+				</div>
+			  
+				<div class="row mb-3">
+			    	<label for="businessAddress" class="col-md-4 col-lg-3 col-form-label">사업장 주소</label>
+			    	<div class="col-md-8 col-lg-9">
+			    		<input type="button" onclick="search_businessAddress()" value="주소 검색" class="btn btn-outline-secondary btn-sm">
+			    		<input name="businessAddress" type="text" class="form-control" id="businessAddress">
+			  		</div>
+				</div>
+		
+				<div class="row mb-3">
+				    <label for="totalRoom" class="col-md-4 col-lg-3 col-form-label">객실 수</label>
+				    <div class="col-md-8 col-lg-9">
+				    	<input name="totalRoom" type="number" class="form-control" id="totalRoom">
+				    </div>
+				</div>
+			
+				<div class="row mb-3">
+				    <label for="phone" class="col-md-4 col-lg-3 col-form-label">전화번호</label>
+				    <div class="col-md-8 col-lg-9">
+				    	<input name="phone" type="text" class="form-control" id="phone">
+				    </div>
+				</div>	
+			
+				<div class="" style="text-align: right;">
+				    <button type="submit" class="btn btn-outline-primary">추가</button>
+				  	<span>&nbsp;&nbsp;&nbsp;</span><br><br>
+				</div>
+			</form><!-- End Profile Edit Form -->
+		</div>
 	</div>
 </div>
 </section>
